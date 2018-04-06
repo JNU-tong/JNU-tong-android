@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="vertical"
+    android:background="@color/very_light_gray">
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="50dp"
+        android:background="@color/light_gray"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="39dp">
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_circle_down_arrow"/>
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/bus_stop_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_toEndOf="@+id/line"
+        android:gravity="center_vertical"
+        android:text="우리집 정류장"
+        android:textSize="20sp"/>
+
+</RelativeLayout>
