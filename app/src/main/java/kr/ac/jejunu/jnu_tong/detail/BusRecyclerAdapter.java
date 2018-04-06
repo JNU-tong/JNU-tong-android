@@ -1,6 +1,5 @@
 package kr.ac.jejunu.jnu_tong.detail;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ public class BusRecyclerAdapter extends RecyclerView.Adapter<BusRecyclerAdapter.
 
     @Override
     public BusViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_bus_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_bus_stop_list, parent, false);
 
         return new BusViewHolder(view);
     }
