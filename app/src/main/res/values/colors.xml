@@ -4,14 +4,15 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="main_color">#004465</color>
     <color name="white">#ffffff</color>
 
     <color name="gray">#676767</color>
     <color name="light_gray">#9a9a9a</color>
-    <color name="very_light_gray">#cacaca</color>
+    <color name="very_light_gray">#dddddd</color>
 
+    <color name="navy">#002c41</color>
 
     <color name="transparent">#00ffffff</color>
     <color name="sky">#31B7E3</color>
+    <color name="light_yellow">#F8CA72</color>
 </resources>

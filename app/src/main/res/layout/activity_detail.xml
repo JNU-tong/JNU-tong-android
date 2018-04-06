@@ -1,22 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="7dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/light_yellow" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="13dp"
+        android:text="3003"
+        android:textColor="@color/light_yellow"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginBottom="18dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:layout_gravity="center_horizontal"
+            android:gravity="end|center_vertical"
+            android:text="제주대-서사라-제주고"
+            android:textSize="10sp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="제주대-서사라-제주고"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:layout_gravity="center_horizontal"
+            android:gravity="start|center_vertical"
+            android:text="제주대-서사라-제주고"
+            android:textSize="10sp" />
 
     </LinearLayout>
 
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/navy">
+        <TextView
+            android:id="@+id/left"
+            android:layout_width="168dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="시간표"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/trapeze_shape"
+            android:layout_toEndOf="@+id/left"
+            android:layout_alignParentEnd="true"
+            android:paddingStart="16dp"
+            android:gravity="center"
+            android:text="노선"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/fragment_bus_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    </LinearLayout>
+        android:orientation="vertical"/>
 
 
 </LinearLayout>

@@ -20,7 +20,7 @@
                 android:layout_gravity="end"
                 android:text="10월 17(화)"
                 android:textSize="36sp"
-                android:textColor="@color/main_color"/>
+                android:textColor="@color/navy"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
                 android:layout_gravity="end"
                 android:text="종강까지 D-260"
                 android:textSize="20sp"
-                android:textColor="@color/main_color"/>
+                android:textColor="@color/navy"/>
 
         </LinearLayout>
         <LinearLayout
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="출발예정버스"
-                    android:textColor="@color/main_color"
+                    android:textColor="@color/navy"
                     android:gravity="center_vertical"
                     android:paddingStart="13dp"/>
                 <View
@@ -69,7 +69,8 @@
                     android:id="@+id/bus_come_in"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -98,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="출발예정버스"
-                    android:textColor="@color/main_color"
+                    android:textColor="@color/navy"
                     android:gravity="center_vertical"
                     android:paddingStart="13dp"/>
                 <View

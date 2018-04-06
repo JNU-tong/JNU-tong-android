@@ -3,13 +3,21 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/main_color</item>
+        <item name="colorPrimaryDark">@color/navy</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/main_color</item>
+        <item name="colorPrimaryDark">@color/navy</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.white" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/navy</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/navy</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
