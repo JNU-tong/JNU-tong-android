@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="kr.ac.jejunu.jnu_tong.MainActivity">
+    tools:context="kr.ac.jejunu.jnu_tong.main.MainActivity">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -65,6 +65,11 @@
                     android:layout_height="match_parent"
                     android:layout_margin="8dp"
                     android:background="@color/gray"/>
+                <LinearLayout
+                    android:id="@+id/bus_come_in"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"/>
 
             </LinearLayout>
         </LinearLayout>
