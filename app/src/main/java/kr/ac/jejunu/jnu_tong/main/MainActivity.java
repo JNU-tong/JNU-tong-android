@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testBusComeIn(){
-        View bus = View.inflate(this, R.layout.item_bus, null);
+        View bus = View.inflate(this, R.layout.vew_bus_num, null);
         bus.setOnClickListener(v->{
             Intent intent = new Intent(this, DetailActivity.class);
             startActivity(intent);

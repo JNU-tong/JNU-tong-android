@@ -12,16 +12,17 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.main.BusStopVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..
  */
 
-public class BusListFragment extends Fragment {
-    public static BusListFragment newInstance() {
+public class BusStopListFragment extends Fragment {
+    public static BusStopListFragment newInstance() {
         Bundle args = new Bundle();
 
-        BusListFragment fragment = new BusListFragment();
+        BusStopListFragment fragment = new BusStopListFragment();
         fragment.setArguments(args);
         return fragment;
     }

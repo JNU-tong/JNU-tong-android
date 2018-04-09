@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.main.BusStopVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..
@@ -31,7 +32,7 @@ public class BusRecyclerAdapter extends RecyclerView.Adapter<BusRecyclerAdapter.
 
     @Override
     public void onBindViewHolder(BusViewHolder holder, int position) {
-        holder.busStopName.setText(busStopVOS.get(position).getBusStopName());
+        holder.busStopName.setText(busStopVOS.get(position).getStationName());
     }
 
     @Override

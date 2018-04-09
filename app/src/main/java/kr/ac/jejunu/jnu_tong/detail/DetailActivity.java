@@ -2,11 +2,16 @@ package kr.ac.jejunu.jnu_tong.detail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
 import kr.ac.jejunu.jnu_tong.R;
 
@@ -15,12 +20,17 @@ import kr.ac.jejunu.jnu_tong.R;
  */
 
 public class DetailActivity extends AppCompatActivity {
+
+    private BusStopListFragment busStopListFragment;
+    private BusTimeListFragment busTimeListFragment;
+    private ViewPager viewPager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        initFragment();
+        initViewPager();
     }
 
     @Override
@@ -38,12 +48,60 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
-    private void initFragment(){
-        BusListFragment busListFragment = BusListFragment.newInstance();
+    private void initViewPager(){
+        TextView left = findViewById(R.id.left_pager);
+        TextView right = findViewById(R.id.right_pager);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_bus_list, busListFragment);
-        fragmentTransaction.commit();
+        busStopListFragment = BusStopListFragment.newInstance();
+        busTimeListFragment = BusTimeListFragment.newInstance();
+
+        viewPager = findViewById(R.id.time_line_pager);
+        viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0){
+                    left.setBackground(getResources().getDrawable(R.drawable.trapeze_shape_right_yellow));
+                    right.setBackground(null);
+                }
+                else {
+                    right.setBackground(getResources().getDrawable(R.drawable.trapeze_shape_left_yellow));
+                    left.setBackground(null);
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
+    }
+
+    class MyViewPagerAdapter extends FragmentPagerAdapter{
+        Fragment curFragment = busTimeListFragment;
+        MyViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case 0:
+                    curFragment = busTimeListFragment;
+                    break;
+                case 1:
+                    curFragment = busStopListFragment;
+
+            }
+            return curFragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
     }
 }

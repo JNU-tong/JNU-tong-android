@@ -9,6 +9,12 @@ public class BusStopVO {
     private String stationName;
     private String stationOrder;
 
+    public BusStopVO(){}
+
+    public BusStopVO(String name){
+        stationName = name;
+    }
+
     public String getStationId() {
         return stationId;
     }

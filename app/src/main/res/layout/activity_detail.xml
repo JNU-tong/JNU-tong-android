@@ -63,37 +63,36 @@
 
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@color/navy">
         <TextView
-            android:id="@+id/left"
-            android:layout_width="168dp"
+            android:id="@+id/left_pager"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:background="@drawable/trapeze_shape_right_yellow"
             android:text="시간표"
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="@color/white"/>
         <TextView
+            android:id="@+id/right_pager"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/trapeze_shape"
-            android:layout_toEndOf="@+id/left"
-            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
             android:paddingStart="16dp"
             android:gravity="center"
             android:text="노선"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
-    </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/fragment_bus_list"
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/time_line_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"/>
-
-
+        android:layout_height="match_parent"/>
 </LinearLayout>
