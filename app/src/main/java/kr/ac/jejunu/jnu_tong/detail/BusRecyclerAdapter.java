@@ -49,4 +49,8 @@ public class BusRecyclerAdapter extends RecyclerView.Adapter<BusRecyclerAdapter.
             busStopName = itemView.findViewById(R.id.bus_stop_name);
         }
     }
+
+    public void add(List<BusStopVO> data){
+        busStopVOS.addAll(data);
+    }
 }

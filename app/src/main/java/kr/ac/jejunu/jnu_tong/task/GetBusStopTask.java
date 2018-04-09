@@ -23,35 +23,36 @@ import kr.ac.jejunu.jnu_tong.main.BusStopVO;
 public class GetBusStopTask extends AsyncTask<String, Void, ArrayList<BusStopVO>> {
     private TaskResult<BusStopVO> taskResult;
 
-    GetBusStopTask(TaskResult taskResult){
+    public GetBusStopTask(TaskResult taskResult){
         this.taskResult = taskResult;
     }
 
     @Override
     protected ArrayList<BusStopVO> doInBackground(String[] params) {
-        String urlString = params[0];
+        String urlStr = params[0];
         ArrayList<BusStopVO> parsedList = null;
 
         try {
-            URL url = new URL(urlString);
+            Log.e(this.toString(), "URL :  " + urlStr);
+            URL url = new URL(urlStr);
 
-            URLConnection conn = url.openConnection();
-            conn.setUseCaches(false);
+            URLConnection conn = url.openConnection ( );
+            conn.setUseCaches ( false );
+            conn.connect();
+            InputStream is = conn.getInputStream ( );
 
-            InputStream is = conn.getInputStream();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ( );
+            byte [ ] byteBuffer = new byte [ 1024 ];
+            byte [ ] byteData = null;
+            int nLength = 0;
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] byteBuffer = new byte[1024];
-            byte[] byteData = null;
-            int nLength;
-
-            while( (nLength = is.read(byteBuffer, 0, byteBuffer.length) ) != -1){
-                byteArrayOutputStream.write(byteBuffer, 0, nLength);
+            while ( ( nLength = is.read ( byteBuffer , 0 , byteBuffer.length ) ) != -1 ){
+                byteArrayOutputStream.write ( byteBuffer , 0 , nLength );
             }
 
-            byteData = byteArrayOutputStream.toByteArray();
+            byteData = byteArrayOutputStream.toByteArray ( );
 
-            if (byteData.length <= 0){
+            if ( byteData.length <= 0 ){
                 return null;
             }
 
@@ -59,10 +60,10 @@ public class GetBusStopTask extends AsyncTask<String, Void, ArrayList<BusStopVO>
 
             JSONArray responseJson = new JSONArray(response);
             parsedList = parseToList(responseJson);
-        } catch (IOException e) {
-            Log.e(this.toString(), " 아이오익셉션 " );
         } catch (JSONException e) {
             Log.e(this.toString(), " 제이슨익셉션 " );
+        } catch (IOException e) {
+            Log.e(this.toString(), " 아이오익셉션 " );
         }
 
         return parsedList;
@@ -98,7 +99,5 @@ public class GetBusStopTask extends AsyncTask<String, Void, ArrayList<BusStopVO>
     @Override
     protected void onPostExecute(ArrayList<BusStopVO> resultList) {
         taskResult.setTaskResult(resultList);
-
-        onPreExecute();
     }
 }

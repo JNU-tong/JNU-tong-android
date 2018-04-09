@@ -5,12 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.View;
 import android.widget.TextView;
 
 import kr.ac.jejunu.jnu_tong.R;
@@ -78,6 +76,9 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
+
+        left.setOnClickListener(view -> viewPager.setCurrentItem(0));
+        right.setOnClickListener(view -> viewPager.setCurrentItem(1));
     }
 
     class MyViewPagerAdapter extends FragmentPagerAdapter{

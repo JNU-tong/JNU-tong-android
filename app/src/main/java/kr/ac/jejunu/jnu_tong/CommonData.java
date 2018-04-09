@@ -7,7 +7,7 @@ import android.app.Application;
  */
 
 public class CommonData extends Application {
-    private final static String baseURL = "218.50.253.120:8080/";
+    private final static String baseURL = "http://218.50.253.120:8080/";
 
     public static String getBusDepatureListURL(){
         return baseURL + "getDepartureSoonBusList";
