@@ -65,7 +65,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:background="@color/navy">
         <TextView
             android:id="@+id/left"
@@ -74,7 +74,7 @@
             android:gravity="center"
             android:text="시간표"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/white"/>
         <TextView
             android:layout_width="0dp"
@@ -85,7 +85,7 @@
             android:paddingStart="16dp"
             android:gravity="center"
             android:text="노선"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
     </RelativeLayout>

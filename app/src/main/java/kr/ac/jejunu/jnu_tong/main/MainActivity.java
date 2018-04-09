@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import kr.ac.jejunu.jnu_tong.R;
@@ -17,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.main_anim);
         busComeInLayout = findViewById(R.id.bus_come_in);
+        findViewById(R.id.main_back).startAnimation(animation);
 
         testBusComeIn();
     }

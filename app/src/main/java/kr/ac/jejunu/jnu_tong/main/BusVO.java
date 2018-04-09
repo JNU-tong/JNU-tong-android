@@ -5,20 +5,24 @@ package kr.ac.jejunu.jnu_tong.main;
  */
 
 public class BusVO {
-    private String BusName;
+    private String lineID;
+    private String lineNo;
+    private String detailLineNo;
+    private String description;
 
     public BusVO(){
 
     }
-    public BusVO(String busName) {
-        BusName = busName;
+
+    public BusVO(String lineID) {
+        this.lineID = lineID;
     }
 
-    public String getBusName() {
-        return BusName;
+    public String getLineID() {
+        return lineID;
     }
 
-    public void setBusName(String busName) {
-        BusName = busName;
+    public void setLineID(String lineID) {
+        this.lineID = lineID;
     }
 }
