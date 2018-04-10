@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="vertical"
-    android:background="@color/more_light_yellow">
+    android:background="@color/light_sky">
 
     <View
         android:id="@+id/line"

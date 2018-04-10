@@ -61,9 +61,9 @@ public class GetBusStopTask extends AsyncTask<String, Void, ArrayList<BusStopVO>
             JSONArray responseJson = new JSONArray(response);
             parsedList = parseToList(responseJson);
         } catch (JSONException e) {
-            Log.e(this.toString(), " 제이슨익셉션 " );
+            Log.e(this.toString(), " 제이슨익셉션 " + e.getMessage() );
         } catch (IOException e) {
-            Log.e(this.toString(), " 아이오익셉션 " );
+            Log.e(this.toString(), " 아이오익셉션 " +e.getMessage());
         }
 
         return parsedList;
@@ -82,9 +82,9 @@ public class GetBusStopTask extends AsyncTask<String, Void, ArrayList<BusStopVO>
 
                 BusStopVO busStopVO = new BusStopVO();
 
-                busStopVO.setStationId(jsonObject.has("stationId")? jsonObject.getString("stationId") : null);
-                busStopVO.setStationId(jsonObject.has("StationName")? jsonObject.getString("StationName") : null);
-                busStopVO.setStationId(jsonObject.has("stationOrder")? jsonObject.getString("stationOrder") : null);
+                busStopVO.setStationId(jsonObject.has("stationId") ? jsonObject.getString("stationId") : null);
+                busStopVO.setStationName(jsonObject.has("stationName") ? jsonObject.getString("stationName") : null);
+                busStopVO.setStationOrder(jsonObject.has("stationOrder") ? jsonObject.getString("stationOrder") : null);
 
                 arrayList.add(busStopVO);
             } catch (JSONException e) {

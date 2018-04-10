@@ -40,6 +40,11 @@ public class BusRecyclerAdapter extends RecyclerView.Adapter<BusRecyclerAdapter.
         return busStopVOS.size();
     }
 
+    public void add(List<BusStopVO> data){
+        busStopVOS.addAll(data);
+        notifyDataSetChanged();
+    }
+
     class BusViewHolder extends RecyclerView.ViewHolder {
         TextView busStopName;
 
@@ -48,9 +53,5 @@ public class BusRecyclerAdapter extends RecyclerView.Adapter<BusRecyclerAdapter.
 
             busStopName = itemView.findViewById(R.id.bus_stop_name);
         }
-    }
-
-    public void add(List<BusStopVO> data){
-        busStopVOS.addAll(data);
     }
 }

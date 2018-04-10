@@ -1,5 +1,8 @@
 package kr.ac.jejunu.jnu_tong.detail;
 
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +12,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import kr.ac.jejunu.jnu_tong.R;
@@ -28,6 +33,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        initView();
         initViewPager();
     }
 
@@ -41,9 +47,20 @@ public class DetailActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
 
         actionBar.setCustomView(R.layout.actionbar_detail);
+        actionBar.getCustomView().findViewById(R.id.back).setOnClickListener(view -> finish());
         actionBar.setElevation(0);
 
         return true;
+    }
+
+    private void initView(){
+
+        ImageView imageView = findViewById(R.id.image_bus);
+        imageView.setBackground(new ShapeDrawable(new OvalShape()));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            imageView.setClipToOutline(true);
+        }
     }
 
     private void initViewPager(){
@@ -63,11 +80,11 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (position == 0){
-                    left.setBackground(getResources().getDrawable(R.drawable.trapeze_shape_right_yellow));
+                    left.setBackground(getResources().getDrawable(R.drawable.trapeze_shape_right_sky));
                     right.setBackground(null);
                 }
                 else {
-                    right.setBackground(getResources().getDrawable(R.drawable.trapeze_shape_left_yellow));
+                    right.setBackground(getResources().getDrawable(R.drawable.trapeze_shape_left_sky));
                     left.setBackground(null);
                 }
 
@@ -83,6 +100,7 @@ public class DetailActivity extends AppCompatActivity {
 
     class MyViewPagerAdapter extends FragmentPagerAdapter{
         Fragment curFragment = busTimeListFragment;
+
         MyViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }
