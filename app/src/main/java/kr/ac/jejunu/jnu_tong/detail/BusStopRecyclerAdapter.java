@@ -16,10 +16,10 @@ import kr.ac.jejunu.jnu_tong.main.BusStopVO;
  * Created by seung-yeol on 2018. 4. 6..
  */
 
-public class BusRecyclerAdapter extends RecyclerView.Adapter<BusRecyclerAdapter.BusViewHolder> {
+public class BusStopRecyclerAdapter extends RecyclerView.Adapter<BusStopRecyclerAdapter.BusViewHolder> {
     private LinkedList<BusStopVO> busStopVOS;
 
-    BusRecyclerAdapter(List<BusStopVO> busStopVOS) {
+    BusStopRecyclerAdapter(List<BusStopVO> busStopVOS) {
         this.busStopVOS = new LinkedList<>(busStopVOS);
     }
 

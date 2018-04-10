@@ -16,8 +16,8 @@ import java.util.List;
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.main.BusStopVO;
-import kr.ac.jejunu.jnu_tong.task.GetBusStopTask;
 import kr.ac.jejunu.jnu_tong.task.TaskResult;
+import kr.ac.jejunu.jnu_tong.task.GetBusStopTask;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..
@@ -25,7 +25,7 @@ import kr.ac.jejunu.jnu_tong.task.TaskResult;
 
 public class BusStopListFragment extends Fragment implements TaskResult<BusStopVO>{
     private ArrayList<BusStopVO> busStopVOS;
-    private BusRecyclerAdapter adapter;
+    private BusStopRecyclerAdapter adapter;
 
     public static BusStopListFragment newInstance() {
         Bundle args = new Bundle();
@@ -50,7 +50,7 @@ public class BusStopListFragment extends Fragment implements TaskResult<BusStopV
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView busRecyclerView = view.findViewById(R.id.recycler_view_bus);
-        adapter = new BusRecyclerAdapter( new ArrayList<>());
+        adapter = new BusStopRecyclerAdapter( new ArrayList<>());
 
         busRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         busRecyclerView.setAdapter(adapter);

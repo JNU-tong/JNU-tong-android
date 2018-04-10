@@ -14,62 +14,34 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.main.BusStopVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 9..
  */
 
-public class GetBusStopTask extends AsyncTask<String, Void, ArrayList<BusStopVO>> {
-    private TaskResult<BusStopVO> taskResult;
+public class GetBusStopTask extends BaseTask {
 
     public GetBusStopTask(TaskResult taskResult){
-        this.taskResult = taskResult;
+        super(taskResult);
     }
 
     @Override
-    protected ArrayList<BusStopVO> doInBackground(String[] params) {
-        String urlStr = params[0];
-        ArrayList<BusStopVO> parsedList = null;
-
-        try {
-            Log.e(this.toString(), "URL :  " + urlStr);
-            URL url = new URL(urlStr);
-
-            URLConnection conn = url.openConnection ( );
-            conn.setUseCaches ( false );
-            conn.connect();
-            InputStream is = conn.getInputStream ( );
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ( );
-            byte [ ] byteBuffer = new byte [ 1024 ];
-            byte [ ] byteData = null;
-            int nLength = 0;
-
-            while ( ( nLength = is.read ( byteBuffer , 0 , byteBuffer.length ) ) != -1 ){
-                byteArrayOutputStream.write ( byteBuffer , 0 , nLength );
-            }
-
-            byteData = byteArrayOutputStream.toByteArray ( );
-
-            if ( byteData.length <= 0 ){
-                return null;
-            }
-
-            String response = new String(byteData);
-
-            JSONArray responseJson = new JSONArray(response);
-            parsedList = parseToList(responseJson);
-        } catch (JSONException e) {
-            Log.e(this.toString(), " 제이슨익셉션 " + e.getMessage() );
-        } catch (IOException e) {
-            Log.e(this.toString(), " 아이오익셉션 " +e.getMessage());
-        }
-
-        return parsedList;
+    String url(String[] params){
+        return CommonData.getBusLineListURL(params[0]);
     }
 
-    private ArrayList<BusStopVO> parseToList(JSONArray responseJSON){
+    @Override
+    ArrayList<BusStopVO> parse(String responseString){
+        JSONArray responseJSON = null;
+
+        try {
+            responseJSON = new JSONArray(responseString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         ArrayList<BusStopVO> arrayList = new ArrayList<>();
 
         if (responseJSON == null){
@@ -93,11 +65,5 @@ public class GetBusStopTask extends AsyncTask<String, Void, ArrayList<BusStopVO>
         }
 
         return arrayList;
-    }
-
-
-    @Override
-    protected void onPostExecute(ArrayList<BusStopVO> resultList) {
-        taskResult.setTaskResult(resultList);
     }
 }
