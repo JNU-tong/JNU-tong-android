@@ -1,17 +1,11 @@
 package kr.ac.jejunu.jnu_tong.task;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
@@ -21,7 +15,7 @@ import kr.ac.jejunu.jnu_tong.main.BusStopVO;
  * Created by seung-yeol on 2018. 4. 9..
  */
 
-public class GetBusStopTask extends BaseTask {
+public class GetBusStopTask extends BaseTask<BusStopVO> {
 
     public GetBusStopTask(TaskResult taskResult){
         super(taskResult);
@@ -29,7 +23,7 @@ public class GetBusStopTask extends BaseTask {
 
     @Override
     String url(String[] params){
-        return CommonData.getBusLineListURL(params[0]);
+        return params[0];
     }
 
     @Override

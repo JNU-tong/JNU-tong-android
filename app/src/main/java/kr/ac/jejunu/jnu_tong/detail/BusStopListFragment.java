@@ -26,13 +26,15 @@ import kr.ac.jejunu.jnu_tong.task.GetBusStopTask;
 public class BusStopListFragment extends Fragment implements TaskResult<BusStopVO>{
     private ArrayList<BusStopVO> busStopVOS;
     private BusStopRecyclerAdapter adapter;
+    private String busID;
 
-    public static BusStopListFragment newInstance() {
+    public static BusStopListFragment newInstance(String busID) {
         Bundle args = new Bundle();
+
+        args.putString("busID", busID);
 
         BusStopListFragment fragment = new BusStopListFragment();
         fragment.setArguments(args);
-        fragment.busStopVOS = new ArrayList<>();
         return fragment;
     }
 
@@ -40,6 +42,10 @@ public class BusStopListFragment extends Fragment implements TaskResult<BusStopV
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate( R.layout.fragment_bus_list, container, false);
+        busStopVOS = new ArrayList<>();
+
+        busID = getArguments().getString("busID");
+
         executeTask();
 
         return view;
@@ -56,22 +62,9 @@ public class BusStopListFragment extends Fragment implements TaskResult<BusStopV
         busRecyclerView.setAdapter(adapter);
     }
 
-    private ArrayList<BusStopVO> testVOSCreate(){
-        ArrayList<BusStopVO> testVOS = new ArrayList<>();
-        testVOS.add(new BusStopVO("내집"));
-        testVOS.add(new BusStopVO("우리집"));
-        testVOS.add(new BusStopVO("너네집"));
-        testVOS.add(new BusStopVO("니네집"));
-        testVOS.add(new BusStopVO("걔네집"));
-        testVOS.add(new BusStopVO("쟤네집"));
-        testVOS.add(new BusStopVO("자이네집"));
-
-        return testVOS;
-    }
-
     private void executeTask(){
         GetBusStopTask getBusStopTask = new GetBusStopTask(this);
-        getBusStopTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, CommonData.getBusLineListURL("JEB405136004"));
+        getBusStopTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, CommonData.getBusStopListURL(busID));
     }
 
     @Override

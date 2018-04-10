@@ -67,8 +67,8 @@ public class DetailActivity extends AppCompatActivity {
         TextView left = findViewById(R.id.left_pager);
         TextView right = findViewById(R.id.right_pager);
 
-        busStopListFragment = BusStopListFragment.newInstance();
-        busTimeListFragment = BusTimeListFragment.newInstance();
+        busStopListFragment = BusStopListFragment.newInstance("JEB405136004");
+        busTimeListFragment = BusTimeListFragment.newInstance("JEB405136004");
 
         viewPager = findViewById(R.id.time_line_pager);
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));

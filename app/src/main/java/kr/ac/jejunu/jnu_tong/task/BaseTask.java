@@ -20,15 +20,15 @@ import kr.ac.jejunu.jnu_tong.main.BusStopVO;
  * Created by seung-yeol on 2018. 4. 9..
  */
 
-public abstract class BaseTask extends AsyncTask<String, Void, ArrayList<BusStopVO>> {
-    private TaskResult<BusStopVO> taskResult;
+public abstract class BaseTask<E> extends AsyncTask<String, Void, ArrayList<E>> {
+    private TaskResult<E> taskResult;
 
     BaseTask(TaskResult taskResult){
         this.taskResult = taskResult;
     }
 
     @Override
-    protected ArrayList<BusStopVO> doInBackground(String[] params) {
+    protected ArrayList<E> doInBackground(String[] params) {
         String urlStr = url(params);
         Log.e(this.toString(), "URL :  " + urlStr);
 
@@ -60,20 +60,22 @@ public abstract class BaseTask extends AsyncTask<String, Void, ArrayList<BusStop
 
             byteData = byteArrayOutputStream.toByteArray ( );
 
-            if ( byteData.length <= 0 ){
-                return null;
-            }
+
         } catch (IOException e) {
             Log.e(this.toString(), " 아이오익셉션 " + e.getMessage());
+        }
+
+        if ( byteData == null || byteData.length <= 0 ){
+            return null;
         }
 
         return new String(byteData);
     }
 
-    abstract ArrayList<BusStopVO> parse(String responseString);
+    abstract ArrayList<E> parse(String responseString);
 
     @Override
-    protected void onPostExecute(ArrayList<BusStopVO> resultList) {
+    protected void onPostExecute(ArrayList<E> resultList) {
         taskResult.setTaskResult(resultList);
     }
 }

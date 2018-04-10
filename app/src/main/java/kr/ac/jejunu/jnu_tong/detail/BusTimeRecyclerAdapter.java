@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.main.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.main.BusTimeVO;
 
 /**
- * Created by seung-yeol on 2018. 4. 10..
+ * Created by seung-yeol on 2018. 4. 10.
  */
 
 public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecyclerAdapter.BusTimeViewHolder>{
-    private ArrayList<DepartureBusVO> provider;
+    private ArrayList<BusTimeVO> provider;
 
-    public BusTimeRecyclerAdapter(List<DepartureBusVO> provider) {
+    public BusTimeRecyclerAdapter(List<BusTimeVO> provider) {
         this.provider = new ArrayList<>(provider);
     }
 
@@ -33,6 +33,11 @@ public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecycler
     @Override
     public void onBindViewHolder(BusTimeViewHolder holder, int position) {
         
+    }
+
+    public void add(List<BusTimeVO> addData){
+        provider.addAll(addData);
+        notifyDataSetChanged();
     }
 
     @Override
