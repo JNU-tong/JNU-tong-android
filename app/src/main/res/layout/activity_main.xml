@@ -7,6 +7,7 @@
     tools:context="kr.ac.jejunu.jnu_tong.main.MainActivity">
 
     <RelativeLayout
+        android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="296dp"
         android:orientation="vertical">
@@ -66,27 +67,35 @@
             android:layout_height="match_parent"
             android:background="@drawable/main_round_box_bottom"
             android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingStart="13dp"
-                android:text="출발예정버스"
-                android:textColor="@color/navy" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:background="@color/gray" />
-
             <LinearLayout
-                android:id="@+id/bus_come_in"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" />
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingStart="13dp"
+                    android:text="출발예정버스"
+                    android:textColor="@color/navy" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:background="@color/gray" />
+
+                <LinearLayout
+                    android:id="@+id/bus_come_in"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_soon_bus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -106,7 +115,7 @@
             android:background="@drawable/main_round_box_top"
             android:gravity="center_vertical"
             android:paddingStart="13dp"
-            android:text="시내버스"
+            android:text="셔틀버스"
             android:textColor="@color/white" />
 
         <LinearLayout

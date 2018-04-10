@@ -23,7 +23,6 @@ import kr.ac.jejunu.jnu_tong.R;
  */
 
 public class DetailActivity extends AppCompatActivity {
-
     private BusStopListFragment busStopListFragment;
     private BusTimeListFragment busTimeListFragment;
     private ViewPager viewPager;
