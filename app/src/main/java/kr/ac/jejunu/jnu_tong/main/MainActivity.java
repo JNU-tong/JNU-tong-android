@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout top;
     private LinearLayout cityBusLayout;
     private int cityBusHeight;
+    private int cityBusBottomMargin;
+    private LinearLayout shuttleBusLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,11 @@ public class MainActivity extends AppCompatActivity {
         topHeight = params.height;
 
         cityBusLayout = findViewById(R.id.city_bus);
-        ViewGroup.LayoutParams layoutParams = cityBusLayout.getLayoutParams();
-        cityBusHeight = layoutParams.height;
+        LinearLayout.LayoutParams cityBusParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
+        cityBusHeight = cityBusParams.height;
+        cityBusBottomMargin = cityBusParams.bottomMargin;
+
+        shuttleBusLayout = findViewById(R.id.shuttle_bus);
 
         testBusComeIn();
     }
@@ -58,9 +63,14 @@ public class MainActivity extends AppCompatActivity {
                     top.setLayoutParams(params);
 
                     TransitionManager.beginDelayedTransition(cityBusLayout);
-                    ViewGroup.LayoutParams layoutParams = cityBusLayout.getLayoutParams();
-                    layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
+                    layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
+                    layoutParams.bottomMargin += cityBusHeight/2;
                     cityBusLayout.setLayoutParams(layoutParams);
+
+                    TransitionManager.beginDelayedTransition(shuttleBusLayout);
+                    LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
+                    shuttleBusParams.topMargin -= cityBusHeight/2;
                 });
             } else {
                 expanded = false;
@@ -71,9 +81,15 @@ public class MainActivity extends AppCompatActivity {
                     top.setLayoutParams(params);
 
                     TransitionManager.beginDelayedTransition(cityBusLayout);
-                    ViewGroup.LayoutParams layoutParams = cityBusLayout.getLayoutParams();
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
                     layoutParams.height = cityBusHeight;
+                    layoutParams.bottomMargin = cityBusBottomMargin;
                     cityBusLayout.setLayoutParams(layoutParams);
+
+
+                    TransitionManager.beginDelayedTransition(shuttleBusLayout);
+                    LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
+                    shuttleBusParams.topMargin = 0;
                 });
             }
         });
