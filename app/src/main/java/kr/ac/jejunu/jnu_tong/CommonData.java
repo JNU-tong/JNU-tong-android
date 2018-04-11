@@ -14,7 +14,7 @@ import kr.ac.jejunu.jnu_tong.main.BusTimeVO;
 public class CommonData extends Application {
     private final static String baseURL = "http://218.50.253.120:8080/";
 
-    public static String getBusDepatureListURL(){
+    public static String getBusDepartureListURL(){
         return baseURL + "getDepartureSoonBusList";
     }
 

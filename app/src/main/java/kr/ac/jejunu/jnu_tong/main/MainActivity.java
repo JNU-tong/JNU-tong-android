@@ -13,19 +13,24 @@ import android.widget.RelativeLayout;
 
 import com.brandongogetap.stickyheaders.StickyLayoutManager;
 
+import java.util.List;
+
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
+import kr.ac.jejunu.jnu_tong.task.GetDepartureBusTask;
+import kr.ac.jejunu.jnu_tong.task.TaskResult;
 
-public class MainActivity extends AppCompatActivity{
-    private LinearLayout busComeInLayout;
-    private View topImage;
-    private boolean expanded = false;
-    private int topHeight;
+public class MainActivity extends AppCompatActivity implements TaskResult<DepartureBusVO>{
     private RelativeLayout top;
+    private LinearLayout busComeInLayout;
     private LinearLayout cityBusLayout;
+    private LinearLayout shuttleBusLayout;
+
+    private int topHeight;
     private int cityBusHeight;
     private int cityBusBottomMargin;
-    private LinearLayout shuttleBusLayout;
+
+    private boolean expanded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity{
     private void initTopImage(){
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.main_expand_anim);
         busComeInLayout = findViewById(R.id.bus_come_in);
-        topImage = findViewById(R.id.main_back);
+        View topImage = findViewById(R.id.main_back);
         topImage.startAnimation(animation);
 
         top = findViewById(R.id.top);
@@ -109,5 +114,14 @@ public class MainActivity extends AppCompatActivity{
 
         StickyRecyclerAdapter adapter = new StickyRecyclerAdapter();
         StickyLayoutManager manager = new StickyLayoutManager(this, adapter);
+    }
+
+    private void executeTask(){
+        GetDepartureBusTask getDepartureBusTask = new GetDepartureBusTask(this);
+    }
+
+    @Override
+    public void setTaskResult(List<DepartureBusVO> result) {
+
     }
 }
