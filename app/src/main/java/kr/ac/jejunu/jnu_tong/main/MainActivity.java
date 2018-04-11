@@ -1,23 +1,17 @@
 package kr.ac.jejunu.jnu_tong.main;
 
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.brandongogetap.stickyheaders.StickyLayoutManager;
-import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
-
-import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
@@ -38,28 +32,29 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initTopImage();
+        initCityBusLayout();
+        initShuttleBusLayout();
+        initCityBusRecycler();
+    }
+
+    private void initTopImage(){
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.main_expand_anim);
         busComeInLayout = findViewById(R.id.bus_come_in);
         topImage = findViewById(R.id.main_back);
         topImage.startAnimation(animation);
 
-
         top = findViewById(R.id.top);
         ViewGroup.LayoutParams params = top.getLayoutParams();
         topHeight = params.height;
+    }
 
+    private void initCityBusLayout() {
         cityBusLayout = findViewById(R.id.city_bus);
         LinearLayout.LayoutParams cityBusParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
         cityBusHeight = cityBusParams.height;
         cityBusBottomMargin = cityBusParams.bottomMargin;
 
-        shuttleBusLayout = findViewById(R.id.shuttle_bus);
-
-        testBusComeIn();
-        initRecycler();
-    }
-
-    private void testBusComeIn() {
         View bus = View.inflate(this, R.layout.vew_bus_num, null);
         bus.setOnClickListener(v -> {
             if (!expanded) {
@@ -105,7 +100,11 @@ public class MainActivity extends AppCompatActivity{
         busComeInLayout.addView(bus);
     }
 
-    public void initRecycler(){
+    private void initShuttleBusLayout(){
+        shuttleBusLayout = findViewById(R.id.shuttle_bus);
+    }
+
+    private void initCityBusRecycler(){
         RecyclerView recyclerView = findViewById(R.id.recycler_soon_bus);
 
         StickyRecyclerAdapter adapter = new StickyRecyclerAdapter();
