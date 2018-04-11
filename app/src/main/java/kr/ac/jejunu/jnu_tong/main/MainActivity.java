@@ -3,6 +3,7 @@ package kr.ac.jejunu.jnu_tong.main;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +14,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import kr.ac.jejunu.jnu_tong.R;
+import com.brandongogetap.stickyheaders.StickyLayoutManager;
+import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
+
+import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
+
+public class MainActivity extends AppCompatActivity{
     private LinearLayout busComeInLayout;
     private View topImage;
     private boolean expanded = false;
@@ -49,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         shuttleBusLayout = findViewById(R.id.shuttle_bus);
 
         testBusComeIn();
+        initRecycler();
     }
 
     private void testBusComeIn() {
@@ -97,4 +105,10 @@ public class MainActivity extends AppCompatActivity {
         busComeInLayout.addView(bus);
     }
 
+    public void initRecycler(){
+        RecyclerView recyclerView = findViewById(R.id.recycler_soon_bus);
+
+        StickyRecyclerAdapter adapter = new StickyRecyclerAdapter();
+        StickyLayoutManager manager = new StickyLayoutManager(this, adapter);
+    }
 }
