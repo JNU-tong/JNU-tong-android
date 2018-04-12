@@ -1,6 +1,7 @@
 package kr.ac.jejunu.jnu_tong.main;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +18,14 @@ import android.widget.RelativeLayout;
 import com.brandongogetap.stickyheaders.StickyLayoutManager;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
@@ -49,12 +57,66 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        executeTask();
+//        executeTask();
+
 
         initTopImage();
         initCityBusRecycler();
         initCityBusLayout();
         initShuttleBusLayout();
+
+        depatureBusSampleRead();
+
+    }
+
+    private void depatureBusSampleRead(){
+        AssetManager assetManager = getAssets();
+        try {
+            InputStream is = assetManager.open("departureBusSample.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            String json = new String(buffer);
+
+            LinkedList<DepartureBusVO> departureBusVOS = new LinkedList<>();
+
+            try {
+                JSONObject responseObject = new JSONObject(json);
+                Iterator iterator = responseObject.keys();
+
+                LinkedList<String> keys = new LinkedList<>();
+                for (Iterator it = iterator; it.hasNext(); ) {
+                    keys.add((String)it.next());
+                }
+
+                for (String key :
+                        keys) {
+                    JSONObject jsonObject = responseObject.getJSONObject(key);
+                    JSONObject cityBusLineInfo = jsonObject.getJSONObject("cityBusLineInfo");
+                    JSONObject remainTime = jsonObject.getJSONObject("remainTime");
+
+                    DepartureBusVO vo = new DepartureBusVO();
+                    vo.setLineID(cityBusLineInfo.getString("lineId"));
+                    vo.setLineNo(cityBusLineInfo.getString("lineNo"));
+                    vo.setDetailLineNo(cityBusLineInfo.getString("detailLineNo"));
+                    vo.setDescription(cityBusLineInfo.getString("description"));
+                    vo.setFirst(remainTime.isNull("first") ?  -1 : remainTime.getInt("first"));
+                    vo.setSecond(remainTime.isNull("second") ?  -1 : remainTime.getInt("second"));
+
+                    departureBusVOS.add(vo);
+                }
+
+                setTaskResult(departureBusVOS);
+
+            } catch (JSONException e) {
+                Log.e(this.toString(), "JSON 익셉션! : " + e.getMessage());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -97,6 +159,10 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
                     shuttleBusLayout.setLayoutParams(shuttleBusParams);
 
                     adapter.setData(items);
+
+                    ViewGroup.LayoutParams layoutParams1 = recyclerView.getLayoutParams();
+                    layoutParams1.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                    recyclerView.setLayoutParams(layoutParams1);
                 });
             } else {
                 expanded = false;
@@ -113,11 +179,17 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
                     layoutParams.bottomMargin = cityBusBottomMargin;
                     cityBusLayout.setLayoutParams(layoutParams);
 
+                    ViewGroup.LayoutParams layoutParams1 = recyclerView.getLayoutParams();
+                    layoutParams1.height = 0;
+                    recyclerView.setLayoutParams(layoutParams1);
+                    adapter.clear();
 
                     TransitionManager.beginDelayedTransition(shuttleBusLayout);
                     LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
                     shuttleBusParams.topMargin = 0;
                     shuttleBusLayout.setLayoutParams(shuttleBusParams);
+
+
                 });
             }
         });
@@ -127,10 +199,10 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
 
     private void initShuttleBusLayout() {
         shuttleBusLayout = findViewById(R.id.shuttle_bus);
-        shuttleBusLayout.setOnClickListener(view -> {
+        /*shuttleBusLayout.setOnClickListener(view -> {
            Intent intent = new Intent(this, TestActivity.class);
            startActivity(intent);
-        });
+        });*/
     }
 
     private void initCityBusRecycler() {

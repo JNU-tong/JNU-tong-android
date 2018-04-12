@@ -24,7 +24,6 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
     private List<Item> data;
 
     public StickyRecyclerAdapter(List<Item> items) {
-        Log.e(this.toString(), "어뎁터생성 " );
         data = new ArrayList<>(items);
     }
 
@@ -37,15 +36,7 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
 
     @Override
     public List<Item> getAdapterData() {
-        Log.e(this.toString(), "언제실행됨 " );
         return data;
-    }
-
-    public void setItems(List<Item> items) {
-        Log.e(this.toString(), "데이터 더해짐 " );
-        data.clear();
-        data.addAll(items);
-        notifyDataSetChanged();
     }
 
     public void clear(){
@@ -67,7 +58,6 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.e(this.toString(), "position: " + position);
         Item item = data.get(position);
 
         if (item instanceof HeaderItem) {
