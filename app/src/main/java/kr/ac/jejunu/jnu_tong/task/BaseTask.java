@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.main.BusStopVO;
 
@@ -20,7 +21,7 @@ import kr.ac.jejunu.jnu_tong.main.BusStopVO;
  * Created by seung-yeol on 2018. 4. 9..
  */
 
-public abstract class BaseTask<E> extends AsyncTask<String, Void, ArrayList<E>> {
+public abstract class BaseTask<E> extends AsyncTask<String, Void, List<E>> {
     private TaskResult<E> taskResult;
 
     BaseTask(TaskResult taskResult){
@@ -28,7 +29,7 @@ public abstract class BaseTask<E> extends AsyncTask<String, Void, ArrayList<E>> 
     }
 
     @Override
-    protected ArrayList<E> doInBackground(String[] params) {
+    protected List<E> doInBackground(String[] params) {
         String urlStr = url(params);
         Log.e(this.toString(), "URL :  " + urlStr);
 
@@ -72,10 +73,10 @@ public abstract class BaseTask<E> extends AsyncTask<String, Void, ArrayList<E>> 
         return new String(byteData);
     }
 
-    abstract ArrayList<E> parse(String responseString);
+    abstract List<E> parse(String responseString);
 
     @Override
-    protected void onPostExecute(ArrayList<E> resultList) {
+    protected void onPostExecute(List<E> resultList) {
         taskResult.setTaskResult(resultList);
     }
 }

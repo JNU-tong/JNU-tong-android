@@ -15,7 +15,7 @@ public class ChildItem implements Item {
     public ChildItem(DepartureBusVO vo) {
         busNum = vo.getLineNo() + "번";
         busTitle = vo.getDescription();
-        remainTime = vo.getFirst() + "분";
+        remainTime = vo.getFirst() + "분전";
     }
 
     public String getBusNum() {

@@ -1,6 +1,8 @@
 package kr.ac.jejunu.jnu_tong.main.sticky_recycler;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +24,33 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
     private List<Item> data;
 
     public StickyRecyclerAdapter(List<Item> items) {
+        Log.e(this.toString(), "어뎁터생성 " );
         data = new ArrayList<>(items);
+    }
+
+    public void setData(List<Item> items) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SimpleDiffCallback(data, items));
+        data.clear();
+        data.addAll(items);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @Override
     public List<Item> getAdapterData() {
+        Log.e(this.toString(), "언제실행됨 " );
         return data;
+    }
+
+    public void setItems(List<Item> items) {
+        Log.e(this.toString(), "데이터 더해짐 " );
+        data.clear();
+        data.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public void clear(){
+        data.clear();
+        notifyDataSetChanged();
     }
 
 
@@ -44,6 +67,7 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.e(this.toString(), "position: " + position);
         Item item = data.get(position);
 
         if (item instanceof HeaderItem) {
@@ -51,21 +75,25 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
             ((MyHeaderHolder) holder).headerText.setText(headerItem.getHeaderTitle());
         } else {
             ChildItem childItem = ((ChildItem) item);
-            ((MyChildViewHolder) holder).busNumText.setText(childItem.getBusNum() + "번");
+            ((MyChildViewHolder) holder).busNumText.setText(childItem.getBusNum());
             ((MyChildViewHolder) holder).descriptionText.setText(childItem.getBusDescription());
-            ((MyChildViewHolder) holder).remainText.setText(childItem.getRemainTime() + "분전");
+            ((MyChildViewHolder) holder).remainText.setText(childItem.getRemainTime());
         }
 
     }
 
     @Override
     public int getItemCount() {
+        Log.e(this.toString(), "data.size(): " + data.size() );
         return data.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+        if (data.get(position) instanceof HeaderItem)
+            return 1;
+        else
+            return 2;
     }
 
     private class MyHeaderHolder extends RecyclerView.ViewHolder {

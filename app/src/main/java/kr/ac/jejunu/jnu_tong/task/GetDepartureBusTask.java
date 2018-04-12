@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.main.DepartureBusVO;
@@ -27,7 +28,7 @@ public class GetDepartureBusTask extends BaseTask<DepartureBusVO> {
     }
 
     @Override
-    ArrayList<DepartureBusVO> parse(String responseString) {
+    List<DepartureBusVO> parse(String responseString) {
         LinkedList<DepartureBusVO> departureBusVOS = new LinkedList<>();
 
         try {
@@ -42,13 +43,24 @@ public class GetDepartureBusTask extends BaseTask<DepartureBusVO> {
             for (String key :
                     keys) {
                 JSONObject jsonObject = responseObject.getJSONObject(key);
+                JSONObject cityBusLineInfo = jsonObject.getJSONObject("cityBusLineInfo");
+                JSONObject remainTime = jsonObject.getJSONObject("remainTime");
+
                 DepartureBusVO vo = new DepartureBusVO();
+                vo.setLineID(cityBusLineInfo.getString("lineId"));
+                vo.setLineNo(cityBusLineInfo.getString("lineNo"));
+                vo.setDetailLineNo(cityBusLineInfo.getString("detailLineNo"));
+                vo.setDescription(cityBusLineInfo.getString("description"));
+                vo.setFirst(remainTime.isNull("first") ?  -1 : remainTime.getInt("first"));
+                vo.setSecond(remainTime.isNull("second") ?  -1 : remainTime.getInt("second"));
+
+                departureBusVOS.add(vo);
             }
 
         } catch (JSONException e) {
             Log.e(this.toString(), "JSON 익셉션! : " + e.getMessage());
         }
 
-        return null;
+        return departureBusVOS;
     }
 }
