@@ -82,8 +82,4 @@ public class CommonData extends Application {
     public ArrayList<Item> getTestData() {
         return testData;
     }
-
-    public void setTestData(ArrayList<Item> testData) {
-        this.testData = testData;
-    }
 }

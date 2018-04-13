@@ -1,5 +1,6 @@
 package kr.ac.jejunu.jnu_tong.main.sticky_recycler;
 
+import android.os.Build;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -74,7 +75,6 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
 
     @Override
     public int getItemCount() {
-        Log.e(this.toString(), "data.size(): " + data.size() );
         return data.size();
     }
 
@@ -91,7 +91,6 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
 
         MyHeaderHolder(View itemView) {
             super(itemView);
-
             headerText = itemView.findViewById(R.id.text_header);
         }
     }
@@ -104,7 +103,6 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
 
         MyChildViewHolder(View itemView) {
             super(itemView);
-
             busNumText = itemView.findViewById(R.id.text_bus_num);
             descriptionText = itemView.findViewById(R.id.text_description);
             remainText = itemView.findViewById(R.id.text_remain);

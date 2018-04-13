@@ -53,7 +53,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initView(){
-
         ImageView imageView = findViewById(R.id.image_bus);
         imageView.setBackground(new ShapeDrawable(new OvalShape()));
 

@@ -1,10 +1,12 @@
 package kr.ac.jejunu.jnu_tong.main;
 
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -59,17 +61,15 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
 
 //        executeTask();
 
-
         initTopImage();
         initCityBusRecycler();
         initCityBusLayout();
         initShuttleBusLayout();
 
-        depatureBusSampleRead();
-
+        departureBusSampleRead();
     }
 
-    private void depatureBusSampleRead(){
+    private void departureBusSampleRead() {
         AssetManager assetManager = getAssets();
         try {
             InputStream is = assetManager.open("departureBusSample.json");
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
 
                 LinkedList<String> keys = new LinkedList<>();
                 for (Iterator it = iterator; it.hasNext(); ) {
-                    keys.add((String)it.next());
+                    keys.add((String) it.next());
                 }
 
                 for (String key :
@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
                     vo.setLineNo(cityBusLineInfo.getString("lineNo"));
                     vo.setDetailLineNo(cityBusLineInfo.getString("detailLineNo"));
                     vo.setDescription(cityBusLineInfo.getString("description"));
-                    vo.setFirst(remainTime.isNull("first") ?  -1 : remainTime.getInt("first"));
-                    vo.setSecond(remainTime.isNull("second") ?  -1 : remainTime.getInt("second"));
+                    vo.setFirst(remainTime.isNull("first") ? -1 : remainTime.getInt("first"));
+                    vo.setSecond(remainTime.isNull("second") ? -1 : remainTime.getInt("second"));
 
                     departureBusVOS.add(vo);
                 }
@@ -116,8 +116,6 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private void initTopImage() {
@@ -137,16 +135,12 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
         cityBusHeight = cityBusParams.height;
         cityBusBottomMargin = cityBusParams.bottomMargin;
 
-        View bus = View.inflate(this, R.layout.vew_bus_num, null);
+        View bus = View.inflate(this, R.layout.view_bus_num, null);
         bus.setOnClickListener(v -> {
             if (!expanded) {
                 expanded = true;
-                runOnUiThread(() -> {
-                    TransitionManager.beginDelayedTransition(top);
-                    ViewGroup.LayoutParams params = top.getLayoutParams();
-                    params.height = 0;
-                    top.setLayoutParams(params);
 
+                runOnUiThread(() -> {
                     TransitionManager.beginDelayedTransition(cityBusLayout);
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
                     layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -158,20 +152,26 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
                     shuttleBusParams.topMargin -= cityBusHeight / 2;
                     shuttleBusLayout.setLayoutParams(shuttleBusParams);
 
-                    adapter.setData(items);
-
-                    ViewGroup.LayoutParams layoutParams1 = recyclerView.getLayoutParams();
-                    layoutParams1.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    recyclerView.setLayoutParams(layoutParams1);
+                    TransitionManager.beginDelayedTransition(top);
+                    ViewGroup.LayoutParams params = top.getLayoutParams();
+                    params.height = 0;
+                    top.setLayoutParams(params);
                 });
+
             } else {
                 expanded = false;
-                adapter.clear();
+                recyclerView.setVisibility(View.GONE);
+
                 runOnUiThread(() -> {
                     TransitionManager.beginDelayedTransition(top);
                     ViewGroup.LayoutParams params = top.getLayoutParams();
                     params.height = topHeight;
                     top.setLayoutParams(params);
+
+                    TransitionManager.beginDelayedTransition(shuttleBusLayout);
+                    LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
+                    shuttleBusParams.topMargin = 0;
+                    shuttleBusLayout.setLayoutParams(shuttleBusParams);
 
                     TransitionManager.beginDelayedTransition(cityBusLayout);
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
@@ -179,18 +179,13 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
                     layoutParams.bottomMargin = cityBusBottomMargin;
                     cityBusLayout.setLayoutParams(layoutParams);
 
-                    ViewGroup.LayoutParams layoutParams1 = recyclerView.getLayoutParams();
-                    layoutParams1.height = 0;
-                    recyclerView.setLayoutParams(layoutParams1);
-                    adapter.clear();
-
-                    TransitionManager.beginDelayedTransition(shuttleBusLayout);
-                    LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
-                    shuttleBusParams.topMargin = 0;
-                    shuttleBusLayout.setLayoutParams(shuttleBusParams);
-
-
                 });
+
+                //야매로 했어요..   recyclerView가 없어지는 모션때문에 cityBusLayout이 늦게 반응해서 클릭할때 애초에 GONE시켰다가
+                // 끝나고 0.5초후에 다시 VISIBLE했습니다. 클릭했을때 VISIBLE을 실행하면 recyclerView가 만들어지는 부분에서 또
+                // 딜레이가 생겨서 미리 VISIBLE했습니다.
+                Handler handler = new Handler();
+                handler.postDelayed(() -> recyclerView.setVisibility(View.VISIBLE), 500);
             }
         });
 
@@ -207,24 +202,19 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
 
     private void initCityBusRecycler() {
         recyclerView = findViewById(R.id.recycler_soon_bus);
+        recyclerView.setItemAnimator(null);
 
         adapter = new StickyRecyclerAdapter(new ArrayList<>());
         StickyLayoutManager manager = new StickyLayoutManager(this, adapter);
 
-        manager.elevateHeaders(true);
-        manager.setStickyHeaderListener(new StickyHeaderListener() {
-            @Override
-            public void headerAttached(View headerView, int adapterPosition) {
-                Log.e("Listener", "Attached with position: " + adapterPosition);
-            }
-
-            @Override
-            public void headerDetached(View headerView, int adapterPosition) {
-                Log.e("Listener", "Detached with position: " + adapterPosition);
-            }
-        });
+        manager.elevateHeaders(false);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            recyclerView.setClipToOutline(true);
+        }
     }
 
     private void executeTask() {
@@ -234,10 +224,9 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
 
     @Override
     public void setTaskResult(List<DepartureBusVO> result) {
-        if (result == null || result.size() == 0){
-            Log.e(this.toString(), "결과가 없어.. " );
-        }
-        else {
+        if (result == null || result.size() == 0) {
+            Log.e(this.toString(), "결과가 없어.. ");
+        } else {
             ArrayList<DepartureBusVO> arrayList = new ArrayList<>(result);
             ArrayList<DepartureBusVO> oftenBus = new ArrayList<>();
             ArrayList<DepartureBusVO> normalBus = new ArrayList<>();
@@ -264,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
                 items.add(new ChildItem(vo));
             }
 
-            ((CommonData)getApplication()).setTestData(items);
+            adapter.setData(items);
         }
     }
 }
