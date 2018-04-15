@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
         recyclerView = findViewById(R.id.recycler_soon_bus);
         recyclerView.setItemAnimator(null);
 
-        adapter = new StickyRecyclerAdapter(new ArrayList<>());
+        adapter = new StickyRecyclerAdapter(this, new ArrayList<>());
         StickyLayoutManager manager = new StickyLayoutManager(this, adapter);
 
         manager.elevateHeaders(false);

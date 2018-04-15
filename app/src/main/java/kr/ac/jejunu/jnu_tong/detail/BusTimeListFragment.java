@@ -28,10 +28,12 @@ import kr.ac.jejunu.jnu_tong.task.TaskResult;
 public class BusTimeListFragment extends Fragment implements TaskResult<BusTimeVO>{
     private BusTimeRecyclerAdapter adapter;
     private String busID;
+    private String busType;
 
-    public static BusTimeListFragment newInstance(String busID) {
+    public static BusTimeListFragment newInstance(String busID, String busType) {
         Bundle args = new Bundle();
         args.putString("busID", busID);
+        args.putString("busType", busType);
 
         BusTimeListFragment fragment = new BusTimeListFragment();
         fragment.setArguments(args);
@@ -45,6 +47,7 @@ public class BusTimeListFragment extends Fragment implements TaskResult<BusTimeV
         View view = inflater.inflate( R.layout.fragment_bus_list, container, false);
 
         busID = getArguments().getString("busID");
+        busType = getArguments().getString("busType");
 
         return view;
     }
@@ -53,13 +56,30 @@ public class BusTimeListFragment extends Fragment implements TaskResult<BusTimeV
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initRecyclerView(view);
+        executeTask();
+    }
+
+    private void initRecyclerView(View view){
         RecyclerView busRecyclerView = view.findViewById(R.id.recycler_view_bus);
+
+        switch (busType) {
+            case "green":
+                busRecyclerView.setBackgroundColor(getResources().getColor(R.color.clear_emerald));
+                break;
+            case "yellow":
+                busRecyclerView.setBackgroundColor(getResources().getColor(R.color.clear_yellow));
+                break;
+            default:
+                busRecyclerView.setBackgroundColor(getResources().getColor(R.color.clear_sky));
+                break;
+        }
+
         adapter = new BusTimeRecyclerAdapter( new ArrayList<>());
 
         busRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         busRecyclerView.setAdapter(adapter);
 
-        executeTask();
     }
 
     private void executeTask(){

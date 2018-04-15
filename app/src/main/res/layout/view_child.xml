@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
         android:layout_centerVertical="true"
-        android:background="@drawable/main_round_shape"
+        android:background="@drawable/round_shape_sky"
         android:text="360번"
         android:textAlignment="center"
         android:textColor="@color/white"

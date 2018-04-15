@@ -46,11 +46,12 @@ public class BusStopRecyclerAdapter extends RecyclerView.Adapter<BusStopRecycler
     }
 
     class BusViewHolder extends RecyclerView.ViewHolder {
+        View itemView;
         TextView busStopName;
 
         BusViewHolder(View itemView) {
             super(itemView);
-
+            this.itemView = itemView;
             busStopName = itemView.findViewById(R.id.bus_stop_name);
         }
     }

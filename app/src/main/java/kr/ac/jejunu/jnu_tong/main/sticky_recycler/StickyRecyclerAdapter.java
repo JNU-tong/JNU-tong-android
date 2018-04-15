@@ -1,5 +1,8 @@
 package kr.ac.jejunu.jnu_tong.main.sticky_recycler;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +18,9 @@ import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.detail.DetailActivity;
 
 /**
  * Created by seung-yeol on 2018. 4. 11..
@@ -23,8 +28,10 @@ import kr.ac.jejunu.jnu_tong.R;
 
 public class StickyRecyclerAdapter extends RecyclerView.Adapter implements StickyHeaderHandler {
     private List<Item> data;
+    private Context context;
 
-    public StickyRecyclerAdapter(List<Item> items) {
+    public StickyRecyclerAdapter(Context context, List<Item> items) {
+        this.context = context;
         data = new ArrayList<>(items);
     }
 
@@ -39,12 +46,6 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
     public List<Item> getAdapterData() {
         return data;
     }
-
-    public void clear(){
-        data.clear();
-        notifyDataSetChanged();
-    }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -66,9 +67,30 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
             ((MyHeaderHolder) holder).headerText.setText(headerItem.getHeaderTitle());
         } else {
             ChildItem childItem = ((ChildItem) item);
+            if (childItem.getBusNum().length() == 5){
+                ((MyChildViewHolder) holder).busNumText.setBackground(context.getResources().getDrawable(R.drawable.round_shape_yellow));
+                ((MyChildViewHolder) holder).itemView.setTag("yellow");
+            }
+            else if (childItem.getBusNum().charAt(0) == '4'){
+                ((MyChildViewHolder) holder).busNumText.setBackground(context.getResources().getDrawable(R.drawable.round_shape_green));
+                ((MyChildViewHolder) holder).itemView.setTag("green");
+            }
+            else if (childItem.getBusNum().charAt(0) == '3'){
+                ((MyChildViewHolder) holder).busNumText.setBackground(context.getResources().getDrawable(R.drawable.round_shape_sky));
+                ((MyChildViewHolder) holder).itemView.setTag("sky");
+            }
+
             ((MyChildViewHolder) holder).busNumText.setText(childItem.getBusNum());
             ((MyChildViewHolder) holder).descriptionText.setText(childItem.getBusDescription());
             ((MyChildViewHolder) holder).remainText.setText(childItem.getRemainTime());
+            ((MyChildViewHolder) holder).itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("busType", (String)view.getTag());
+                intent.putExtra("busID", childItem.getBusID());
+                intent.putExtra("busNo", childItem.getBusNum());
+                intent.putExtra("busDescription", childItem.getBusDescription());
+                context.startActivity(intent);
+            });
         }
 
     }
@@ -96,6 +118,7 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
     }
 
     private class MyChildViewHolder extends RecyclerView.ViewHolder {
+        View itemView;
         TextView busNumText;
         TextView descriptionText;
         TextView remainText;
@@ -103,6 +126,8 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
 
         MyChildViewHolder(View itemView) {
             super(itemView);
+
+            this.itemView = itemView;
             busNumText = itemView.findViewById(R.id.text_bus_num);
             descriptionText = itemView.findViewById(R.id.text_description);
             remainText = itemView.findViewById(R.id.text_remain);

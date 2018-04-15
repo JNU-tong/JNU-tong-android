@@ -17,9 +17,13 @@
 
     <color name="transparent">#00ffffff</color>
     <color name="sky">#31B7E3</color>
-    <color name="light_sky">#1831b7e3</color>
+    <color name="clear_sky">#1831b7e3</color>
 
     <color name="light_yellow">#F8CA72</color>
+    <color name="clear_yellow">#18F8CA72</color>
     <color name="more_light_yellow">#f9ebd1</color>
+    
+    <color name="emerald">#70C7AE</color>
+    <color name="clear_emerald">#1870C7AE</color>
 
 </resources>

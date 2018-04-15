@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +28,13 @@ public class BusStopListFragment extends Fragment implements TaskResult<BusStopV
     private ArrayList<BusStopVO> busStopVOS;
     private BusStopRecyclerAdapter adapter;
     private String busID;
+    private String busType;
 
-    public static BusStopListFragment newInstance(String busID) {
+    public static BusStopListFragment newInstance(String busID, String busType) {
         Bundle args = new Bundle();
 
         args.putString("busID", busID);
+        args.putString("busType", busType);
 
         BusStopListFragment fragment = new BusStopListFragment();
         fragment.setArguments(args);
@@ -45,8 +48,7 @@ public class BusStopListFragment extends Fragment implements TaskResult<BusStopV
         busStopVOS = new ArrayList<>();
 
         busID = getArguments().getString("busID");
-
-        executeTask();
+        busType = getArguments().getString("busType");
 
         return view;
     }
@@ -55,7 +57,25 @@ public class BusStopListFragment extends Fragment implements TaskResult<BusStopV
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initRecyclerView(view);
+        executeTask();
+    }
+
+    private void initRecyclerView(View view){
         RecyclerView busRecyclerView = view.findViewById(R.id.recycler_view_bus);
+
+        switch (busType) {
+            case "green":
+                busRecyclerView.setBackgroundColor(getResources().getColor(R.color.clear_emerald));
+                break;
+            case "yellow":
+                busRecyclerView.setBackgroundColor(getResources().getColor(R.color.clear_yellow));
+                break;
+            default:
+                busRecyclerView.setBackgroundColor(getResources().getColor(R.color.clear_sky));
+                break;
+        }
+
         adapter = new BusStopRecyclerAdapter( new ArrayList<>());
 
         busRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -73,6 +93,5 @@ public class BusStopListFragment extends Fragment implements TaskResult<BusStopV
             busStopVOS.addAll(result);
             adapter.add(busStopVOS);
         }
-
     }
 }

@@ -22,8 +22,6 @@ public class CommonData extends Application {
     private SharedPreferences pref;
     private HashSet<String > oftenBusSet;
 
-    private ArrayList<Item> testData;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -77,9 +75,5 @@ public class CommonData extends Application {
 
     public HashSet<String> getOftenBusSet(){
         return oftenBusSet;
-    }
-
-    public ArrayList<Item> getTestData() {
-        return testData;
     }
 }

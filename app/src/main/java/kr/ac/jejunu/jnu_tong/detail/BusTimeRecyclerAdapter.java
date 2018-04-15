@@ -19,7 +19,7 @@ import kr.ac.jejunu.jnu_tong.main.BusTimeVO;
 public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecyclerAdapter.BusTimeViewHolder>{
     private ArrayList<BusTimeVO> provider;
 
-    public BusTimeRecyclerAdapter(List<BusTimeVO> provider) {
+    BusTimeRecyclerAdapter(List<BusTimeVO> provider) {
         this.provider = new ArrayList<>(provider);
     }
 
@@ -32,7 +32,11 @@ public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecycler
 
     @Override
     public void onBindViewHolder(BusTimeViewHolder holder, int position) {
-        
+        BusTimeVO vo = provider.get(position);
+
+        holder.departureTime.setText(vo.getDepartureTime());
+        holder.countTime.setText(vo.getRemainTime());
+
     }
 
     public void add(List<BusTimeVO> addData){

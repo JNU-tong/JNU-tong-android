@@ -11,9 +11,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import kr.ac.jejunu.jnu_tong.R;
@@ -26,11 +28,24 @@ public class DetailActivity extends AppCompatActivity {
     private BusStopListFragment busStopListFragment;
     private BusTimeListFragment busTimeListFragment;
     private ViewPager viewPager;
+    private int leftTabId;
+    private int rightTabId;
+    private String busID;
+    private String busDescription;
+    private String busNo;
+    private String busType;
+    private TextView leftTab;
+    private TextView rightTab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        busType = getIntent().getStringExtra("busType");
+        busID = getIntent().getStringExtra("busID");
+        busNo = getIntent().getStringExtra("busNo");
+        busDescription = getIntent().getStringExtra("busDescription");
 
         initView();
         initViewPager();
@@ -53,20 +68,52 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        ImageView imageView = findViewById(R.id.image_bus);
-        imageView.setBackground(new ShapeDrawable(new OvalShape()));
+        View topBar = findViewById(R.id.top_bar);
+        LinearLayout busBack = findViewById(R.id.bus_back);
+        ImageView busImage = findViewById(R.id.image_bus);
+        TextView busNoView = findViewById(R.id.text_bus_no);
+        TextView busDescriptionView = findViewById(R.id.text_bus_description);
+        leftTab = findViewById(R.id.left_pager);
+        rightTab = findViewById(R.id.right_pager);
 
+        busNoView.setText(busNo);
+        busDescriptionView.setText(busDescription);
+
+        switch (busType){
+            case "sky" :
+                busBack.setBackground(getResources().getDrawable(R.drawable.circle_sky));
+                busImage.setImageResource(R.drawable.bus_blue);
+                leftTabId = R.drawable.trapeze_shape_right_sky;
+                rightTabId = R.drawable.trapeze_shape_left_sky;
+                break;
+            case "green" :
+                topBar.setBackgroundColor(getResources().getColor(R.color.emerald));
+                busNoView.setTextColor(getResources().getColor(R.color.emerald));
+                busBack.setBackground(getResources().getDrawable(R.drawable.circle_green));
+                busImage.setImageResource(R.drawable.bus_green);
+                leftTabId = R.drawable.trapeze_shape_right_green;
+                rightTabId = R.drawable.trapeze_shape_left_green;
+                break;
+            case "yellow" :
+                topBar.setBackgroundColor(getResources().getColor(R.color.light_yellow));
+                busNoView.setTextColor(getResources().getColor(R.color.light_yellow));
+                busBack.setBackground(getResources().getDrawable(R.drawable.circle_yellow));
+                busImage.setImageResource(R.drawable.bus_yellow);
+                leftTabId = R.drawable.trapeze_shape_right_yellow;
+                rightTabId = R.drawable.trapeze_shape_left_yellow;
+                break;
+        }
+        leftTab.setBackground(getResources().getDrawable(leftTabId));
+
+        busImage.setBackground(new ShapeDrawable(new OvalShape()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            imageView.setClipToOutline(true);
+            busImage.setClipToOutline(true);
         }
     }
 
     private void initViewPager(){
-        TextView left = findViewById(R.id.left_pager);
-        TextView right = findViewById(R.id.right_pager);
-
-        busStopListFragment = BusStopListFragment.newInstance("JEB405136004");
-        busTimeListFragment = BusTimeListFragment.newInstance("JEB405136004");
+        busStopListFragment = BusStopListFragment.newInstance(busID, busType);
+        busTimeListFragment = BusTimeListFragment.newInstance(busID, busType);
 
         viewPager = findViewById(R.id.time_line_pager);
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
@@ -78,12 +125,12 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (position == 0){
-                    left.setBackground(getResources().getDrawable(R.drawable.trapeze_shape_right_sky));
-                    right.setBackground(null);
+                    leftTab.setBackground(getResources().getDrawable(leftTabId));
+                    rightTab.setBackground(null);
                 }
                 else {
-                    right.setBackground(getResources().getDrawable(R.drawable.trapeze_shape_left_sky));
-                    left.setBackground(null);
+                    rightTab.setBackground(getResources().getDrawable(rightTabId));
+                    leftTab.setBackground(null);
                 }
 
             }
@@ -92,8 +139,8 @@ public class DetailActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {}
         });
 
-        left.setOnClickListener(view -> viewPager.setCurrentItem(0));
-        right.setOnClickListener(view -> viewPager.setCurrentItem(1));
+        leftTab.setOnClickListener(view -> viewPager.setCurrentItem(0));
+        rightTab.setOnClickListener(view -> viewPager.setCurrentItem(1));
     }
 
     class MyViewPagerAdapter extends FragmentPagerAdapter{

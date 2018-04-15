@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <View
+        android:id="@+id/top_bar"
         android:layout_width="50dp"
         android:layout_height="7dp"
         android:layout_gravity="center_horizontal"
         android:background="@color/sky" />
 
     <TextView
+        android:id="@+id/text_bus_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -23,86 +24,68 @@
         android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/bus_back"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:background="@drawable/circle"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal">
+        android:background="@drawable/circle_sky"
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/image_bus"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_margin="5dp"
-            android:src="@drawable/bus_blue"/>
+            android:src="@drawable/bus_blue" />
     </LinearLayout>
 
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/text_bus_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="18dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="4"
-            android:gravity="end|center_vertical"
-            android:textSize="10sp" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="제주대-서사라-제주고"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:layout_gravity="center_horizontal"
-            android:gravity="start|center_vertical"
-            android:textSize="10sp" />
-
-    </LinearLayout>
-
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="18dp"
+        android:gravity="center"
+        android:text="제주대-서사라-제주고"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@color/navy">
+
         <TextView
             android:id="@+id/left_pager"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_weight="1"
             android:background="@drawable/trapeze_shape_right_sky"
+            android:gravity="center"
             android:text="시간표"
-            android:textStyle="bold"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/right_pager"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingStart="16dp"
             android:gravity="center"
+            android:paddingStart="16dp"
             android:text="노선"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/time_line_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>
