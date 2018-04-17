@@ -3,29 +3,22 @@ package kr.ac.jejunu.jnu_tong.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.List;
-
-import kr.ac.jejunu.jnu_tong.main.BusStopVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 9..
  */
 
 public abstract class BaseTask<E> extends AsyncTask<String, Void, List<E>> {
-    private TaskResult<E> taskResult;
+    private OnTaskResultListner<E> onTaskResultListner;
 
-    BaseTask(TaskResult taskResult){
-        this.taskResult = taskResult;
+    BaseTask(OnTaskResultListner onTaskResultListner){
+        this.onTaskResultListner = onTaskResultListner;
     }
 
     @Override
@@ -77,6 +70,6 @@ public abstract class BaseTask<E> extends AsyncTask<String, Void, List<E>> {
 
     @Override
     protected void onPostExecute(List<E> resultList) {
-        taskResult.setTaskResult(resultList);
+        onTaskResultListner.onTaskResult(resultList);
     }
 }

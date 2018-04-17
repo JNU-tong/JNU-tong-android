@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
-import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.main.BusTimeVO;
 
 /**
@@ -14,8 +13,8 @@ import kr.ac.jejunu.jnu_tong.main.BusTimeVO;
  */
 
 public class GetBusTimeTask extends BaseTask<BusTimeVO> {
-    public GetBusTimeTask(TaskResult taskResult) {
-        super(taskResult);
+    public GetBusTimeTask(OnTaskResultListner onTaskResultListner) {
+        super(onTaskResultListner);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail;
+package kr.ac.jejunu.jnu_tong.detail.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,10 +16,11 @@ import kr.ac.jejunu.jnu_tong.main.BusStopVO;
  * Created by seung-yeol on 2018. 4. 6..
  */
 
-public class BusStopRecyclerAdapter extends RecyclerView.Adapter<BusStopRecyclerAdapter.BusViewHolder> {
+public class BusStopRecyclerAdapter extends RecyclerView.Adapter<BusStopRecyclerAdapter.BusViewHolder>
+        implements AdapterContract.View<BusStopVO>{
     private LinkedList<BusStopVO> busStopVOS;
 
-    BusStopRecyclerAdapter(List<BusStopVO> busStopVOS) {
+    public BusStopRecyclerAdapter(List<BusStopVO> busStopVOS) {
         this.busStopVOS = new LinkedList<>(busStopVOS);
     }
 
@@ -40,8 +41,9 @@ public class BusStopRecyclerAdapter extends RecyclerView.Adapter<BusStopRecycler
         return busStopVOS.size();
     }
 
-    public void add(List<BusStopVO> data){
-        busStopVOS.addAll(data);
+    @Override
+    public void addDatas(List<BusStopVO> datas) {
+        busStopVOS.addAll(datas);
         notifyDataSetChanged();
     }
 

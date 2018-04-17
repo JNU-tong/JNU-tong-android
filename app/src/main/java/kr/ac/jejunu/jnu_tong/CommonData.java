@@ -42,21 +42,6 @@ public class CommonData extends Application {
         return baseURL + "getBusStationListByLineId/" + busID;
     }
 
-    public ArrayList<BusTimeVO> getRemainBusTime(List<BusTimeVO> vos){
-        ArrayList<BusTimeVO> busTimeVOArrayList = new ArrayList<>();
-
-        if (vos != null){
-            for (BusTimeVO vo :
-                    vos) {
-                if (vo.getRemainTime() >= 0) {
-                    busTimeVOArrayList.add(vo);
-                }
-            }
-        }
-
-        return busTimeVOArrayList;
-    }
-
     public void addOftenBus(String busID){
         oftenBusSet.add(busID);
 

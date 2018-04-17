@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,23 +18,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.detail.adapter.BusStopRecyclerAdapter;
+import kr.ac.jejunu.jnu_tong.detail.fragment.BusStopRecyclerFragment;
+import kr.ac.jejunu.jnu_tong.detail.fragment.BusTimeRecyclerFragment;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..
  */
 
 public class DetailActivity extends AppCompatActivity {
-    private BusStopListFragment busStopListFragment;
-    private BusTimeListFragment busTimeListFragment;
+    private BusStopRecyclerFragment busStopListFragment;
+    private BusTimeRecyclerFragment busTimeListFragment;
     private ViewPager viewPager;
-    private int leftTabId;
-    private int rightTabId;
+
+    private TextView leftTab;
+    private TextView rightTab;
     private String busID;
     private String busDescription;
     private String busNo;
     private String busType;
-    private TextView leftTab;
-    private TextView rightTab;
+    private int leftTabId;
+    private int rightTabId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,8 +115,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initViewPager(){
-        busStopListFragment = BusStopListFragment.newInstance(busID, busType);
-        busTimeListFragment = BusTimeListFragment.newInstance(busID, busType);
+        busStopListFragment = BusStopRecyclerFragment.newInstance(busID, busType);
+        busTimeListFragment = BusTimeRecyclerFragment.newInstance(busID, busType);
 
         viewPager = findViewById(R.id.time_line_pager);
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));

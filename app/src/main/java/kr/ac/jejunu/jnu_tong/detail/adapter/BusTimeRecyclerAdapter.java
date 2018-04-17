@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail;
+package kr.ac.jejunu.jnu_tong.detail.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,10 +16,11 @@ import kr.ac.jejunu.jnu_tong.main.BusTimeVO;
  * Created by seung-yeol on 2018. 4. 10.
  */
 
-public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecyclerAdapter.BusTimeViewHolder>{
+public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecyclerAdapter.BusTimeViewHolder>
+        implements AdapterContract.View<BusTimeVO>{
     private ArrayList<BusTimeVO> provider;
 
-    BusTimeRecyclerAdapter(List<BusTimeVO> provider) {
+    public BusTimeRecyclerAdapter(List<BusTimeVO> provider) {
         this.provider = new ArrayList<>(provider);
     }
 
@@ -35,18 +36,18 @@ public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecycler
         BusTimeVO vo = provider.get(position);
 
         holder.departureTime.setText(vo.getDepartureTime());
-        holder.countTime.setText(vo.getRemainTime());
-
-    }
-
-    public void add(List<BusTimeVO> addData){
-        provider.addAll(addData);
-        notifyDataSetChanged();
+        holder.countTime.setText(vo.getRemainTime()+"분");
     }
 
     @Override
     public int getItemCount() {
         return provider.size();
+    }
+
+    @Override
+    public void addDatas(List<BusTimeVO> datas) {
+        provider.addAll(datas);
+        notifyDataSetChanged();
     }
 
     class BusTimeViewHolder extends RecyclerView.ViewHolder {

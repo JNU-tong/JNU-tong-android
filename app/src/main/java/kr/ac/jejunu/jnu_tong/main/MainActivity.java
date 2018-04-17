@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.brandongogetap.stickyheaders.StickyLayoutManager;
-import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,9 +36,9 @@ import kr.ac.jejunu.jnu_tong.main.sticky_recycler.HeaderItem;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
 import kr.ac.jejunu.jnu_tong.task.GetDepartureBusTask;
-import kr.ac.jejunu.jnu_tong.task.TaskResult;
+import kr.ac.jejunu.jnu_tong.task.OnTaskResultListner;
 
-public class MainActivity extends AppCompatActivity implements TaskResult<DepartureBusVO> {
+public class MainActivity extends AppCompatActivity implements OnTaskResultListner<DepartureBusVO> {
     private RelativeLayout top;
     private LinearLayout busComeInLayout;
     private LinearLayout cityBusLayout;
@@ -59,13 +58,14 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        executeTask();
+
 
         initTopImage();
         initCityBusRecycler();
         initCityBusLayout();
         initShuttleBusLayout();
 
+//        executeTask();
         departureBusSampleRead();
     }
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
                     departureBusVOS.add(vo);
                 }
 
-                setTaskResult(departureBusVOS);
+                onTaskResult(departureBusVOS);
 
             } catch (JSONException e) {
                 Log.e(this.toString(), "JSON 익셉션! : " + e.getMessage());
@@ -194,10 +194,6 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
 
     private void initShuttleBusLayout() {
         shuttleBusLayout = findViewById(R.id.shuttle_bus);
-        /*shuttleBusLayout.setOnClickListener(view -> {
-           Intent intent = new Intent(this, TestActivity.class);
-           startActivity(intent);
-        });*/
     }
 
     private void initCityBusRecycler() {
@@ -223,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements TaskResult<Depart
     }
 
     @Override
-    public void setTaskResult(List<DepartureBusVO> result) {
+    public void onTaskResult(List<DepartureBusVO> result) {
         if (result == null || result.size() == 0) {
             Log.e(this.toString(), "결과가 없어.. ");
         } else {

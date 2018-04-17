@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.main.BusStopVO;
 
 /**
@@ -17,8 +16,8 @@ import kr.ac.jejunu.jnu_tong.main.BusStopVO;
 
 public class GetBusStopTask extends BaseTask<BusStopVO> {
 
-    public GetBusStopTask(TaskResult taskResult){
-        super(taskResult);
+    public GetBusStopTask(OnTaskResultListner onTaskResultListner){
+        super(onTaskResultListner);
     }
 
     @Override

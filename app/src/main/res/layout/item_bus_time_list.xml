@@ -34,7 +34,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/line"
             android:gravity="center_vertical"
             android:text="5분전"
             android:textColor="@color/red"
