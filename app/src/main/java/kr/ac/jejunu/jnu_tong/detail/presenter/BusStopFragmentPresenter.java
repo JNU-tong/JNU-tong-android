@@ -6,7 +6,7 @@ import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.detail.adapter.AdapterContract;
-import kr.ac.jejunu.jnu_tong.main.BusStopVO;
+import kr.ac.jejunu.jnu_tong.VO.BusStopVO;
 import kr.ac.jejunu.jnu_tong.task.GetBusStopTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListner;
 
@@ -31,7 +31,7 @@ public class BusStopFragmentPresenter implements FragmentPresenter, OnTaskResult
     @Override
     public void onTaskResult(List<BusStopVO> result) {
         if (result != null){
-            view.addDatas(result);
+            view.addItems(result);
         }
     }
 

@@ -2,11 +2,10 @@ package kr.ac.jejunu.jnu_tong.main.sticky_recycler;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,35 +15,40 @@ import android.widget.TextView;
 import com.brandongogetap.stickyheaders.exposed.StickyHeaderHandler;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.VO.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.detail.DetailActivity;
+import kr.ac.jejunu.jnu_tong.main.MainAdapterContract;
 
 /**
  * Created by seung-yeol on 2018. 4. 11..
  */
 
-public class StickyRecyclerAdapter extends RecyclerView.Adapter implements StickyHeaderHandler {
-    private List<Item> data;
+public class StickyRecyclerAdapter extends RecyclerView.Adapter
+        implements StickyHeaderHandler, MainAdapterContract.View<Item>, MainAdapterContract.Model {
+    private List<Item> items;
     private Context context;
+    private CommonData commonData;
+//    private ArrayList<DepartureBusVO> oftenBus;
+//    private ArrayList<DepartureBusVO> normalBus;
+    private OnDetailClickListener onDetailClickListener;
+    private OnHeartClickListener onHeartClickListener;
+    private ArrayList<DepartureBusVO> oftenBus;
+    private ArrayList<DepartureBusVO> normalBus;
 
     public StickyRecyclerAdapter(Context context, List<Item> items) {
         this.context = context;
-        data = new ArrayList<>(items);
-    }
-
-    public void setData(List<Item> items) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SimpleDiffCallback(data, items));
-        data.clear();
-        data.addAll(items);
-        diffResult.dispatchUpdatesTo(this);
+        this.commonData = (CommonData)((AppCompatActivity)context).getApplication();
+        this.items = new ArrayList<>(items);
     }
 
     @Override
     public List<Item> getAdapterData() {
-        return data;
+        return items;
     }
 
     @Override
@@ -60,52 +64,127 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter implements Stick
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Item item = data.get(position);
+        Item item = items.get(position);
 
         if (item instanceof HeaderItem) {
             HeaderItem headerItem = ((HeaderItem) item);
             ((MyHeaderHolder) holder).headerText.setText(headerItem.getHeaderTitle());
         } else {
             ChildItem childItem = ((ChildItem) item);
-            if (childItem.getBusNum().length() == 5){
-                ((MyChildViewHolder) holder).busNumText.setBackground(context.getResources().getDrawable(R.drawable.round_shape_yellow));
-                ((MyChildViewHolder) holder).itemView.setTag("yellow");
-            }
-            else if (childItem.getBusNum().charAt(0) == '4'){
-                ((MyChildViewHolder) holder).busNumText.setBackground(context.getResources().getDrawable(R.drawable.round_shape_green));
-                ((MyChildViewHolder) holder).itemView.setTag("green");
-            }
-            else if (childItem.getBusNum().charAt(0) == '3'){
-                ((MyChildViewHolder) holder).busNumText.setBackground(context.getResources().getDrawable(R.drawable.round_shape_sky));
-                ((MyChildViewHolder) holder).itemView.setTag("sky");
-            }
 
+            ((MyChildViewHolder) holder).busNumText.setBackground(context.getResources().getDrawable(childItem.getBackGroundId()));
             ((MyChildViewHolder) holder).busNumText.setText(childItem.getBusNum());
             ((MyChildViewHolder) holder).descriptionText.setText(childItem.getBusDescription());
             ((MyChildViewHolder) holder).remainText.setText(childItem.getRemainTime());
-            ((MyChildViewHolder) holder).itemView.setOnClickListener(view -> {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("busType", (String)view.getTag());
-                intent.putExtra("busID", childItem.getBusID());
-                intent.putExtra("busNo", childItem.getBusNum());
-                intent.putExtra("busDescription", childItem.getBusDescription());
-                context.startActivity(intent);
-            });
+            ((MyChildViewHolder) holder).heartImage.setBackground(context.getResources().getDrawable(childItem.getHeartImageId()));
+            ((MyChildViewHolder) holder).itemView.setOnClickListener(view -> onDetailClickListener.onDetailClick(position));
+            ((MyChildViewHolder) holder).heartImage.setOnClickListener(view -> onHeartClickListener.onHeartClick(position));
         }
-
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return items.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (data.get(position) instanceof HeaderItem)
+        if (items.get(position) instanceof HeaderItem)
             return 1;
         else
             return 2;
+    }
+
+    @Override
+    public void setItems(List<Item> items) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SimpleDiffCallback(this.items, items));
+        this.items.clear();
+        this.items.addAll(items);
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    @Override
+    public List<Item> taskResultItems(List<DepartureBusVO> result) {
+        ArrayList<DepartureBusVO> arrayList = new ArrayList<>(result);
+        oftenBus = new ArrayList<>();
+        normalBus = new ArrayList<>();
+
+        for (DepartureBusVO vo :
+                arrayList) {
+            if ( commonData.hasOftenBus(vo.getLineID()) ) {
+                oftenBus.add(vo);
+            } else {
+                normalBus.add(vo);
+            }
+        }
+
+        return sortItems();
+    }
+
+    @Override
+    public void goDetailActivity(int position) {
+        ChildItem childItem = (ChildItem) items.get(position);
+
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra("busType", childItem.getBusType());
+        intent.putExtra("busID", childItem.getBusID());
+        intent.putExtra("busNo", childItem.getBusNum());
+        intent.putExtra("busDescription", childItem.getBusDescription());
+        context.startActivity(intent);
+    }
+
+    @Override
+    public void heartClick(int position) {
+        ChildItem childItem = (ChildItem) items.get(position);
+
+        if (commonData.hasOftenBus(childItem.getBusID())){
+            commonData.deleteOftenBus(childItem.getBusID());
+
+            DepartureBusVO vo = oftenBus.remove(position-1);
+            normalBus.add(vo);
+        }
+        else {
+            commonData.addOftenBus(childItem.getBusID());
+
+            DepartureBusVO vo = normalBus.remove(position - oftenBus.size() - 2);
+            oftenBus.add(vo);
+        }
+
+        ArrayList<Item> listItems = sortItems();
+
+        setItems(listItems);
+    }
+
+    @NonNull
+    private ArrayList<Item> sortItems() {
+        Collections.sort(oftenBus);
+        Collections.sort(normalBus);
+
+        ArrayList<Item> listItems = new ArrayList<>();
+        listItems.add(new HeaderItem("자주타는버스"));
+        for (DepartureBusVO vo :
+                oftenBus) {
+            ChildItem childItem = new ChildItem(vo);
+            childItem.setHeartImageId(R.mipmap.ic_heart_on);
+            listItems.add(childItem);
+        }
+
+        listItems.add(new HeaderItem("도착예정버스"));
+        for (DepartureBusVO vo :
+                normalBus) {
+            ChildItem childItem = new ChildItem(vo);
+            childItem.setHeartImageId(R.mipmap.ic_heart_off);
+            listItems.add(childItem);
+        }
+        return listItems;
+    }
+
+    public void setDetailClickListener(OnDetailClickListener onDetailClickListener) {
+        this.onDetailClickListener = onDetailClickListener;
+    }
+
+    public void setOnHeartClickListener(OnHeartClickListener onHeartClickListener) {
+        this.onHeartClickListener = onHeartClickListener;
     }
 
     private class MyHeaderHolder extends RecyclerView.ViewHolder {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.main.BusTimeVO;
+import kr.ac.jejunu.jnu_tong.VO.BusTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 10.
@@ -45,7 +45,7 @@ public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecycler
     }
 
     @Override
-    public void addDatas(List<BusTimeVO> datas) {
+    public void addItems(List<BusTimeVO> datas) {
         provider.addAll(datas);
         notifyDataSetChanged();
     }

@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.main.BusStopVO;
+import kr.ac.jejunu.jnu_tong.VO.BusStopVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..
@@ -42,7 +42,7 @@ public class BusStopRecyclerAdapter extends RecyclerView.Adapter<BusStopRecycler
     }
 
     @Override
-    public void addDatas(List<BusStopVO> datas) {
+    public void addItems(List<BusStopVO> datas) {
         busStopVOS.addAll(datas);
         notifyDataSetChanged();
     }

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.main;
+package kr.ac.jejunu.jnu_tong.VO;
 
 /**
  * Created by seung-yeol on 2018. 4. 10..

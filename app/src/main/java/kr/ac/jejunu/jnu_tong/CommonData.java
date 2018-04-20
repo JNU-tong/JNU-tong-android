@@ -4,13 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-
-import kr.ac.jejunu.jnu_tong.main.BusTimeVO;
-import kr.ac.jejunu.jnu_tong.main.DepartureBusVO;
-import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
 
 /**
  * Created by seung-yeol on 2018. 4. 9..
@@ -18,7 +12,6 @@ import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
 
 public class CommonData extends Application {
     private final static String baseURL = "http://218.50.253.120:8080/";
-//    private SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
     private SharedPreferences pref;
     private HashSet<String > oftenBusSet;
 

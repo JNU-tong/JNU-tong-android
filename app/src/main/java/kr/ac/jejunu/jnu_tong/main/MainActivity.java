@@ -1,15 +1,12 @@
 package kr.ac.jejunu.jnu_tong.main;
 
-import android.content.res.AssetManager;
-import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -19,26 +16,12 @@ import android.widget.RelativeLayout;
 
 import com.brandongogetap.stickyheaders.StickyLayoutManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.main.sticky_recycler.ChildItem;
-import kr.ac.jejunu.jnu_tong.main.sticky_recycler.HeaderItem;
-import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
-import kr.ac.jejunu.jnu_tong.task.GetDepartureBusTask;
-import kr.ac.jejunu.jnu_tong.task.OnTaskResultListner;
 
-public class MainActivity extends AppCompatActivity implements OnTaskResultListner<DepartureBusVO> {
+public class MainActivity extends AppCompatActivity {
     private RelativeLayout top;
     private LinearLayout busComeInLayout;
     private LinearLayout cityBusLayout;
@@ -49,73 +32,27 @@ public class MainActivity extends AppCompatActivity implements OnTaskResultListn
     private int cityBusBottomMargin;
 
     private boolean expanded = false;
-    private ArrayList<Item> items;
+
     private StickyRecyclerAdapter adapter;
     private RecyclerView recyclerView;
+
+    private Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         initTopImage();
         initCityBusRecycler();
         initCityBusLayout();
         initShuttleBusLayout();
 
-//        executeTask();
-        departureBusSampleRead();
-    }
+        presenter = new Presenter(this);
 
-    private void departureBusSampleRead() {
-        AssetManager assetManager = getAssets();
-        try {
-            InputStream is = assetManager.open("departureBusSample.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-
-            String json = new String(buffer);
-
-            LinkedList<DepartureBusVO> departureBusVOS = new LinkedList<>();
-
-            try {
-                JSONObject responseObject = new JSONObject(json);
-                Iterator iterator = responseObject.keys();
-
-                LinkedList<String> keys = new LinkedList<>();
-                for (Iterator it = iterator; it.hasNext(); ) {
-                    keys.add((String) it.next());
-                }
-
-                for (String key :
-                        keys) {
-                    JSONObject jsonObject = responseObject.getJSONObject(key);
-                    JSONObject cityBusLineInfo = jsonObject.getJSONObject("cityBusLineInfo");
-                    JSONObject remainTime = jsonObject.getJSONObject("remainTime");
-
-                    DepartureBusVO vo = new DepartureBusVO();
-                    vo.setLineID(cityBusLineInfo.getString("lineId"));
-                    vo.setLineNo(cityBusLineInfo.getString("lineNo"));
-                    vo.setDetailLineNo(cityBusLineInfo.getString("detailLineNo"));
-                    vo.setDescription(cityBusLineInfo.getString("description"));
-                    vo.setFirst(remainTime.isNull("first") ? -1 : remainTime.getInt("first"));
-                    vo.setSecond(remainTime.isNull("second") ? -1 : remainTime.getInt("second"));
-
-                    departureBusVOS.add(vo);
-                }
-
-                onTaskResult(departureBusVOS);
-
-            } catch (JSONException e) {
-                Log.e(this.toString(), "JSON 익셉션! : " + e.getMessage());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        presenter.setAdapterView(adapter);
+        presenter.setAdapterModel(adapter);
+        presenter.onCreate();
     }
 
     private void initTopImage() {
@@ -201,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements OnTaskResultListn
         recyclerView.setItemAnimator(null);
 
         adapter = new StickyRecyclerAdapter(this, new ArrayList<>());
+        adapter.setDetailClickListener((int position) -> presenter.onDetailClick(position) );
+        adapter.setOnHeartClickListener(position -> presenter.onHeartClick(position));
         StickyLayoutManager manager = new StickyLayoutManager(this, adapter);
 
         manager.elevateHeaders(false);
@@ -210,46 +149,6 @@ public class MainActivity extends AppCompatActivity implements OnTaskResultListn
         recyclerView.setAdapter(adapter);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             recyclerView.setClipToOutline(true);
-        }
-    }
-
-    private void executeTask() {
-        GetDepartureBusTask getDepartureBusTask = new GetDepartureBusTask(this);
-        getDepartureBusTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-    }
-
-    @Override
-    public void onTaskResult(List<DepartureBusVO> result) {
-        if (result == null || result.size() == 0) {
-            Log.e(this.toString(), "결과가 없어.. ");
-        } else {
-            ArrayList<DepartureBusVO> arrayList = new ArrayList<>(result);
-            ArrayList<DepartureBusVO> oftenBus = new ArrayList<>();
-            ArrayList<DepartureBusVO> normalBus = new ArrayList<>();
-
-            for (DepartureBusVO vo :
-                    arrayList) {
-                if (((CommonData) getApplication()).hasOftenBus(vo.getLineID())) {
-                    oftenBus.add(vo);
-                } else {
-                    normalBus.add(vo);
-                }
-            }
-
-            items = new ArrayList<>();
-            items.add(new HeaderItem("자주타는버스"));
-            for (DepartureBusVO vo :
-                    oftenBus) {
-                items.add(new ChildItem(vo));
-            }
-
-            items.add(new HeaderItem("도착예정버스"));
-            for (DepartureBusVO vo :
-                    normalBus) {
-                items.add(new ChildItem(vo));
-            }
-
-            adapter.setData(items);
         }
     }
 }

@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
-import kr.ac.jejunu.jnu_tong.main.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.VO.DepartureBusVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 11..

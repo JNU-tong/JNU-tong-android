@@ -7,7 +7,7 @@ import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.detail.adapter.AdapterContract;
-import kr.ac.jejunu.jnu_tong.main.BusTimeVO;
+import kr.ac.jejunu.jnu_tong.VO.BusTimeVO;
 import kr.ac.jejunu.jnu_tong.task.GetBusTimeTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListner;
 
@@ -32,7 +32,7 @@ public class BusTimeFragmentPresenter implements FragmentPresenter, OnTaskResult
     @Override
     public void onTaskResult(List<BusTimeVO> result) {
         ArrayList<BusTimeVO> remainBusTime = getValidValue(result);
-        view.addDatas(remainBusTime);
+        view.addItems(remainBusTime);
     }
 
     @Override
