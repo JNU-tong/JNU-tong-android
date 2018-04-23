@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail.fragment;
+package kr.ac.jejunu.jnu_tong.detail.city_bus.fragment;
 
 
 import android.os.Bundle;
@@ -10,11 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import junit.framework.Assert;
-
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.detail.adapter.AdapterContract;
-import kr.ac.jejunu.jnu_tong.detail.presenter.FragmentPresenter;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.adapter.AdapterContract;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.presenter.FragmentPresenter;
 
 /**
  * Created by seung-yeol on 2018. 4. 17..

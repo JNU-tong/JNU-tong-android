@@ -20,8 +20,8 @@ import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.VO.DepartureBusVO;
-import kr.ac.jejunu.jnu_tong.detail.DetailActivity;
+import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.CityBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.main.MainAdapterContract;
 
 /**
@@ -125,7 +125,7 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
     public void goDetailActivity(int position) {
         ChildItem childItem = (ChildItem) items.get(position);
 
-        Intent intent = new Intent(context, DetailActivity.class);
+        Intent intent = new Intent(context, CityBusDetailActivity.class);
         intent.putExtra("busType", childItem.getBusType());
         intent.putExtra("busID", childItem.getBusID());
         intent.putExtra("busNo", childItem.getBusNum());

@@ -20,7 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".detail.DetailActivity"
+        <activity android:name=".detail.city_bus.CityBusDetailActivity"
+            android:theme="@style/AppTheme.white"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".detail.shuttle_bus.ShuttleBusDetailActivity"
             android:theme="@style/AppTheme.white"
             android:screenOrientation="portrait"/>
     </application>

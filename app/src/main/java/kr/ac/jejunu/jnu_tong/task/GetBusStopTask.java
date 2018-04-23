@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import kr.ac.jejunu.jnu_tong.VO.BusStopVO;
+import kr.ac.jejunu.jnu_tong.vo.BusStopVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 9..

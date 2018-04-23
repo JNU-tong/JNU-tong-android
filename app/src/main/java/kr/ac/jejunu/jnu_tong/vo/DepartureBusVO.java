@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.VO;
+package kr.ac.jejunu.jnu_tong.vo;
 
 import android.support.annotation.NonNull;
 

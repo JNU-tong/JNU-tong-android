@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
-import kr.ac.jejunu.jnu_tong.VO.BusTimeVO;
+import kr.ac.jejunu.jnu_tong.vo.BusTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 10..

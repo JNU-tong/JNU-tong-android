@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail.presenter;
+package kr.ac.jejunu.jnu_tong.detail.city_bus.presenter;
 
 import android.os.AsyncTask;
 
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
-import kr.ac.jejunu.jnu_tong.detail.adapter.AdapterContract;
-import kr.ac.jejunu.jnu_tong.VO.BusTimeVO;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.adapter.AdapterContract;
+import kr.ac.jejunu.jnu_tong.vo.BusTimeVO;
 import kr.ac.jejunu.jnu_tong.task.GetBusTimeTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListner;
 

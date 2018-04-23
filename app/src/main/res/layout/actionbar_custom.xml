@@ -8,7 +8,6 @@
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
         android:background="@drawable/ic_back_navy"/>
     <TextView
         android:id="@+id/text_title"
@@ -22,7 +21,6 @@
         android:id="@+id/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="13dp"
         android:background="@drawable/ic_refresh_navy"/>
 
 </LinearLayout>

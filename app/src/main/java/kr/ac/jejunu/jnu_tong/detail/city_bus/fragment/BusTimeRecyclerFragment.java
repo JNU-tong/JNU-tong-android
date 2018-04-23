@@ -1,16 +1,14 @@
-package kr.ac.jejunu.jnu_tong.detail.fragment;
+package kr.ac.jejunu.jnu_tong.detail.city_bus.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import kr.ac.jejunu.jnu_tong.detail.adapter.AdapterContract;
-import kr.ac.jejunu.jnu_tong.detail.adapter.BusStopRecyclerAdapter;
-import kr.ac.jejunu.jnu_tong.detail.adapter.BusTimeRecyclerAdapter;
-import kr.ac.jejunu.jnu_tong.detail.presenter.BusStopFragmentPresenter;
-import kr.ac.jejunu.jnu_tong.detail.presenter.BusTimeFragmentPresenter;
-import kr.ac.jejunu.jnu_tong.detail.presenter.FragmentPresenter;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.adapter.AdapterContract;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.adapter.BusTimeRecyclerAdapter;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.presenter.BusTimeFragmentPresenter;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.presenter.FragmentPresenter;
 
 /**
  * Created by seung-yeol on 2018. 4. 18..

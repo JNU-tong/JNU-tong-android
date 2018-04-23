@@ -14,9 +14,9 @@
 
         <View
             android:id="@+id/main_back"
-            android:background="@drawable/background_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@drawable/background_main" />
 
         <TextView
             android:id="@+id/today"
@@ -31,10 +31,10 @@
 
         <TextView
             android:id="@+id/d_day"
-            android:layout_below="@+id/today"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_below="@+id/today"
             android:layout_marginEnd="26dp"
             android:layout_marginTop="5dp"
             android:text="종강까지 D-260"
@@ -45,13 +45,13 @@
 
     <LinearLayout
         android:id="@+id/city_bus"
-        android:layout_below="@+id/main_back"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_below="@+id/main_back"
+        android:layout_marginBottom="13dp"
         android:layout_marginEnd="12dp"
         android:layout_marginStart="13dp"
         android:layout_marginTop="36dp"
-        android:layout_marginBottom="13dp"
         android:orientation="vertical">
 
         <TextView
@@ -68,10 +68,12 @@
             android:layout_height="match_parent"
             android:background="@drawable/main_round_box_bottom"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -101,7 +103,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_soon_bus"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
             </FrameLayout>
 
 
@@ -110,9 +112,9 @@
 
     <LinearLayout
         android:id="@+id/shuttle_bus"
-        android:layout_below="@id/city_bus"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_below="@id/city_bus"
         android:layout_marginEnd="12dp"
         android:layout_marginStart="13dp"
         android:orientation="vertical">
@@ -143,9 +145,55 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/gray" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="A노선"
+                    android:textColor="@color/navy"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_a_route"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="5분전"
+                    android:textColor="@color/red"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="B노선"
+                    android:textColor="@color/navy"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_b_route"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10분전"
+                    android:textColor="@color/red"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

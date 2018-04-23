@@ -1,5 +1,6 @@
 package kr.ac.jejunu.jnu_tong.main;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,9 +20,10 @@ import com.brandongogetap.stickyheaders.StickyLayoutManager;
 import java.util.ArrayList;
 
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.ShuttleBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView{
     private RelativeLayout top;
     private LinearLayout busComeInLayout;
     private LinearLayout cityBusLayout;
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         initShuttleBusLayout();
 
         presenter = new Presenter(this);
-
         presenter.setAdapterView(adapter);
         presenter.setAdapterModel(adapter);
         presenter.onCreate();
@@ -73,64 +74,14 @@ public class MainActivity extends AppCompatActivity {
         cityBusBottomMargin = cityBusParams.bottomMargin;
 
         View bus = View.inflate(this, R.layout.view_bus_num, null);
-        bus.setOnClickListener(v -> {
-            if (!expanded) {
-                expanded = true;
-
-                runOnUiThread(() -> {
-                    TransitionManager.beginDelayedTransition(cityBusLayout);
-                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
-                    layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
-                    layoutParams.bottomMargin += cityBusHeight / 2;
-                    cityBusLayout.setLayoutParams(layoutParams);
-
-                    TransitionManager.beginDelayedTransition(shuttleBusLayout);
-                    LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
-                    shuttleBusParams.topMargin -= cityBusHeight / 2;
-                    shuttleBusLayout.setLayoutParams(shuttleBusParams);
-
-                    TransitionManager.beginDelayedTransition(top);
-                    ViewGroup.LayoutParams params = top.getLayoutParams();
-                    params.height = 0;
-                    top.setLayoutParams(params);
-                });
-
-            } else {
-                expanded = false;
-                recyclerView.setVisibility(View.GONE);
-
-                runOnUiThread(() -> {
-                    TransitionManager.beginDelayedTransition(top);
-                    ViewGroup.LayoutParams params = top.getLayoutParams();
-                    params.height = topHeight;
-                    top.setLayoutParams(params);
-
-                    TransitionManager.beginDelayedTransition(shuttleBusLayout);
-                    LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
-                    shuttleBusParams.topMargin = 0;
-                    shuttleBusLayout.setLayoutParams(shuttleBusParams);
-
-                    TransitionManager.beginDelayedTransition(cityBusLayout);
-                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
-                    layoutParams.height = cityBusHeight;
-                    layoutParams.bottomMargin = cityBusBottomMargin;
-                    cityBusLayout.setLayoutParams(layoutParams);
-
-                });
-
-                //야매로 했어요..   recyclerView가 없어지는 모션때문에 cityBusLayout이 늦게 반응해서 클릭할때 애초에 GONE시켰다가
-                // 끝나고 0.5초후에 다시 VISIBLE했습니다. 클릭했을때 VISIBLE을 실행하면 recyclerView가 만들어지는 부분에서 또
-                // 딜레이가 생겨서 미리 VISIBLE했습니다.
-                Handler handler = new Handler();
-                handler.postDelayed(() -> recyclerView.setVisibility(View.VISIBLE), 500);
-            }
-        });
+        cityBusLayout.setOnClickListener(v ->   presenter.clickCityBus(expanded));
 
         busComeInLayout.addView(bus);
     }
 
     private void initShuttleBusLayout() {
         shuttleBusLayout = findViewById(R.id.shuttle_bus);
+        shuttleBusLayout.setOnClickListener(view -> startActivity(new Intent(this, ShuttleBusDetailActivity.class)));
     }
 
     private void initCityBusRecycler() {
@@ -149,6 +100,60 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             recyclerView.setClipToOutline(true);
+        }
+    }
+
+    @Override
+    public void onClickCityBus() {
+        if (!expanded) {
+            expanded = true;
+
+            runOnUiThread(() -> {
+                TransitionManager.beginDelayedTransition(cityBusLayout);
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
+                layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
+                layoutParams.bottomMargin += cityBusHeight / 2;
+                cityBusLayout.setLayoutParams(layoutParams);
+
+                TransitionManager.beginDelayedTransition(shuttleBusLayout);
+                LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
+                shuttleBusParams.topMargin -= cityBusHeight / 2;
+                shuttleBusLayout.setLayoutParams(shuttleBusParams);
+
+                TransitionManager.beginDelayedTransition(top);
+                ViewGroup.LayoutParams params = top.getLayoutParams();
+                params.height = 0;
+                top.setLayoutParams(params);
+            });
+
+        } else {
+            expanded = false;
+            recyclerView.setVisibility(View.GONE);
+
+            runOnUiThread(() -> {
+                TransitionManager.beginDelayedTransition(top);
+                ViewGroup.LayoutParams params = top.getLayoutParams();
+                params.height = topHeight;
+                top.setLayoutParams(params);
+
+                TransitionManager.beginDelayedTransition(shuttleBusLayout);
+                LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
+                shuttleBusParams.topMargin = 0;
+                shuttleBusLayout.setLayoutParams(shuttleBusParams);
+
+                TransitionManager.beginDelayedTransition(cityBusLayout);
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
+                layoutParams.height = cityBusHeight;
+                layoutParams.bottomMargin = cityBusBottomMargin;
+                cityBusLayout.setLayoutParams(layoutParams);
+
+            });
+
+            //야매로 했어요..   recyclerView가 없어지는 모션때문에 cityBusLayout이 늦게 반응해서 클릭할때 애초에 GONE시켰다가
+            // 끝나고 0.5초후에 다시 VISIBLE했습니다. 클릭했을때 VISIBLE을 실행하면 recyclerView가 만들어지는 부분에서 또
+            // 딜레이가 생겨서 미리 VISIBLE했습니다.
+            Handler handler = new Handler();
+            handler.postDelayed(() -> recyclerView.setVisibility(View.VISIBLE), 500);
         }
     }
 }

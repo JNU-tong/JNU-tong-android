@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/text_a_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A호선"
+                android:textColor="@color/very_light_gray"
+                android:textSize="23sp" />
+
+            <View
+                android:id="@+id/a_bar"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:visibility="gone"
+                android:background="@color/navy" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/text_b_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B호선"
+                android:textColor="@color/navy"
+                android:textSize="23sp" />
+
+            <View
+                android:id="@+id/b_bar"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/navy" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/very_light_gray"
+                android:text="교양동"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="공과대학4호관"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/very_light_gray"
+                android:text="의과대학"/>
+
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/dot_line"
+                android:layerType="software"/>
+            <ImageButton
+                android:layout_gravity="center"
+                android:layout_width="25dp"
+                android:layout_height="24dp"
+                android:background="@mipmap/ic_heart_off"/>
+        </FrameLayout>
+
+
+    </LinearLayout>
+    
+    <com.tmall.ultraviewpager.UltraViewPager
+        android:id="@+id/ultra_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="306dp"/>
+
+
+
+
+
+</LinearLayout>

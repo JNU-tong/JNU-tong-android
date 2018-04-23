@@ -2,7 +2,7 @@ package kr.ac.jejunu.jnu_tong.main;
 
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.VO.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
 
 /**

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail;
+package kr.ac.jejunu.jnu_tong.detail.city_bus;
 
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -18,15 +18,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.detail.adapter.BusStopRecyclerAdapter;
-import kr.ac.jejunu.jnu_tong.detail.fragment.BusStopRecyclerFragment;
-import kr.ac.jejunu.jnu_tong.detail.fragment.BusTimeRecyclerFragment;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.fragment.BusStopRecyclerFragment;
+import kr.ac.jejunu.jnu_tong.detail.city_bus.fragment.BusTimeRecyclerFragment;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..
  */
 
-public class DetailActivity extends AppCompatActivity {
+public class CityBusDetailActivity extends AppCompatActivity {
     private BusStopRecyclerFragment busStopListFragment;
     private BusTimeRecyclerFragment busTimeListFragment;
     private ViewPager viewPager;
@@ -43,7 +42,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_city);
 
         busType = getIntent().getStringExtra("busType");
         busID = getIntent().getStringExtra("busID");
@@ -63,7 +62,7 @@ public class DetailActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
 
-        actionBar.setCustomView(R.layout.actionbar_detail);
+        actionBar.setCustomView(R.layout.actionbar_custom);
         actionBar.getCustomView().findViewById(R.id.back).setOnClickListener(view -> finish());
         actionBar.setElevation(0);
 

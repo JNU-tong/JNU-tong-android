@@ -8,7 +8,7 @@ import junit.framework.Assert;
 
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.VO.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
 import kr.ac.jejunu.jnu_tong.task.GetDepartureBusTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListner;
@@ -18,19 +18,19 @@ import kr.ac.jejunu.jnu_tong.task.OnTaskResultListner;
  */
 
 public class Presenter implements OnTaskResultListner<DepartureBusVO> {
-    private final AppCompatActivity context;
+    private final MainView mainView;
 
     private MainAdapterContract.View<Item> adapterView;
     private MainAdapterContract.Model adapterModel;
 
-    Presenter(AppCompatActivity context) {
-        this.context = context;
+    Presenter(MainView mainView) {
+        this.mainView = mainView;
     }
 
     void onCreate() {
         Assert.assertNotNull(adapterView);
 
-        executeTask();
+//        executeTask();
     }
 
     private void executeTask() {
@@ -62,5 +62,13 @@ public class Presenter implements OnTaskResultListner<DepartureBusVO> {
 
     void onHeartClick(int position) {
         adapterModel.heartClick(position);
+    }
+
+    void clickCityBus(boolean expanded) {
+        if (!expanded){
+            executeTask();
+        }
+
+        mainView.onClickCityBus();
     }
 }

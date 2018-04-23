@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail.adapter;
+package kr.ac.jejunu.jnu_tong.detail.city_bus.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.VO.BusTimeVO;
+import kr.ac.jejunu.jnu_tong.vo.BusTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 10.
