@@ -107,6 +107,10 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
             }
         });
 
+        setViewPagerAdapter();
+    }
+
+    private void setViewPagerAdapter() {
         UltraPagerAdapter ultraPagerAdapter = new UltraPagerAdapter(this);
         presenter.setAdapter(ultraPagerAdapter);
     }
@@ -126,5 +130,13 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
     @Override
     public void setPagerPosition(int position){
         viewPager.setCurrentItem(position, true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        viewPager = null;
+        presenter.onDestroy();
     }
 }

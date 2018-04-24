@@ -145,6 +145,13 @@ public class CityBusDetailActivity extends AppCompatActivity {
         rightTab.setOnClickListener(view -> viewPager.setCurrentItem(1));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        viewPager = null;
+    }
+
     class MyViewPagerAdapter extends FragmentPagerAdapter{
         Fragment curFragment = busTimeListFragment;
 
@@ -170,4 +177,6 @@ public class CityBusDetailActivity extends AppCompatActivity {
             return 2;
         }
     }
+
+
 }

@@ -83,14 +83,14 @@ public class Presenter implements ActivityPresenter {
 
     void leftBtnClick(int position) {
         if (position > 0){
-            adapterView.setPosition(position - 1);
+//            adapterView.setPosition(position - 1);
             shuttleView.setPagerPosition(position - 1);
         }
     }
 
     void rightBtnClick(int position) {
         if (position < aRouteProviders.size() -1){
-            adapterView.setPosition(position + 1);
+//            adapterView.setPosition(position + 1);
             shuttleView.setPagerPosition(position + 1);
         }
     }
@@ -98,5 +98,10 @@ public class Presenter implements ActivityPresenter {
     void pageSelect(int position) {
         String[] busStopNames = adapterModel.getBusStopNames(position);
         shuttleView.routeTextChange(busStopNames[0], busStopNames[1], busStopNames[2]);
+    }
+
+    void onDestroy() {
+        adapterView = null;
+        adapterModel = null;
     }
 }

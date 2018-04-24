@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public interface PagerAdapterContract {
     interface View{
         void setProviders(ArrayList<PagerProvider> providers);
-        void setPosition(int position);
     }
     interface Model{
         String[] getBusStopNames(int position);

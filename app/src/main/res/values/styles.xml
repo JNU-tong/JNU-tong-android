@@ -25,4 +25,9 @@
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 
+    <style name="lineTextTheme">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@color/navy</item>
+    </style>
+
 </resources>

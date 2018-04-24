@@ -2,8 +2,13 @@ package kr.ac.jejunu.jnu_tong.detail.shuttle_bus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +24,11 @@ import kr.ac.jejunu.jnu_tong.R;
  * Created by seung-yeol on 2018. 4. 22..
  */
 
-public class UltraPagerAdapter extends PagerAdapter implements PagerAdapterContract.View, PagerAdapterContract.Model{
+public class UltraPagerAdapter extends PagerAdapter implements PagerAdapterContract.View, PagerAdapterContract.Model {
     private List<PagerProvider> pagerProvider;
     private Context context;
 
-    UltraPagerAdapter(Context context){
+    UltraPagerAdapter(Context context) {
         this.context = context;
     }
 
@@ -42,9 +47,10 @@ public class UltraPagerAdapter extends PagerAdapter implements PagerAdapterContr
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         @SuppressLint("InflateParams")
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(container.getContext()).inflate(R.layout.item_shuttle_stop, container, false);
-        ImageView busStopImg = linearLayout.findViewById(R.id.img_bus_stop);
 
-        busStopImg.setBackground(context.getResources().getDrawable(pagerProvider.get(position).getImgId()));
+        ImageView busStopImg = linearLayout.findViewById(R.id.img_bus_stop);
+        Drawable drawable = context.getResources().getDrawable(pagerProvider.get(position).getImgId());
+        busStopImg.setBackground(drawable);
 
         container.addView(linearLayout);
 
@@ -53,8 +59,10 @@ public class UltraPagerAdapter extends PagerAdapter implements PagerAdapterContr
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        LinearLayout view = (LinearLayout) object;
-        container.removeView(view);
+        LinearLayout layout = (LinearLayout) object;
+        container.removeView(layout);
+
+        System.gc();
     }
 
     @Override
@@ -64,28 +72,20 @@ public class UltraPagerAdapter extends PagerAdapter implements PagerAdapterContr
     }
 
     @Override
-    public void setPosition(int position) {
-
-    }
-
-    @Override
     public String[] getBusStopNames(int position) {
         String[] busStopNames = new String[3];
 
-
-        if (position > 0){
+        if (position > 0) {
             busStopNames[0] = pagerProvider.get(position - 1).getTitle();
-        }
-        else {
+        } else {
             busStopNames[0] = "";
         }
 
         busStopNames[1] = pagerProvider.get(position).getTitle();
 
-        if (position < pagerProvider.size() - 1){
+        if (position < pagerProvider.size() - 1) {
             busStopNames[2] = pagerProvider.get(position + 1).getTitle();
-        }
-        else {
+        } else {
             busStopNames[2] = "";
         }
 
