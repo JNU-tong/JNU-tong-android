@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
@@ -22,9 +23,8 @@ public class UltraPagerAdapter extends PagerAdapter implements PagerAdapterContr
     private List<PagerProvider> pagerProvider;
     private Context context;
 
-    UltraPagerAdapter(Context context, List<PagerProvider> pagerProvider){
+    UltraPagerAdapter(Context context){
         this.context = context;
-        this.pagerProvider = pagerProvider;
     }
 
     @Override
@@ -43,13 +43,11 @@ public class UltraPagerAdapter extends PagerAdapter implements PagerAdapterContr
         @SuppressLint("InflateParams")
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(container.getContext()).inflate(R.layout.item_shuttle_stop, container, false);
         ImageView busStopImg = linearLayout.findViewById(R.id.img_bus_stop);
-        //new LinearLayout(container.getContext());
 
         busStopImg.setBackground(context.getResources().getDrawable(pagerProvider.get(position).getImgId()));
 
         container.addView(linearLayout);
-//        linearLayout.getLayoutParams().width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, container.getContext().getResources().getDisplayMetrics());
-//        linearLayout.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, container.getContext().getResources().getDisplayMetrics());
+
         return linearLayout;
     }
 
@@ -57,5 +55,41 @@ public class UltraPagerAdapter extends PagerAdapter implements PagerAdapterContr
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         LinearLayout view = (LinearLayout) object;
         container.removeView(view);
+    }
+
+    @Override
+    public void setProviders(ArrayList<PagerProvider> providers) {
+        pagerProvider = providers;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void setPosition(int position) {
+
+    }
+
+    @Override
+    public String[] getBusStopNames(int position) {
+        String[] busStopNames = new String[3];
+
+
+        if (position > 0){
+            busStopNames[0] = pagerProvider.get(position - 1).getTitle();
+        }
+        else {
+            busStopNames[0] = "";
+        }
+
+        busStopNames[1] = pagerProvider.get(position).getTitle();
+
+        if (position < pagerProvider.size() - 1){
+            busStopNames[2] = pagerProvider.get(position + 1).getTitle();
+        }
+        else {
+            busStopNames[2] = "";
+        }
+
+
+        return busStopNames;
     }
 }

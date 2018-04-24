@@ -23,14 +23,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="A호선"
-                android:textColor="@color/very_light_gray"
+                android:textColor="@color/navy"
                 android:textSize="23sp" />
 
             <View
                 android:id="@+id/a_bar"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:visibility="gone"
                 android:background="@color/navy" />
         </LinearLayout>
 
@@ -43,13 +42,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="B호선"
-                android:textColor="@color/navy"
+                android:textColor="@color/very_light_gray"
                 android:textSize="23sp" />
 
             <View
                 android:id="@+id/b_bar"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
+                android:visibility="gone"
                 android:background="@color/navy" />
         </LinearLayout>
 
@@ -70,29 +70,32 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/left_stop"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/very_light_gray"
-                android:text="교양동"/>
+                android:textColor="@color/very_light_gray"/>
 
             <TextView
+                android:id="@+id/center_stop"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="공과대학4호관"
+                android:text="정문"
+                android:textColor="@color/navy"
                 android:textSize="17sp"
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/right_stop"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textColor="@color/very_light_gray"
-                android:text="의과대학"/>
+                android:text="제2도서관"/>
 
         </LinearLayout>
 
