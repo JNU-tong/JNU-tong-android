@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.task;
+package kr.ac.jejunu.jnu_tong.task.get_data;
 
 import android.util.Log;
 import org.json.JSONArray;
@@ -6,15 +6,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
+import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.BusTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 10..
  */
 
-public class GetBusTimeTask extends BaseTask<BusTimeVO> {
-    public GetBusTimeTask(OnTaskResultListner onTaskResultListner) {
-        super(onTaskResultListner);
+public class GetBusTimeTask extends BaseGetTask<BusTimeVO> {
+    public GetBusTimeTask(OnTaskResultListener onTaskResultListener) {
+        super(onTaskResultListener);
     }
 
     @Override

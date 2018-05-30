@@ -2,16 +2,12 @@ package kr.ac.jejunu.jnu_tong.detail.shuttle_bus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -19,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.task.BitmapUtil;
 
 /**
  * Created by seung-yeol on 2018. 4. 22..
@@ -46,20 +43,20 @@ public class UltraPagerAdapter extends PagerAdapter implements PagerAdapterContr
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         @SuppressLint("InflateParams")
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(container.getContext()).inflate(R.layout.item_shuttle_stop, container, false);
+        FrameLayout frameLayout = (FrameLayout) LayoutInflater.from(container.getContext()).inflate(R.layout.item_shuttle_stop, container, false);
 
-        ImageView busStopImg = linearLayout.findViewById(R.id.img_bus_stop);
-        Drawable drawable = context.getResources().getDrawable(pagerProvider.get(position).getImgId());
-        busStopImg.setBackground(drawable);
+        ImageView busStopImg = frameLayout.findViewById(R.id.img_bus_stop);
 
-        container.addView(linearLayout);
+        BitmapUtil bitmapUtil = new BitmapUtil(context);
+        bitmapUtil.loadBitmap(pagerProvider.get(position).getImgId(), busStopImg);
 
-        return linearLayout;
+        container.addView(frameLayout);
+        return frameLayout;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        LinearLayout layout = (LinearLayout) object;
+        FrameLayout layout = (FrameLayout) object;
         container.removeView(layout);
 
         System.gc();

@@ -1,7 +1,6 @@
 package kr.ac.jejunu.jnu_tong.main;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import junit.framework.Assert;
@@ -10,14 +9,14 @@ import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
-import kr.ac.jejunu.jnu_tong.task.GetDepartureBusTask;
-import kr.ac.jejunu.jnu_tong.task.OnTaskResultListner;
+import kr.ac.jejunu.jnu_tong.task.get_data.GetDepartureBusTask;
+import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 
 /**
  * Created by seung-yeol on 2018. 4. 20..
  */
 
-public class Presenter implements OnTaskResultListner<DepartureBusVO> {
+public class Presenter implements OnTaskResultListener<DepartureBusVO> {
     private final MainView mainView;
 
     private MainAdapterContract.View<Item> adapterView;

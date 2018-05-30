@@ -35,6 +35,10 @@ public class CommonData extends Application {
         return baseURL + "getBusStationListByLineId/" + busID;
     }
 
+    public static String getShuttleListURL(String course){
+        return baseURL + "getJnuBusArrivalInfoListByCourse?course=" + course;
+    }
+
     public void addOftenBus(String busID){
         oftenBusSet.add(busID);
 

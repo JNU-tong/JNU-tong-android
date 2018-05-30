@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.task;
+package kr.ac.jejunu.jnu_tong.task.get_data;
 
 import android.util.Log;
 
@@ -8,16 +8,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.BusStopVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 9..
  */
 
-public class GetBusStopTask extends BaseTask<BusStopVO> {
+public class GetBusStopTask extends BaseGetTask<BusStopVO> {
 
-    public GetBusStopTask(OnTaskResultListner onTaskResultListner){
-        super(onTaskResultListner);
+    public GetBusStopTask(OnTaskResultListener onTaskResultListener){
+        super(onTaskResultListener);
     }
 
     @Override

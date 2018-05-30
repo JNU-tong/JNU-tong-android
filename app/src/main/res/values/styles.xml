@@ -26,7 +26,7 @@
     </style>
 
     <style name="lineTextTheme">
-        <item name="android:textSize">9sp</item>
+        <item name="android:textSize">8sp</item>
         <item name="android:textColor">@color/navy</item>
     </style>
 

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.task;
+package kr.ac.jejunu.jnu_tong.task.get_data;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,15 +10,17 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
+import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
+
 /**
  * Created by seung-yeol on 2018. 4. 9..
  */
 
-public abstract class BaseTask<E> extends AsyncTask<String, Void, List<E>> {
-    private OnTaskResultListner<E> onTaskResultListner;
+public abstract class BaseGetTask<E> extends AsyncTask<String, Void, List<E>> {
+    private OnTaskResultListener<E> onTaskResultListener;
 
-    BaseTask(OnTaskResultListner onTaskResultListner){
-        this.onTaskResultListner = onTaskResultListner;
+    BaseGetTask(OnTaskResultListener onTaskResultListener){
+        this.onTaskResultListener = onTaskResultListener;
     }
 
     @Override
@@ -70,6 +72,6 @@ public abstract class BaseTask<E> extends AsyncTask<String, Void, List<E>> {
 
     @Override
     protected void onPostExecute(List<E> resultList) {
-        onTaskResultListner.onTaskResult(resultList);
+        onTaskResultListener.onTaskResult(resultList);
     }
 }

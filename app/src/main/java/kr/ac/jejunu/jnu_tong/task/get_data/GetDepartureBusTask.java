@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.task;
+package kr.ac.jejunu.jnu_tong.task.get_data;
 
 import android.util.Log;
 
@@ -10,15 +10,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
+import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 11..
  */
 
-public class GetDepartureBusTask extends BaseTask<DepartureBusVO> {
-    public GetDepartureBusTask(OnTaskResultListner onTaskResultListner) {
-        super(onTaskResultListner);
+public class GetDepartureBusTask extends BaseGetTask<DepartureBusVO> {
+    public GetDepartureBusTask(OnTaskResultListener onTaskResultListener) {
+        super(onTaskResultListener);
     }
 
     @Override

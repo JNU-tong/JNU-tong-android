@@ -6,6 +6,6 @@ import java.util.List;
  * Created by seung-yeol on 2018. 4. 9..
  */
 
-public interface OnTaskResultListner<E> {
+public interface OnTaskResultListener<E> {
     void onTaskResult(List<E> result);
 }
