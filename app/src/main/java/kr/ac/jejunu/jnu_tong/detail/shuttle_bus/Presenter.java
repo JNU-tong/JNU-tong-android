@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import kr.ac.jejunu.jnu_tong.ActivityPresenter;
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.task.get_data.GetShuttleDetailTask;
 
 /**
  * Created by seung-yeol on 2018. 4. 24..
@@ -64,6 +65,7 @@ public class Presenter implements ActivityPresenter {
         bRouteProviders.add(new PagerProvider("제2도서관\n(정문 방면)", R.drawable.route_second_library));
         bRouteProviders.add(new PagerProvider("정문(종점)", R.drawable.route_jeongmoon));
     }
+
 
     void selectARoute(){
         adapterView.setProviders(aRouteProviders);

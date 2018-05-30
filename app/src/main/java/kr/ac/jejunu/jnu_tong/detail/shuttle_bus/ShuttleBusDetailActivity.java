@@ -26,6 +26,8 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
     private TextView bRouteSelectText;
     private Presenter presenter;
     private UltraViewPager viewPager;
+    private TextView firstBusTimeText;
+    private TextView secondBusTimeText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +47,9 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         leftRouteText = findViewById(R.id.left_stop);
         rightRouteText = findViewById(R.id.right_stop);
 
+        firstBusTimeText = findViewById(R.id.txt_first_time);
+        secondBusTimeText = findViewById(R.id.txt_second_time);
+        
         aRouteSelectText.setOnClickListener(view -> {
             aRouteSelectText.setTextColor(getResources().getColor(R.color.navy));
             bRouteSelectText.setTextColor(getResources().getColor(R.color.very_light_gray));
@@ -93,7 +98,6 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -103,7 +107,6 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
 

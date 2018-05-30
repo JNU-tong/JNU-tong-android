@@ -32,6 +32,7 @@
                 android:background="@drawable/weak_transparent_circle" />
 
             <TextView
+                android:id="@+id/txt_first_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -51,6 +52,7 @@
                 android:background="@drawable/diagonal_line" />
 
             <TextView
+                android:id="@+id/txt_second_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="76dp"

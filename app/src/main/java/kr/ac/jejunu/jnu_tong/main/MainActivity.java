@@ -23,7 +23,7 @@ import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.ShuttleBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends AppCompatActivity implements MainView {
     private RelativeLayout top;
     private LinearLayout busComeInLayout;
     private LinearLayout cityBusLayout;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         cityBusBottomMargin = cityBusParams.bottomMargin;
 
         View bus = View.inflate(this, R.layout.view_bus_num, null);
-        cityBusLayout.setOnClickListener(v ->   presenter.clickCityBus(expanded));
+        cityBusLayout.setOnClickListener(v -> presenter.clickCityBus(expanded));
 
         busComeInLayout.addView(bus);
     }
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         recyclerView.setItemAnimator(null);
 
         adapter = new StickyRecyclerAdapter(this, new ArrayList<>());
-        adapter.setDetailClickListener((int position) -> presenter.onDetailClick(position) );
+        adapter.setDetailClickListener((int position) -> presenter.onDetailClick(position));
         adapter.setOnHeartClickListener(position -> presenter.onHeartClick(position));
         StickyLayoutManager manager = new StickyLayoutManager(this, adapter);
 
@@ -108,46 +108,41 @@ public class MainActivity extends AppCompatActivity implements MainView{
         if (!expanded) {
             expanded = true;
 
-            runOnUiThread(() -> {
-                TransitionManager.beginDelayedTransition(cityBusLayout);
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
-                layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
-                layoutParams.bottomMargin += cityBusHeight / 2;
-                cityBusLayout.setLayoutParams(layoutParams);
+            TransitionManager.beginDelayedTransition(cityBusLayout);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
+            layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT;
+            layoutParams.bottomMargin += cityBusHeight / 2;
+            cityBusLayout.setLayoutParams(layoutParams);
 
-                TransitionManager.beginDelayedTransition(shuttleBusLayout);
-                LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
-                shuttleBusParams.topMargin -= cityBusHeight / 2;
-                shuttleBusLayout.setLayoutParams(shuttleBusParams);
+            TransitionManager.beginDelayedTransition(shuttleBusLayout);
+            LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
+            shuttleBusParams.topMargin -= cityBusHeight / 2;
+            shuttleBusLayout.setLayoutParams(shuttleBusParams);
 
-                TransitionManager.beginDelayedTransition(top);
-                ViewGroup.LayoutParams params = top.getLayoutParams();
-                params.height = 0;
-                top.setLayoutParams(params);
-            });
+            TransitionManager.beginDelayedTransition(top);
+            ViewGroup.LayoutParams params = top.getLayoutParams();
+            params.height = 0;
+            top.setLayoutParams(params);
 
         } else {
             expanded = false;
             recyclerView.setVisibility(View.GONE);
 
-            runOnUiThread(() -> {
-                TransitionManager.beginDelayedTransition(top);
-                ViewGroup.LayoutParams params = top.getLayoutParams();
-                params.height = topHeight;
-                top.setLayoutParams(params);
+            TransitionManager.beginDelayedTransition(top);
+            ViewGroup.LayoutParams params = top.getLayoutParams();
+            params.height = topHeight;
+            top.setLayoutParams(params);
 
-                TransitionManager.beginDelayedTransition(shuttleBusLayout);
-                LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
-                shuttleBusParams.topMargin = 0;
-                shuttleBusLayout.setLayoutParams(shuttleBusParams);
+            TransitionManager.beginDelayedTransition(shuttleBusLayout);
+            LinearLayout.LayoutParams shuttleBusParams = (LinearLayout.LayoutParams) shuttleBusLayout.getLayoutParams();
+            shuttleBusParams.topMargin = 0;
+            shuttleBusLayout.setLayoutParams(shuttleBusParams);
 
-                TransitionManager.beginDelayedTransition(cityBusLayout);
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
-                layoutParams.height = cityBusHeight;
-                layoutParams.bottomMargin = cityBusBottomMargin;
-                cityBusLayout.setLayoutParams(layoutParams);
-
-            });
+            TransitionManager.beginDelayedTransition(cityBusLayout);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
+            layoutParams.height = cityBusHeight;
+            layoutParams.bottomMargin = cityBusBottomMargin;
+            cityBusLayout.setLayoutParams(layoutParams);
 
             //야매로 했어요..   recyclerView가 없어지는 모션때문에 cityBusLayout이 늦게 반응해서 클릭할때 애초에 GONE시켰다가
             // 끝나고 0.5초후에 다시 VISIBLE했습니다. 클릭했을때 VISIBLE을 실행하면 recyclerView가 만들어지는 부분에서 또
