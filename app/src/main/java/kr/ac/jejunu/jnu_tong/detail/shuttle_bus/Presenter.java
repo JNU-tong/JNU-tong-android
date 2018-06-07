@@ -22,13 +22,14 @@ import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
  */
 
 public class Presenter implements ActivityPresenter, OnTaskResultListener<ShuttleVO>{
-    private static final String TAG = "ShuttlePresenter";
-    private final ShuttleContract.ShuttleView shuttleView;
+    private ShuttleContract.ShuttleView shuttleView;
+    private ShuttleContract.ShuttleModel shuttleModel;
     private PagerAdapterContract.View adapterView;
     private PagerAdapterContract.Model adapterModel;
 
     Presenter(ShuttleContract.ShuttleView shuttleView){
         this.shuttleView = shuttleView;
+        shuttleModel = new ShuttleModel();
     }
 
     @Override
@@ -74,18 +75,24 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<Shuttl
 
     @Override
     public void onTaskResult(List<ShuttleVO> result) {
-        Log.e(TAG, "result.size() " + result.size() );
         adapterModel.changeProvider(result);
         adapterView.notifyDataChange();
+
+        shuttleModel.changeProvider(result);
+        String[] shuttleBusStops = shuttleModel.getShuttleBusStops();
+        shuttleView.setBusPositionList(shuttleBusStops);
+
     }
 
     void selectARoute() {
         taskStart("A");
         adapterModel.selectARoute();
+        shuttleModel.selectARoute();
     }
 
     void selectBRoute() {
         taskStart("B");
         adapterModel.selectBRoute();
+        shuttleModel.selectBRoute();
     }
 }

@@ -6,6 +6,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -126,6 +127,25 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
     @Override
     public void setPagerPosition(int position){
         viewPager.setCurrentItem(position, true);
+    }
+
+    @Override
+    public void setBusPositionList(String... busStops) {
+        LinearLayout busStopLayout = findViewById(R.id.stops_layout);
+
+        Log.e("cc", "busStops.length: " + busStops.length );
+        for (String s :
+                busStops) {
+            Log.e("cc", "setBusPositionList: " + s);
+        }
+
+        for (int i = 0; i < busStops.length; i++) {
+            ((TextView)busStopLayout.findViewWithTag("stop" + i)).setText(busStops[i]);
+        }
+
+        for (int i = busStops.length - 1 ; i < 4 ; i ++){
+            ((TextView)busStopLayout.findViewWithTag("stop" + i)).setText("");
+        }
     }
 
     @Override

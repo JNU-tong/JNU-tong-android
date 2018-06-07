@@ -45,7 +45,6 @@ public class UltraPagerAdapter extends PagerAdapter
 
     @Override
     public int getCount() {
-        Log.e("sd", "getCount: " + pagerProvider.size());
         return route.length;
     }
 
@@ -67,12 +66,28 @@ public class UltraPagerAdapter extends PagerAdapter
         BitmapUtil bitmapUtil = new BitmapUtil(context);
         bitmapUtil.loadBitmap(route[position].getImgId(), busStopImg);
         if (pagerProvider.size() != 0){
-            initShuttleTime(position, txtFirstTime, txtSecondTime);
+            setShuttleStopTime(position, txtFirstTime, txtSecondTime);
         }
 
         container.addView(frameLayout);
         views.put(position, frameLayout);
         return frameLayout;
+    }
+
+    private void setShuttleStopTime(int position, TextView txtFirstTime, TextView txtSecondTime) {
+        if ( pagerProvider.get(position).getFirstTime() == null){
+            txtFirstTime.setText("운행X");
+        }
+        else {
+            txtFirstTime.setText(pagerProvider.get(position).getFirstTime() + "분전");
+        }
+
+        if (pagerProvider.get(position).getSecondTime() == null){
+            txtSecondTime.setText("운행X");
+        }
+        else {
+            txtSecondTime.setText(pagerProvider.get(position).getSecondTime() + "분전");
+        }
     }
 
     @Override
@@ -86,33 +101,18 @@ public class UltraPagerAdapter extends PagerAdapter
 
     @Override
     public void notifyDataSetChanged() {
-        int key;
+        int key = 0;
         for(int i = 0; i < views.size(); i++) {
             key = views.keyAt(i);
             View view = views.get(key);
 
             TextView txtFirstTime = view.findViewById(R.id.txt_first_time);
             TextView txtSecondTime = view.findViewById(R.id.txt_second_time);
+            setShuttleStopTime(key, txtFirstTime, txtSecondTime);
 
-            initShuttleTime(key, txtFirstTime, txtSecondTime);
+            ((TextView)view.findViewById(R.id.txt_second_time)).setText(pagerProvider.get(key).getSecondTime()+"분전");
         }
         super.notifyDataSetChanged();
-    }
-
-    private void initShuttleTime(int key, TextView txtFirstTime, TextView txtSecondTime) {
-        if ( pagerProvider.get(key).getFirstTime() == null){
-            txtFirstTime.setText("운행X");
-        }
-        else {
-            txtFirstTime.setText(pagerProvider.get(key).getFirstTime() + "분전");
-        }
-
-        if (pagerProvider.get(key).getSecondTime() == null){
-            txtSecondTime.setText("운행X");
-        }
-        else {
-            txtSecondTime.setText(pagerProvider.get(key).getSecondTime() + "분전");
-        }
     }
 
 
@@ -149,7 +149,9 @@ public class UltraPagerAdapter extends PagerAdapter
 
     @Override
     public void changeProvider(List<ShuttleVO> provider) {
+        Log.e("ss", "changeProvider: " + provider.size() );
         pagerProvider = new ArrayList<>(provider);
+        notifyDataSetChanged();
     }
 
     @Override
