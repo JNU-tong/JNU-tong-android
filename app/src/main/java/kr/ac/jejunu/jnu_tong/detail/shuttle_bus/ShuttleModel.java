@@ -29,8 +29,10 @@ public class ShuttleModel implements ShuttleContract.ShuttleModel {
 
         int temp = 0;
         for (int i = 1; i < vos.size(); i++) {
-            if (vos.get(temp).getFirstTime() > vos.get(i).getFirstTime()){
-                temp = i;
+            if (vos.get(i).getFirstTime() != null){
+                if (vos.get(temp).getFirstTime() > vos.get(i).getFirstTime()){
+                    temp = i;
+                }
             }
         }
 
