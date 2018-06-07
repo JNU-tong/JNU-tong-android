@@ -43,8 +43,8 @@ public class GetShuttleDetailTask extends BaseGetTask<ShuttleVO> {
                 vo.setId(stationObject.has("id") ? stationObject.getInt("id") : null);
                 vo.setName(stationObject.has("name") ? stationObject.getString("name") : null);
                 vo.setId(stationObject.has("order") ? stationObject.getInt("id") : null);
-                vo.setFirstTime(remainTime.has("first") ? stationObject.getInt("first") : null);
-                vo.setSecondTime(remainTime.has("second") ? stationObject.getInt("second") : null);
+                vo.setFirstTime( !remainTime.isNull("first") ? remainTime.getInt("first") : null);
+                vo.setSecondTime( !remainTime.isNull("second") ? remainTime.getInt("second") : null);
 
                 shuttleVOS.add(vo);
             }

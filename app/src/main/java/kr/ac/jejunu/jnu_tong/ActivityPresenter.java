@@ -6,4 +6,5 @@ package kr.ac.jejunu.jnu_tong;
 
 public interface ActivityPresenter {
     void onCreate();
+    void onDestroy();
 }

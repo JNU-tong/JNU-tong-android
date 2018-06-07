@@ -1,6 +1,8 @@
 package kr.ac.jejunu.jnu_tong.detail.shuttle_bus;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 24..
@@ -8,9 +10,12 @@ import java.util.ArrayList;
 
 public interface PagerAdapterContract {
     interface View{
-        void setProviders(ArrayList<PagerProvider> providers);
+        void notifyDataChange();
     }
     interface Model{
         String[] getBusStopNames(int position);
+        void selectARoute();
+        void selectBRoute();
+        void changeProvider(List<ShuttleVO> provider);
     }
 }

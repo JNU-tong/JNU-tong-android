@@ -19,15 +19,13 @@ import kr.ac.jejunu.jnu_tong.R;
  * Created by seung-yeol on 2018. 4. 22..
  */
 
-public class ShuttleBusDetailActivity extends AppCompatActivity implements ShuttleView {
+public class ShuttleBusDetailActivity extends AppCompatActivity implements ShuttleContract.ShuttleView {
     private TextView leftRouteText;
     private TextView rightRouteText;
     private TextView aRouteSelectText;
     private TextView bRouteSelectText;
     private Presenter presenter;
     private UltraViewPager viewPager;
-    private TextView firstBusTimeText;
-    private TextView secondBusTimeText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,10 +33,11 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         setContentView(R.layout.activity_detail_shuttle);
 
         presenter = new Presenter(this);
-        presenter.onCreate();
 
         initView();
         initViewPager();
+
+        presenter.onCreate();
     }
 
     private void initView() {
@@ -46,9 +45,6 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         bRouteSelectText = findViewById(R.id.text_b_route);
         leftRouteText = findViewById(R.id.left_stop);
         rightRouteText = findViewById(R.id.right_stop);
-
-        firstBusTimeText = findViewById(R.id.txt_first_time);
-        secondBusTimeText = findViewById(R.id.txt_second_time);
         
         aRouteSelectText.setOnClickListener(view -> {
             aRouteSelectText.setTextColor(getResources().getColor(R.color.navy));
@@ -70,24 +66,6 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         });
         leftRouteText.setOnClickListener(view -> presenter.leftBtnClick(viewPager.getCurrentItem()));
         rightRouteText.setOnClickListener(view -> presenter.rightBtnClick(viewPager.getCurrentItem()));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-
-        View customView = getLayoutInflater().inflate(R.layout.actionbar_custom, new LinearLayout(this), false);
-        ((TextView)customView.findViewById(R.id.text_title)).setText("셔틀버스");
-        actionBar.setCustomView(customView);
-        actionBar.getCustomView().findViewById(R.id.back).setOnClickListener(view -> finish());
-        actionBar.setElevation(0);
-
-        return true;
     }
 
     private void initViewPager() {
@@ -115,7 +93,27 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
 
     private void setViewPagerAdapter() {
         UltraPagerAdapter ultraPagerAdapter = new UltraPagerAdapter(this);
-        presenter.setAdapter(ultraPagerAdapter);
+        presenter.setAdapterView(ultraPagerAdapter);
+        presenter.setAdapterModel(ultraPagerAdapter);
+        viewPager.setAdapter(ultraPagerAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+
+        View customView = getLayoutInflater().inflate(R.layout.actionbar_custom, new LinearLayout(this), false);
+        ((TextView)customView.findViewById(R.id.text_title)).setText("셔틀버스");
+        actionBar.setCustomView(customView);
+        actionBar.getCustomView().findViewById(R.id.back).setOnClickListener(view -> finish());
+        actionBar.setElevation(0);
+
+        return true;
     }
 
     @Override
@@ -123,11 +121,6 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         leftRouteText.setText(leftText);
         rightRouteText.setText(rightText);
         ((TextView)findViewById(R.id.center_stop)).setText(centerText);
-    }
-
-    @Override
-    public void setAdapter(PagerAdapter adapter) {
-        viewPager.setAdapter(adapter);
     }
 
     @Override
