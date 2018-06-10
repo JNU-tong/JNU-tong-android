@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.brandongogetap.stickyheaders.StickyLayoutManager;
 
@@ -24,9 +25,10 @@ import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.ShuttleBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+import static android.view.View.GONE;
+
+public class MainActivity extends AppCompatActivity implements MainContract.View {
     private RelativeLayout top;
-    private LinearLayout busComeInLayout;
     private LinearLayout cityBusLayout;
     private LinearLayout shuttleBusLayout;
 
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private Presenter presenter;
     private ImageButton btnRefresh;
+    private TextView txtFirstNo;
+    private TextView txtSecondNo;
+    private TextView txtDepartTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private void initTopImage() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.main_expand_anim);
-        busComeInLayout = findViewById(R.id.bus_come_in);
-        View topImage = findViewById(R.id.main_back);
+        android.view.View topImage = findViewById(R.id.main_back);
         topImage.startAnimation(animation);
 
         top = findViewById(R.id.top);
@@ -88,10 +92,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         cityBusHeight = cityBusParams.height;
         cityBusBottomMargin = cityBusParams.bottomMargin;
 
-        View bus = View.inflate(this, R.layout.view_bus_num, null);
         cityBusLayout.setOnClickListener(v -> presenter.clickCityBus());
 
-        busComeInLayout.addView(bus);
+        txtFirstNo = findViewById(R.id.txt_first_no);
+        txtSecondNo = findViewById(R.id.txt_second_no);
+        txtDepartTime = findViewById(R.id.txt_depart_time);
     }
 
     private void initShuttleBusLayout() {
@@ -113,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
+        
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             recyclerView.setClipToOutline(true);
         }
@@ -142,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             btnRefresh.setBackground(getResources().getDrawable(R.drawable.ic_refresh_navy));
         } else {
             expanded = false;
-            recyclerView.setVisibility(View.GONE);
+            recyclerView.setVisibility(GONE);
 
             TransitionManager.beginDelayedTransition(top);
             ViewGroup.LayoutParams params = top.getLayoutParams();
@@ -166,7 +172,25 @@ public class MainActivity extends AppCompatActivity implements MainView {
             // 끝나고 0.5초후에 다시 VISIBLE했습니다. 클릭했을때 VISIBLE을 실행하면 recyclerView가 만들어지는 부분에서 또
             // 딜레이가 생겨서 미리 VISIBLE했습니다.
             Handler handler = new Handler();
-            handler.postDelayed(() -> recyclerView.setVisibility(View.VISIBLE), 500);
+            handler.postDelayed(() -> recyclerView.setVisibility(android.view.View.VISIBLE), 500);
         }
+    }
+
+    @Override
+    public void setDepartureBusData(Integer[] imgIds, String[] busNos, String time) {
+        if (imgIds[0] == null) txtFirstNo.setVisibility(GONE);
+        else {
+            txtFirstNo.setBackground(getResources().getDrawable(imgIds[0]));
+            txtFirstNo.setText(busNos[0]);
+        }
+
+        if (busNos[1] == null) txtSecondNo.setVisibility(GONE);
+        else {
+            txtSecondNo.setBackground(getResources().getDrawable(imgIds[1]));
+            txtSecondNo.setText(busNos[1]);
+        }
+
+        if (time == null) txtDepartTime.setVisibility(GONE);
+        else  txtDepartTime.setText(time);
     }
 }

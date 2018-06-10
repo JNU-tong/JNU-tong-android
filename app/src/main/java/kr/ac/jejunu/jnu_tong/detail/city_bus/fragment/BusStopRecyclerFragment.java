@@ -15,7 +15,6 @@ import kr.ac.jejunu.jnu_tong.detail.city_bus.presenter.FragmentPresenter;
  */
 
 public class BusStopRecyclerFragment extends RecyclerFragment {
-
     public static BusStopRecyclerFragment newInstance(String busID, String busType) {
         Bundle args = new Bundle();
         args.putString("busID", busID);

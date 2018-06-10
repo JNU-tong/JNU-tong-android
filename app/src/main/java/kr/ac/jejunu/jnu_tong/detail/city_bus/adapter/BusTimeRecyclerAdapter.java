@@ -36,7 +36,14 @@ public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecycler
         BusTimeVO vo = provider.get(position);
 
         holder.departureTime.setText(vo.getDepartureTime());
-        holder.countTime.setText(vo.getRemainTime()+"분");
+
+        if (vo.getRemainTime() < 4){
+            holder.countTime.setText("잠시후도착");
+        }
+        else {
+            holder.countTime.setText(vo.getRemainTime()+"분");
+        }
+
     }
 
     @Override

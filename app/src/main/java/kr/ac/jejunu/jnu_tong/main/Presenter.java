@@ -1,5 +1,6 @@
 package kr.ac.jejunu.jnu_tong.main;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -17,13 +18,15 @@ import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
  */
 
 public class Presenter implements OnTaskResultListener<DepartureBusVO> {
-    private final MainView mainView;
+    private final MainContract.View mainView;
+    private final MainContract.Model mainModel;
 
     private MainAdapterContract.View<Item> adapterView;
     private MainAdapterContract.Model adapterModel;
 
-    Presenter(MainView mainView) {
+    Presenter(MainContract.View mainView) {
         this.mainView = mainView;
+        mainModel = new MainModel();
     }
 
     void onCreate() {
@@ -55,6 +58,9 @@ public class Presenter implements OnTaskResultListener<DepartureBusVO> {
         }
         else {
             adapterView.setItems(adapterModel.taskResultItems(result));
+            mainModel.setDepartureVOS(result);
+
+            mainView.setDepartureBusData(mainModel.getImgIds(), mainModel.getBusNos(), mainModel.getDepartTime());
         }
     }
 

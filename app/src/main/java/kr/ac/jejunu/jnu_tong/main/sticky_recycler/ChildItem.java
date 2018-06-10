@@ -22,7 +22,11 @@ public class ChildItem implements Item {
         busNum = vo.getLineNo() + "번";
         busID = vo.getLineID();
         busDescription = vo.getDescription();
-        remainTime = vo.getFirst() + "분전";
+        if (vo.getFirst() < 4){
+            remainTime = "잠시후도착";
+        } else {
+            remainTime = vo.getFirst() + "분전";
+        }
 
         if (vo.getLineNo().length() == 5) {
             busType = "yellow";
@@ -33,7 +37,6 @@ public class ChildItem implements Item {
         } else /*if (vo.getLineNo().charAt(0) == '3') */{
             busType = "sky";
             backGroundId = R.drawable.round_shape_sky;
-
         }
     }
 

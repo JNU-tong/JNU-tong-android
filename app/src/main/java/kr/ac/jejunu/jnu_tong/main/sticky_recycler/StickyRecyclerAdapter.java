@@ -107,8 +107,7 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
         oftenBus = new ArrayList<>();
         normalBus = new ArrayList<>();
 
-        for (DepartureBusVO vo :
-                arrayList) {
+        for (DepartureBusVO vo : arrayList) {
             if ( commonData.hasOftenBus(vo.getLineID()) ) {
                 oftenBus.add(vo);
             } else {
@@ -149,7 +148,6 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
         }
 
         ArrayList<Item> listItems = sortItems();
-
         setItems(listItems);
     }
 
