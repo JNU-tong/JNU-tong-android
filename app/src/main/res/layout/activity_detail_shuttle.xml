@@ -117,6 +117,7 @@
                 android:layerType="software" />
 
             <ImageButton
+                android:id="@+id/btn_heart"
                 android:layout_width="25dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"

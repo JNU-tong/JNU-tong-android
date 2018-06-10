@@ -136,7 +136,9 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:text="잠시후도착"
-                                android:textColor="@color/red" />
+                                android:textColor="@color/red"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                     </LinearLayout>

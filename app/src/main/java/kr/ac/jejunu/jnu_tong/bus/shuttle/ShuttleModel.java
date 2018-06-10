@@ -1,14 +1,14 @@
-package kr.ac.jejunu.jnu_tong.detail.shuttle_bus;
+package kr.ac.jejunu.jnu_tong.bus.shuttle;
 
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.route.ARoute;
-import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.route.BRoute;
-import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.route.Route;
+import kr.ac.jejunu.jnu_tong.CommonData;
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.ARoute;
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.BRoute;
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.Route;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 
 /**
@@ -49,10 +49,6 @@ public class ShuttleModel implements ShuttleContract.ShuttleModel {
         String[] stops = new String[busStops.size()];
         busStops.toArray(stops);
 
-        for (int i = 0 ; i < stops.length ; i++){
-            Log.e("dd", "getShuttleBusStops: " + stops[i] );
-        }
-
         return stops;
     }
 
@@ -64,6 +60,11 @@ public class ShuttleModel implements ShuttleContract.ShuttleModel {
     @Override
     public void selectBRoute() {
         route = BRoute.values();
+    }
+
+    @Override
+    public void setBookmark(Route currentStop) {
+//        CommonData.setShuttleBookmark();
     }
 }
 

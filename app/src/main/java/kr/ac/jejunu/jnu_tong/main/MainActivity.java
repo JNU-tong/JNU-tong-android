@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -22,7 +21,7 @@ import com.brandongogetap.stickyheaders.StickyLayoutManager;
 import java.util.ArrayList;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.ShuttleBusDetailActivity;
+import kr.ac.jejunu.jnu_tong.bus.shuttle.ShuttleBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
 
 import static android.view.View.GONE;
@@ -69,6 +68,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onRestart();
 
         presenter.refreshClick();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (expanded){
+            onClickCityBus();
+        }
+        else super.onBackPressed();
     }
 
     private void initTopImage() {
@@ -168,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             btnRefresh.setBackground(getResources().getDrawable(R.drawable.ic_refresh_white));
 
-            //야매로 했어요..   recyclerView가 없어지는 모션때문에 cityBusLayout이 늦게 반응해서 클릭할때 애초에 GONE시켰다가
+            // 야매로 했어요..   recyclerView가 없어지는 모션때문에 cityBusLayout이 늦게 반응해서 클릭할때 애초에 GONE시켰다가
             // 끝나고 0.5초후에 다시 VISIBLE했습니다. 클릭했을때 VISIBLE을 실행하면 recyclerView가 만들어지는 부분에서 또
             // 딜레이가 생겨서 미리 VISIBLE했습니다.
             Handler handler = new Handler();
@@ -192,5 +199,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         if (time == null) txtDepartTime.setVisibility(GONE);
         else  txtDepartTime.setText(time);
+    }
+
+    @Override
+    public void setJNUEvent(String today, String event) {
+        ((TextView)findViewById(R.id.today)).setText(today);
+        ((TextView)findViewById(R.id.d_day)).setText(event);
+
     }
 }

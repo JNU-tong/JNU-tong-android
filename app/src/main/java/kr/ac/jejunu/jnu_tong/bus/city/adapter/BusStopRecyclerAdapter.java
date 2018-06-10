@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail.city_bus.adapter;
+package kr.ac.jejunu.jnu_tong.bus.city.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

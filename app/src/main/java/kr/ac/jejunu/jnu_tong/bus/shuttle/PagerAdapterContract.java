@@ -1,7 +1,8 @@
-package kr.ac.jejunu.jnu_tong.detail.shuttle_bus;
+package kr.ac.jejunu.jnu_tong.bus.shuttle;
 
 import java.util.List;
 
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.Route;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 
 /**
@@ -17,5 +18,6 @@ public interface PagerAdapterContract {
         void selectARoute();
         void selectBRoute();
         void changeProvider(List<ShuttleVO> provider);
+        Route getBusStop(int position);
     }
 }

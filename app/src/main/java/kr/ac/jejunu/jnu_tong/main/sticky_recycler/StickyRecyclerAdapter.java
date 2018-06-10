@@ -21,7 +21,7 @@ import java.util.List;
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
-import kr.ac.jejunu.jnu_tong.detail.city_bus.CityBusDetailActivity;
+import kr.ac.jejunu.jnu_tong.bus.city.CityBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.main.MainAdapterContract;
 
 /**
@@ -55,7 +55,7 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_header, parent, false);
             return new MyHeaderHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_child, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_citybus_list, parent, false);
             return new MyChildViewHolder(view);
         }
     }

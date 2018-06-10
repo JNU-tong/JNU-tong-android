@@ -1,14 +1,13 @@
 package kr.ac.jejunu.jnu_tong.main;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
 
 /**
  * Created by seung-yeol on 2018. 6. 10..
@@ -20,6 +19,8 @@ public class MainModel implements MainContract.Model {
     private String firstNo;
     private String secondNo;
     private String departTime;
+    private String event;
+    private String today;
 
     @Override
     public void setDepartureVOS(List<DepartureBusVO> result) {
@@ -40,14 +41,14 @@ public class MainModel implements MainContract.Model {
             secondImgId = getImgId(result.get(1).getLineNo());
 
             if(result.get(0).getFirst() < 4) departTime = "잠시후도착";
-            else departTime = result.get(0).getFirst()+"분";
+            else departTime = result.get(0).getFirst() + "분전";
         }
         else{
             firstNo = result.get(0).getLineNo() + "번";
             firstImgId = getImgId(result.get(0).getLineNo());
 
             if(result.get(0).getFirst() < 4) departTime = "잠시후도착";
-            else departTime = result.get(0).getFirst()+"분";
+            else departTime = result.get(0).getFirst()+"분전";
 
             secondImgId = null;
             secondNo = null;
@@ -67,6 +68,43 @@ public class MainModel implements MainContract.Model {
     @Override
     public String getDepartTime() {
         return departTime;
+    }
+
+    @Override
+    public void setJNUEvent(JNUEventVO eventVO) {
+        String[] splitToday = eventVO.getDate().split("-");
+
+
+        Calendar cal= Calendar.getInstance ();
+
+        cal.set(Calendar.YEAR, Integer.parseInt(splitToday[0]) );
+        cal.set(Calendar.MONTH, Integer.parseInt(splitToday[1])-1 );
+        cal.set(Calendar.DATE, Integer.parseInt(splitToday[2]) );
+
+        String dayOfWeek;
+
+        switch (cal.get(Calendar.DAY_OF_WEEK)){
+            case 1: dayOfWeek ="(일)"; break;
+            case 2: dayOfWeek ="(월)"; break;
+            case 3: dayOfWeek ="(화)"; break;
+            case 4: dayOfWeek ="(수)"; break;
+            case 5: dayOfWeek ="(목)"; break;
+            case 6: dayOfWeek ="(금)"; break;
+            default: dayOfWeek ="(토)"; break;
+        }
+
+        today = splitToday[1] + "월 " + splitToday[2] + "일" + dayOfWeek;
+        event = eventVO.getEvent() + "까지 D-" + eventVO.getdDay();
+    }
+
+    @Override
+    public String getEvent() {
+        return event;
+    }
+
+    @Override
+    public String getToday() {
+        return today;
     }
 
     private Integer getImgId(String lineNo) {

@@ -24,10 +24,10 @@
         <activity android:name=".main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
-        <activity android:name=".detail.city_bus.CityBusDetailActivity"
+        <activity android:name=".bus.city.CityBusDetailActivity"
             android:theme="@style/AppTheme.white"
             android:screenOrientation="portrait"/>
-        <activity android:name=".detail.shuttle_bus.ShuttleBusDetailActivity"
+        <activity android:name=".bus.shuttle.ShuttleBusDetailActivity"
             android:theme="@style/AppTheme.white"
             android:screenOrientation="portrait"/>
     </application>

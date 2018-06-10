@@ -23,7 +23,7 @@ public class ChildItem implements Item {
         busID = vo.getLineID();
         busDescription = vo.getDescription();
         if (vo.getFirst() < 4){
-            remainTime = "잠시후도착";
+            remainTime = "잠시후";
         } else {
             remainTime = vo.getFirst() + "분전";
         }

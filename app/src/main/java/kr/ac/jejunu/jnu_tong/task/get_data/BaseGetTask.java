@@ -16,7 +16,7 @@ import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
  * Created by seung-yeol on 2018. 4. 9..
  */
 
-public abstract class BaseGetTask<E> extends AsyncTask<String, Void, List<E>> {
+public abstract class BaseGetTask<E> extends AsyncTask<String, Void, E> {
     private OnTaskResultListener<E> onTaskResultListener;
 
     BaseGetTask(OnTaskResultListener onTaskResultListener){
@@ -24,7 +24,7 @@ public abstract class BaseGetTask<E> extends AsyncTask<String, Void, List<E>> {
     }
 
     @Override
-    protected List<E> doInBackground(String[] params) {
+    protected E doInBackground(String[] params) {
         String urlStr = url(params);
         Log.e(this.toString(), "URL :  " + urlStr);
 
@@ -68,10 +68,10 @@ public abstract class BaseGetTask<E> extends AsyncTask<String, Void, List<E>> {
         return new String(byteData);
     }
 
-    abstract List<E> parse(String responseString);
+    abstract E parse(String responseString);
 
     @Override
-    protected void onPostExecute(List<E> resultList) {
+    protected void onPostExecute(E resultList) {
         onTaskResultListener.onTaskResult(resultList);
     }
 }

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail.shuttle_bus;
+package kr.ac.jejunu.jnu_tong.bus.shuttle;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,16 +13,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.route.ARoute;
-import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.route.BRoute;
-import kr.ac.jejunu.jnu_tong.detail.shuttle_bus.route.Route;
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.ARoute;
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.BRoute;
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.Route;
 import kr.ac.jejunu.jnu_tong.task.BitmapUtil;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 
@@ -150,6 +147,11 @@ public class UltraPagerAdapter extends PagerAdapter
         Log.e("ss", "changeProvider: " + provider.size() );
         pagerProvider = new ArrayList<>(provider);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Route getBusStop(int positiond) {
+        return route[positiond];
     }
 
     @Override

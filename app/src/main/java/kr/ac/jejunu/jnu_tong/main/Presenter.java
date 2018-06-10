@@ -8,16 +8,18 @@ import junit.framework.Assert;
 
 import java.util.List;
 
+import kr.ac.jejunu.jnu_tong.task.get_data.GetJNUEventTask;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
 import kr.ac.jejunu.jnu_tong.task.get_data.GetDepartureBusTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
+import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 20..
  */
 
-public class Presenter implements OnTaskResultListener<DepartureBusVO> {
+public class Presenter implements OnTaskResultListener<List<DepartureBusVO>> {
     private final MainContract.View mainView;
     private final MainContract.Model mainModel;
 
@@ -36,10 +38,16 @@ public class Presenter implements OnTaskResultListener<DepartureBusVO> {
 
     private void executeTask() {
         GetDepartureBusTask getDepartureBusTask = new GetDepartureBusTask(this);
-        getDepartureBusTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+        getDepartureBusTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        GetJNUEventTask eventTask = new GetJNUEventTask(result -> {
+            JNUEventVO eventVO = (JNUEventVO) result;
+            mainModel.setJNUEvent(eventVO);
+            mainView.setJNUEvent(mainModel.getToday(), mainModel.getEvent());
+        });
+        eventTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    void setAdapterView(MainAdapterContract.View<Item> adapterView){
+    void setAdapterView(MainAdapterContract.View<Item> adapterView) {
         this.adapterView = adapterView;
     }
 
@@ -47,7 +55,7 @@ public class Presenter implements OnTaskResultListener<DepartureBusVO> {
         this.adapterModel = adapterModel;
     }
 
-    void refreshClick(){
+    void refreshClick() {
         executeTask();
     }
 
@@ -55,8 +63,7 @@ public class Presenter implements OnTaskResultListener<DepartureBusVO> {
     public void onTaskResult(List<DepartureBusVO> result) {
         if (result == null || result.size() == 0) {
             Log.e(this.toString(), "결과가 없어.. ");
-        }
-        else {
+        } else {
             adapterView.setItems(adapterModel.taskResultItems(result));
             mainModel.setDepartureVOS(result);
 
@@ -72,7 +79,7 @@ public class Presenter implements OnTaskResultListener<DepartureBusVO> {
         adapterModel.heartClick(position);
     }
 
-    void clickCityBus(){
+    void clickCityBus() {
         mainView.onClickCityBus();
     }
 }

@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.BusTimeVO;
@@ -13,7 +14,7 @@ import kr.ac.jejunu.jnu_tong.vo.BusTimeVO;
  * Created by seung-yeol on 2018. 4. 10..
  */
 
-public class GetBusTimeTask extends BaseGetTask<BusTimeVO> {
+public class GetBusTimeTask extends BaseGetTask<List<BusTimeVO>> {
     public GetBusTimeTask(OnTaskResultListener onTaskResultListener) {
         super(onTaskResultListener);
     }

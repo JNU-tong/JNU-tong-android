@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail.shuttle_bus.route;
+package kr.ac.jejunu.jnu_tong.bus.shuttle.route;
 
 import kr.ac.jejunu.jnu_tong.R;
 

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail.city_bus;
+package kr.ac.jejunu.jnu_tong.bus.city;
 
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -19,8 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.detail.city_bus.fragment.BusStopRecyclerFragment;
-import kr.ac.jejunu.jnu_tong.detail.city_bus.fragment.BusTimeRecyclerFragment;
+import kr.ac.jejunu.jnu_tong.bus.city.fragment.BusStopRecyclerFragment;
+import kr.ac.jejunu.jnu_tong.bus.city.fragment.BusTimeRecyclerFragment;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..

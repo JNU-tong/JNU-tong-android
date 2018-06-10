@@ -1,9 +1,8 @@
-package kr.ac.jejunu.jnu_tong.detail.shuttle_bus;
-
-import android.support.v4.view.PagerAdapter;
+package kr.ac.jejunu.jnu_tong.bus.shuttle;
 
 import java.util.List;
 
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.Route;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 
 /**
@@ -19,11 +18,9 @@ public interface ShuttleContract {
 
     interface ShuttleModel {
         void changeProvider(List<ShuttleVO> result);
-
         String[] getShuttleBusStops();
-
         void selectARoute();
-
         void selectBRoute();
+        void setBookmark(Route currentStop);
     }
 }

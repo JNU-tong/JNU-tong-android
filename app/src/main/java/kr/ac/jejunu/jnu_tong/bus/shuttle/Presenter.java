@@ -1,18 +1,13 @@
-package kr.ac.jejunu.jnu_tong.detail.shuttle_bus;
+package kr.ac.jejunu.jnu_tong.bus.shuttle;
 
 import android.os.AsyncTask;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.Adapter;
-import android.widget.BaseAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.ActivityPresenter;
 import kr.ac.jejunu.jnu_tong.CommonData;
-import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.Route;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.task.get_data.GetShuttleDetailTask;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
@@ -21,7 +16,7 @@ import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
  * Created by seung-yeol on 2018. 4. 24..
  */
 
-public class Presenter implements ActivityPresenter, OnTaskResultListener<ShuttleVO>{
+public class Presenter implements ActivityPresenter, OnTaskResultListener<List<ShuttleVO>>{
     private ShuttleContract.ShuttleView shuttleView;
     private ShuttleContract.ShuttleModel shuttleModel;
     private PagerAdapterContract.View adapterView;
@@ -93,5 +88,10 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<Shuttl
         taskStart("B");
         adapterModel.selectBRoute();
         shuttleModel.selectBRoute();
+    }
+
+    void heartClick(int position) {
+        Route currentStop = adapterModel.getBusStop(position);
+        shuttleModel.setBookmark(currentStop);
     }
 }

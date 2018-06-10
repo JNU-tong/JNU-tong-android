@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail.city_bus.fragment;
+package kr.ac.jejunu.jnu_tong.bus.city.fragment;
 
 
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.detail.city_bus.adapter.AdapterContract;
-import kr.ac.jejunu.jnu_tong.detail.city_bus.presenter.FragmentPresenter;
+import kr.ac.jejunu.jnu_tong.bus.city.adapter.AdapterContract;
+import kr.ac.jejunu.jnu_tong.bus.city.presenter.FragmentPresenter;
 
 /**
  * Created by seung-yeol on 2018. 4. 17..

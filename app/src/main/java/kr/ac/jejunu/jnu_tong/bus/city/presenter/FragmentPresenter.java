@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.detail.city_bus.presenter;
+package kr.ac.jejunu.jnu_tong.bus.city.presenter;
 
 /**
  * Created by seung-yeol on 2018. 4. 18..

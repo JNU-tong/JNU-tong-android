@@ -7,5 +7,5 @@ import java.util.List;
  */
 
 public interface OnTaskResultListener<E> {
-    void onTaskResult(List<E> result);
+    void onTaskResult(E result);
 }

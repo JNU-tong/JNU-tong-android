@@ -17,7 +17,7 @@ import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
  * Created by seung-yeol on 2018. 5. 19..
  */
 
-public class GetShuttleDetailTask extends BaseGetTask<ShuttleVO> {
+public class GetShuttleDetailTask extends BaseGetTask<List<ShuttleVO>> {
     public GetShuttleDetailTask(OnTaskResultListener onTaskResultListener) {
         super(onTaskResultListener);
     }

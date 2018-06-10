@@ -1,11 +1,11 @@
-package kr.ac.jejunu.jnu_tong.detail.city_bus.presenter;
+package kr.ac.jejunu.jnu_tong.bus.city.presenter;
 
 import android.os.AsyncTask;
 
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
-import kr.ac.jejunu.jnu_tong.detail.city_bus.adapter.AdapterContract;
+import kr.ac.jejunu.jnu_tong.bus.city.adapter.AdapterContract;
 import kr.ac.jejunu.jnu_tong.vo.BusStopVO;
 import kr.ac.jejunu.jnu_tong.task.get_data.GetBusStopTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
@@ -14,7 +14,7 @@ import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
  * Created by seung-yeol on 2018. 4. 18..
  */
 
-public class BusStopFragmentPresenter implements FragmentPresenter, OnTaskResultListener<BusStopVO> {
+public class BusStopFragmentPresenter implements FragmentPresenter, OnTaskResultListener<List<BusStopVO>> {
     private AdapterContract.View<BusStopVO> view;
     private String busID;
 

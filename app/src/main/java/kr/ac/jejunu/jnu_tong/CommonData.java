@@ -55,7 +55,11 @@ public class CommonData extends Application {
         return oftenBusSet.contains(busID);
     }
 
-    public HashSet<String> getOftenBusSet(){
-        return oftenBusSet;
+    public void setShuttleBookmark(String stopTitle) {
+        pref.edit().putString("bookmarkShuttle", stopTitle).apply();
+    }
+
+    public static String getJNUEventURL() {
+        return baseURL + "jnu/eventDay/first";
     }
 }

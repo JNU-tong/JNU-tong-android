@@ -1,0 +1,44 @@
+package kr.ac.jejunu.jnu_tong.task.get_data;
+
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
+import kr.ac.jejunu.jnu_tong.CommonData;
+import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
+import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
+
+/**
+ * Created by seung-yeol on 2018. 6. 10..
+ */
+
+public class GetJNUEventTask extends BaseGetTask<JNUEventVO> {
+    public GetJNUEventTask(OnTaskResultListener onTaskResultListener) {
+        super(onTaskResultListener);
+    }
+
+    @Override
+    String url(String[] params) {
+        return CommonData.getJNUEventURL();
+    }
+
+    @Override
+    JNUEventVO parse(String responseString) {
+        JNUEventVO eventVO = new JNUEventVO();
+        try {
+            JSONObject result = new JSONObject(responseString);
+
+            eventVO.setId(result.has("id") ? result.getInt("id") : null);
+            eventVO.setDate(result.has("date") ? result.getString("date") : null);
+            eventVO.setdDay(result.has("dDay") ? result.getInt("dDay") : null);
+            eventVO.setEvent(result.has("event") ? result.getString("event") : null);
+        } catch (JSONException e) {
+            Log.e(this.toString(), "parse: error " + e.toString() );
+        }
+
+        return eventVO;
+    }
+}

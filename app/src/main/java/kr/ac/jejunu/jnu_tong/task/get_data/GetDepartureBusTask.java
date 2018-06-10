@@ -17,7 +17,7 @@ import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
  * Created by seung-yeol on 2018. 4. 11..
  */
 
-public class GetDepartureBusTask extends BaseGetTask<DepartureBusVO> {
+public class GetDepartureBusTask extends BaseGetTask<List<DepartureBusVO>> {
     public GetDepartureBusTask(OnTaskResultListener onTaskResultListener) {
         super(onTaskResultListener);
     }
