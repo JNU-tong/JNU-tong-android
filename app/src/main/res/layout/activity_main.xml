@@ -1,77 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="kr.ac.jejunu.jnu_tong.main.MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="296dp"
-        android:orientation="vertical">
-
-        <View
-            android:id="@+id/main_back"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background_main" />
-
-        <TextView
-            android:id="@+id/today"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="19dp"
-            android:layout_marginTop="203dp"
-            android:text="10월 17(화)"
-            android:textColor="@color/navy"
-            android:textSize="36sp" />
-
-        <TextView
-            android:id="@+id/d_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/today"
-            android:layout_marginEnd="26dp"
-            android:layout_marginTop="5dp"
-            android:text="종강까지 D-260"
-            android:textColor="@color/navy"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
-
     <LinearLayout
-        android:id="@+id/city_bus"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_below="@+id/main_back"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="36dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <TextView
+        <RelativeLayout
+            android:id="@+id/top"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/main_round_box_top"
-            android:gravity="center_vertical"
-            android:paddingStart="13dp"
-            android:text="시내버스"
-            android:textColor="@color/white" />
+            android:layout_height="296dp"
+
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/main_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_main" />
+
+            <TextView
+                android:id="@+id/today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="19dp"
+                android:layout_marginTop="203dp"
+                android:text="10월 17(화)"
+                android:textColor="@color/navy"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/d_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/today"
+                android:layout_marginEnd="26dp"
+                android:layout_marginTop="5dp"
+                android:text="종강까지 D-260"
+                android:textColor="@color/navy"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/city_bus"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/main_round_box_bottom"
+            android:layout_height="80dp"
+            android:layout_below="@+id/main_back"
+            android:layout_marginBottom="13dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="40dp"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/main_round_box_top"
+                android:gravity="center_vertical"
+                android:paddingStart="13dp"
+                android:text="시내버스"
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/main_round_box_bottom"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingStart="13dp"
+                        android:text="출발예정버스"
+                        android:textColor="@color/navy" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:background="@color/gray" />
+
+                    <LinearLayout
+                        android:id="@+id/bus_come_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_soon_bus"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/shuttle_bus"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/city_bus"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="13dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:background="@drawable/main_round_box_top"
+                android:gravity="center_vertical"
+                android:paddingStart="13dp"
+                android:text="셔틀버스"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/main_round_box_bottom"
                 android:orientation="horizontal">
 
                 <TextView
@@ -85,116 +150,75 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:background="@color/gray" />
 
                 <LinearLayout
-                    android:id="@+id/bus_come_in"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="A노선"
+                        android:textColor="@color/navy"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/text_a_route"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="5분전"
+                        android:textColor="@color/red"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="B노선"
+                        android:textColor="@color/navy"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/text_b_route"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="10분전"
+                        android:textColor="@color/red"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
             </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_soon_bus"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </FrameLayout>
-
-
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/shuttle_bus"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_below="@id/city_bus"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="13dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="end">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/main_round_box_top"
-            android:gravity="center_vertical"
-            android:paddingStart="13dp"
-            android:text="셔틀버스"
-            android:textColor="@color/white" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/main_round_box_bottom"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingStart="13dp"
-                android:text="출발예정버스"
-                android:textColor="@color/navy" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="A노선"
-                    android:textColor="@color/navy"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/text_a_route"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="5분전"
-                    android:textColor="@color/red"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="B노선"
-                    android:textColor="@color/navy"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/text_b_route"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="10분전"
-                    android:textColor="@color/red"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/btn_refresh"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_refresh_white"
+            android:gravity="end"
+            android:contentDescription="refresh" />
     </LinearLayout>
 
-</LinearLayout>
+
+
+</FrameLayout>

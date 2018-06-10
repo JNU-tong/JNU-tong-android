@@ -28,8 +28,7 @@ public class Presenter implements OnTaskResultListener<DepartureBusVO> {
 
     void onCreate() {
         Assert.assertNotNull(adapterView);
-
-//        executeTask();
+        executeTask();
     }
 
     private void executeTask() {
@@ -43,6 +42,10 @@ public class Presenter implements OnTaskResultListener<DepartureBusVO> {
 
     void setAdapterModel(MainAdapterContract.Model adapterModel) {
         this.adapterModel = adapterModel;
+    }
+
+    void refreshClick(){
+        executeTask();
     }
 
     @Override
@@ -63,11 +66,7 @@ public class Presenter implements OnTaskResultListener<DepartureBusVO> {
         adapterModel.heartClick(position);
     }
 
-    void clickCityBus(boolean expanded) {
-        if (!expanded){
-            executeTask();
-        }
-
+    void clickCityBus(){
         mainView.onClickCityBus();
     }
 }

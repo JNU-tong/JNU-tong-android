@@ -140,11 +140,13 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         }
 
         for (int i = 0; i < busStops.length; i++) {
-            ((TextView)busStopLayout.findViewWithTag("stop" + i)).setText(busStops[i]);
+            ((TextView)busStopLayout.findViewWithTag("stop_" + i)).setText(busStops[i]);
+            Log.e("ccc", "처음: " + busStops[i] );
         }
 
         for (int i = busStops.length - 1 ; i < 4 ; i ++){
-            ((TextView)busStopLayout.findViewWithTag("stop" + i)).setText("");
+            ((TextView)busStopLayout.findViewWithTag("stop_" + i)).setText("");
+            Log.e("ccc", "나머지: " + busStops[i] );
         }
     }
 

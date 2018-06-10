@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private RecyclerView recyclerView;
 
     private Presenter presenter;
+    private ImageButton btnRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
 
         initTopImage();
+        initRefreshBtn();
         initCityBusRecycler();
         initCityBusLayout();
         initShuttleBusLayout();
@@ -54,6 +57,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
         presenter.setAdapterView(adapter);
         presenter.setAdapterModel(adapter);
         presenter.onCreate();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        presenter.refreshClick();
     }
 
     private void initTopImage() {
@@ -67,6 +77,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         topHeight = params.height;
     }
 
+    private void initRefreshBtn() {
+        btnRefresh = findViewById(R.id.btn_refresh);
+        btnRefresh.setOnClickListener(view -> presenter.refreshClick());
+    }
+
     private void initCityBusLayout() {
         cityBusLayout = findViewById(R.id.city_bus);
         LinearLayout.LayoutParams cityBusParams = (LinearLayout.LayoutParams) cityBusLayout.getLayoutParams();
@@ -74,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         cityBusBottomMargin = cityBusParams.bottomMargin;
 
         View bus = View.inflate(this, R.layout.view_bus_num, null);
-        cityBusLayout.setOnClickListener(v -> presenter.clickCityBus(expanded));
+        cityBusLayout.setOnClickListener(v -> presenter.clickCityBus());
 
         busComeInLayout.addView(bus);
     }
@@ -124,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             params.height = 0;
             top.setLayoutParams(params);
 
+            btnRefresh.setBackground(getResources().getDrawable(R.drawable.ic_refresh_navy));
         } else {
             expanded = false;
             recyclerView.setVisibility(View.GONE);
@@ -143,6 +159,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
             layoutParams.height = cityBusHeight;
             layoutParams.bottomMargin = cityBusBottomMargin;
             cityBusLayout.setLayoutParams(layoutParams);
+
+            btnRefresh.setBackground(getResources().getDrawable(R.drawable.ic_refresh_white));
 
             //야매로 했어요..   recyclerView가 없어지는 모션때문에 cityBusLayout이 늦게 반응해서 클릭할때 애초에 GONE시켰다가
             // 끝나고 0.5초후에 다시 VISIBLE했습니다. 클릭했을때 VISIBLE을 실행하면 recyclerView가 만들어지는 부분에서 또

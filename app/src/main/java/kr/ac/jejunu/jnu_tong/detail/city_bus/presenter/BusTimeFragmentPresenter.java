@@ -41,18 +41,17 @@ public class BusTimeFragmentPresenter implements FragmentPresenter, OnTaskResult
     }
 
     @Override
-    public void onPause() {
-
-    }
+    public void onPause() {}
 
     @Override
-    public void onResume() {
-
-    }
+    public void onResume() {}
 
     @Override
-    public void onDestroy() {
+    public void onDestroy() {}
 
+    @Override
+    public void refreshClick() {
+        executeTask();
     }
 
     // 남은시간 양수인것만 가져옴

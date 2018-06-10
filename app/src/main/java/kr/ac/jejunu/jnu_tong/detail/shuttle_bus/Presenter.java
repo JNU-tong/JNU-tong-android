@@ -81,7 +81,6 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<Shuttl
         shuttleModel.changeProvider(result);
         String[] shuttleBusStops = shuttleModel.getShuttleBusStops();
         shuttleView.setBusPositionList(shuttleBusStops);
-
     }
 
     void selectARoute() {

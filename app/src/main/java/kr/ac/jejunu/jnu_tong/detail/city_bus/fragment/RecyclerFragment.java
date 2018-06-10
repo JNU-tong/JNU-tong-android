@@ -88,5 +88,9 @@ public abstract class RecyclerFragment extends Fragment {
     protected abstract RecyclerView.Adapter setAdapter();
     //프레젠터 설정
     protected abstract FragmentPresenter setPresenter(AdapterContract.View view, String busID);
+
+    public void refresh(){
+        presenter.refreshClick();
+    }
 }
 

@@ -43,6 +43,7 @@ public class BusStopRecyclerAdapter extends RecyclerView.Adapter<BusStopRecycler
 
     @Override
     public void addItems(List<BusStopVO> datas) {
+        busStopVOS.clear();
         busStopVOS.addAll(datas);
         notifyDataSetChanged();
     }

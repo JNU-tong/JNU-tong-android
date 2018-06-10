@@ -46,6 +46,7 @@ public class BusTimeRecyclerAdapter extends RecyclerView.Adapter<BusTimeRecycler
 
     @Override
     public void addItems(List<BusTimeVO> datas) {
+        provider.clear();
         provider.addAll(datas);
         notifyDataSetChanged();
     }

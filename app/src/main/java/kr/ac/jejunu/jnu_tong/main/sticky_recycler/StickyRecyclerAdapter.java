@@ -33,8 +33,6 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
     private List<Item> items;
     private Context context;
     private CommonData commonData;
-//    private ArrayList<DepartureBusVO> oftenBus;
-//    private ArrayList<DepartureBusVO> normalBus;
     private OnDetailClickListener onDetailClickListener;
     private OnHeartClickListener onHeartClickListener;
     private ArrayList<DepartureBusVO> oftenBus;

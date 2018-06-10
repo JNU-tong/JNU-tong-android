@@ -145,7 +145,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:tag="stop0"
+            android:tag="stop_0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -153,7 +153,7 @@
             android:theme="@style/lineTextTheme" />
 
         <TextView
-            android:tag="stop1"
+            android:tag="stop_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -162,7 +162,7 @@
             android:theme="@style/lineTextTheme" />
 
         <TextView
-            android:tag="stop2"
+            android:tag="stop_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -171,7 +171,7 @@
             android:theme="@style/lineTextTheme" />
 
         <TextView
-            android:tag="stop3"
+            android:tag="stop_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -180,7 +180,7 @@
             android:theme="@style/lineTextTheme" />
 
         <TextView
-            android:tag="stop4"
+            android:tag="stop_4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

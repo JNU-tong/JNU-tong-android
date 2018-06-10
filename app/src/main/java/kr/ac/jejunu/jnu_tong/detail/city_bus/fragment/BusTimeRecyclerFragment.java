@@ -18,7 +18,6 @@ public class BusTimeRecyclerFragment extends RecyclerFragment {
 
     public static BusTimeRecyclerFragment newInstance(String busID, String busType) {
         Bundle args = new Bundle();
-
         args.putString("busID", busID);
         args.putString("busType", busType);
 

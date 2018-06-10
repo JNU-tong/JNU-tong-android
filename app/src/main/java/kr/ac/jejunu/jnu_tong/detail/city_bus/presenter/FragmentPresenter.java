@@ -10,4 +10,6 @@ public interface FragmentPresenter {
     void onPause();
     void onResume();
     void onDestroy();
+
+    void refreshClick();
 }

@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -64,6 +65,12 @@ public class CityBusDetailActivity extends AppCompatActivity {
 
         actionBar.setCustomView(R.layout.actionbar_custom);
         actionBar.getCustomView().findViewById(R.id.back).setOnClickListener(view -> finish());
+        actionBar.getCustomView().findViewById(R.id.refresh).setOnClickListener(view -> {
+
+            Log.e("refresh", "refresh"  );
+            busStopListFragment.refresh();
+            busTimeListFragment.refresh();
+        });
         actionBar.setElevation(0);
 
         return true;
@@ -134,7 +141,6 @@ public class CityBusDetailActivity extends AppCompatActivity {
                     rightTab.setBackground(getResources().getDrawable(rightTabId));
                     leftTab.setBackground(null);
                 }
-
             }
 
             @Override

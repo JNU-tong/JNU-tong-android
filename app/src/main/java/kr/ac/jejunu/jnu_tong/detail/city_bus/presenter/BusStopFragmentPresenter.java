@@ -54,4 +54,9 @@ public class BusStopFragmentPresenter implements FragmentPresenter, OnTaskResult
     public void onDestroy() {
 
     }
+
+    @Override
+    public void refreshClick() {
+        executeTask();
+    }
 }

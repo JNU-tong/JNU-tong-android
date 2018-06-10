@@ -35,7 +35,7 @@ public class UltraPagerAdapter extends PagerAdapter
     private List<ShuttleVO> pagerProvider;
     private Route[] route;
     private Context context;
-    SparseArray< View > views = new SparseArray<>();
+    private SparseArray< View > views = new SparseArray<>();
 
     UltraPagerAdapter(Context context) {
         this.context = context;
@@ -109,8 +109,6 @@ public class UltraPagerAdapter extends PagerAdapter
             TextView txtFirstTime = view.findViewById(R.id.txt_first_time);
             TextView txtSecondTime = view.findViewById(R.id.txt_second_time);
             setShuttleStopTime(key, txtFirstTime, txtSecondTime);
-
-            ((TextView)view.findViewById(R.id.txt_second_time)).setText(pagerProvider.get(key).getSecondTime()+"분전");
         }
         super.notifyDataSetChanged();
     }
