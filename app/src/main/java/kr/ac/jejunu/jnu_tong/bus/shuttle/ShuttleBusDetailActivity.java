@@ -74,7 +74,10 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         rightRouteText.setOnClickListener(view -> presenter.rightBtnClick(viewPager.getCurrentItem()));
 
         btnHeart = findViewById(R.id.btn_heart);
-        btnHeart.setOnClickListener(view -> presenter.heartClick(viewPager.getCurrentItem()));
+        btnHeart.setOnClickListener(view -> {
+            view.setBackground(getResources().getDrawable(R.mipmap.ic_heart_on));
+            presenter.heartClick(viewPager.getCurrentItem());
+        });
     }
 
     private void initViewPager() {

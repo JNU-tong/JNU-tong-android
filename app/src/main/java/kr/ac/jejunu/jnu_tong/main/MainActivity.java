@@ -22,6 +22,7 @@ import com.brandongogetap.stickyheaders.StickyLayoutManager;
 
 import java.util.ArrayList;
 
+import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.bus.shuttle.ShuttleBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         presenter = new Presenter(this);
         presenter.setAdapterView(adapter);
         presenter.setAdapterModel(adapter);
+        presenter.setShuttleBookmarkId(((CommonData)getApplication()).getShuttleBookmarkId());
         presenter.onCreate();
     }
 
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onRestart() {
         super.onRestart();
 
+        presenter.setShuttleBookmarkId(((CommonData)getApplication()).getShuttleBookmarkId());
         presenter.refreshClick();
     }
 
@@ -212,5 +215,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void setJNUEvent(String today, String event) {
         ((TextView)findViewById(R.id.today)).setText(today);
         ((TextView)findViewById(R.id.d_day)).setText(event);
+    }
+
+    @Override
+    public void setShuttleBusData(String title, Integer aFirst, Integer bFirst) {
+        ((TextView)findViewById(R.id.txt_shuttle_bookmark)).setText(title);
+
+        if ( aFirst != null) ((TextView)findViewById(R.id.txt_a_route)).setText(aFirst+"분전");
+        else ((TextView)findViewById(R.id.txt_a_route)).setText("없음");
+
+        if ( aFirst != null) ((TextView)findViewById(R.id.txt_b_route)).setText(bFirst+"분전");
+        else ((TextView)findViewById(R.id.txt_b_route)).setText("없음");
     }
 }

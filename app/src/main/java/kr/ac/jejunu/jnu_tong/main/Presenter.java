@@ -7,12 +7,16 @@ import junit.framework.Assert;
 
 import java.util.List;
 
+import kr.ac.jejunu.jnu_tong.CommonData;
+import kr.ac.jejunu.jnu_tong.bus.shuttle.route.ARoute;
 import kr.ac.jejunu.jnu_tong.task.get.GetJNUEventTask;
+import kr.ac.jejunu.jnu_tong.task.get.GetShuttleMainTask;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
 import kr.ac.jejunu.jnu_tong.task.get.GetDepartureBusTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
+import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 20..
@@ -35,9 +39,19 @@ public class Presenter implements OnTaskResultListener<List<DepartureBusVO>> {
         executeTask();
     }
 
+    void setShuttleBookmarkId(int stationId){
+        GetShuttleMainTask shuttleMainTask = new GetShuttleMainTask(result -> {
+            mainView.setShuttleBusData(ARoute.values()[stationId].getTitle(),
+                    ((ShuttleTimeVO) result).getAFirst(), ((ShuttleTimeVO) result).getBFirst());
+        });
+        shuttleMainTask.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR,
+                CommonData.getShuttlePointUrl( stationId ));
+    }
+
     private void executeTask() {
         GetDepartureBusTask getDepartureBusTask = new GetDepartureBusTask(this);
         getDepartureBusTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         GetJNUEventTask eventTask = new GetJNUEventTask(result -> {
             JNUEventVO eventVO = (JNUEventVO) result;
             mainModel.setJNUEvent(eventVO);

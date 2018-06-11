@@ -60,7 +60,7 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<List<S
         String[] busStopNames = adapterModel.getBusStopNames(position);
         shuttleView.routeTextChange(busStopNames[0], busStopNames[1], busStopNames[2]);
 
-        if (adapterModel.getBusStopId(position) == shuttleModel.getBookmarkkedId())
+        if (adapterModel.getBusStopId(position) == shuttleModel.getBookmarkId())
             shuttleView.setHeartOn(true);
         else shuttleView.setHeartOn(false);
     }
@@ -94,7 +94,7 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<List<S
     }
 
     void heartClick(int position) {
-        int stopId = adapterModel.getBusStopId(position);
+        Integer stopId = adapterModel.getBusStopId(position);
         setBookmarkId(stopId);
     }
 

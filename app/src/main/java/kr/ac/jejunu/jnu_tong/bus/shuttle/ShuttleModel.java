@@ -62,12 +62,11 @@ public class ShuttleModel implements ShuttleContract.ShuttleModel {
 
     @Override
     public void setBookmarkId(int stopId) {
-        if (route.equals("B"))  shuttleBookmarkPosition = 15 - stopId;
-        else shuttleBookmarkPosition = stopId;
+        shuttleBookmarkPosition = stopId;
     }
 
     @Override
-    public int getBookmarkkedId() {
+    public int getBookmarkId() {
         return shuttleBookmarkPosition;
     }
 }

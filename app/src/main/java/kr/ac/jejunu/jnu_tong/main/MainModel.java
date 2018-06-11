@@ -8,6 +8,7 @@ import java.util.List;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
+import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 6. 10..
@@ -21,6 +22,7 @@ public class MainModel implements MainContract.Model {
     private String departTime;
     private String event;
     private String today;
+    private int bookmarkId;
 
     @Override
     public void setDepartureVOS(List<DepartureBusVO> result) {

@@ -23,6 +23,6 @@ public interface ShuttleContract {
         void selectARoute();
         void selectBRoute();
         void setBookmarkId(int stopId);
-        int getBookmarkkedId();
+        int getBookmarkId();
     }
 }

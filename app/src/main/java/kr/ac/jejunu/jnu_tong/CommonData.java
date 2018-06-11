@@ -60,13 +60,17 @@ public class CommonData extends Application {
     }
 
     public int getShuttleBookmarkId(){
-        int shuttleBookmarkId = 0;
-        pref.getInt("bookmarkShuttleId", shuttleBookmarkId);
+
+        int shuttleBookmarkId = pref.getInt("bookmarkShuttleId", 0);
 
         return shuttleBookmarkId;
     }
 
     public static String getJNUEventURL() {
         return baseURL + "jnu/eventDay/first";
+    }
+
+    public static String getShuttlePointUrl(int stationId) {
+        return baseURL + "getJnuBusArrivalInfoByStationId?stationId=" + stationId;
     }
 }

@@ -16,7 +16,7 @@ public enum BRoute implements Route {
     의학전문대학원(9, "의학전문\n대학원", R.drawable.route_medical_specialty),
     중앙도서관(8, "도서관", R.drawable.route_center_library),
     인문대학동(7, "인문대학 동쪽", R.drawable.route_inmoondae_east),
-    학생생활관(6, "학생생확관", R.drawable.route_kisooksa),
+    학생생활관(6, "학생생활관", R.drawable.route_kisooksa),
     입문대학서(5, "인문대학 서쪽", R.drawable.route_inmoondae_west),
     학생회관(4, "학생회관 남쪽", R.drawable.route_sin_gwan),
     본관(3, "본관", R.drawable.route_bon_gwan),
