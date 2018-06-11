@@ -25,5 +25,6 @@
     
     <color name="emerald">#70C7AE</color>
     <color name="clear_emerald">#1870C7AE</color>
+    <color name="black">#000000</color>
 
 </resources>

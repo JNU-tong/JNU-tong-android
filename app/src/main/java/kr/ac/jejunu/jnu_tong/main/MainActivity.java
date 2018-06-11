@@ -160,8 +160,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             btnRefresh.setBackground(getResources().getDrawable(R.drawable.ic_refresh_navy));
         } else {
-            expanded = false;
-            recyclerView.setVisibility(GONE);
+            expanded = false;            recyclerView.setVisibility(GONE);
 
             TransitionManager.beginDelayedTransition(top);
             ViewGroup.LayoutParams params = top.getLayoutParams();

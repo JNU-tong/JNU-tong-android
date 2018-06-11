@@ -2,18 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.ac.jejunu.jnu_tong">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".CommonData"
         android:allowBackup="true"
         android:icon="@mipmap/ic_app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_app_icon_round"
-        android:supportsRtl="true"
         android:largeHeap="true"
-        android:theme="@style/SplashTheme"
-        android:screenOrientation="portrait">
+        android:roundIcon="@mipmap/ic_app_icon_round"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/SplashTheme">
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,15 +21,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".bus.city.CityBusDetailActivity"
-            android:theme="@style/AppTheme.white"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".bus.shuttle.ShuttleBusDetailActivity"
-            android:theme="@style/AppTheme.white"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".bus.city.CityBusDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.white" />
+        <activity
+            android:name=".bus.shuttle.ShuttleBusDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.white" />
+
+
+        <receiver android:name=".AppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widgetinfo" />
+        </receiver>
     </application>
 
 </manifest>
