@@ -73,16 +73,9 @@ public class MainModel implements MainContract.Model {
     @Override
     public void setJNUEvent(JNUEventVO eventVO) {
         String[] splitToday = eventVO.getDate().split("-");
-
-
-        Calendar cal= Calendar.getInstance ();
-
-        cal.set(Calendar.YEAR, Integer.parseInt(splitToday[0]) );
-        cal.set(Calendar.MONTH, Integer.parseInt(splitToday[1])-1 );
-        cal.set(Calendar.DATE, Integer.parseInt(splitToday[2]) );
-
         String dayOfWeek;
 
+        Calendar cal= Calendar.getInstance ();
         switch (cal.get(Calendar.DAY_OF_WEEK)){
             case 1: dayOfWeek ="(일)"; break;
             case 2: dayOfWeek ="(월)"; break;
@@ -90,7 +83,7 @@ public class MainModel implements MainContract.Model {
             case 4: dayOfWeek ="(수)"; break;
             case 5: dayOfWeek ="(목)"; break;
             case 6: dayOfWeek ="(금)"; break;
-            default: dayOfWeek ="(토)"; break;
+            default: dayOfWeek ="(토)";
         }
 
         today = splitToday[1] + "월 " + splitToday[2] + "일" + dayOfWeek;
@@ -108,7 +101,7 @@ public class MainModel implements MainContract.Model {
     }
 
     private Integer getImgId(String lineNo) {
-        if (lineNo.length() == 5) {
+        if (lineNo.length() == 4) {
             return R.drawable.round_shape_yellow;
         } else if (lineNo.charAt(0) == '4') {
             return R.drawable.round_shape_green;

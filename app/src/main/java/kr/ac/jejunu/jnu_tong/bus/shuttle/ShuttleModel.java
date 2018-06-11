@@ -1,11 +1,8 @@
 package kr.ac.jejunu.jnu_tong.bus.shuttle;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.bus.shuttle.route.ARoute;
 import kr.ac.jejunu.jnu_tong.bus.shuttle.route.BRoute;
 import kr.ac.jejunu.jnu_tong.bus.shuttle.route.Route;
@@ -18,6 +15,7 @@ import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 public class ShuttleModel implements ShuttleContract.ShuttleModel {
     private List<String> busStops;
     private Route[] route;
+    private int shuttleBookmarkPosition;
 
     ShuttleModel() {
         busStops = new ArrayList<>();
@@ -63,8 +61,14 @@ public class ShuttleModel implements ShuttleContract.ShuttleModel {
     }
 
     @Override
-    public void setBookmark(Route currentStop) {
-//        CommonData.setShuttleBookmark();
+    public void setBookmarkId(int stopId) {
+        if (route.equals("B"))  shuttleBookmarkPosition = 15 - stopId;
+        else shuttleBookmarkPosition = stopId;
+    }
+
+    @Override
+    public int getBookmarkkedId() {
+        return shuttleBookmarkPosition;
     }
 }
 

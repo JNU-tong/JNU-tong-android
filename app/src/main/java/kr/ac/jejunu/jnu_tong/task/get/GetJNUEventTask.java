@@ -1,11 +1,9 @@
-package kr.ac.jejunu.jnu_tong.task.get_data;
+package kr.ac.jejunu.jnu_tong.task.get;
 
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;

@@ -14,6 +14,7 @@ public interface MainContract {
         void onClickCityBus();
         void setDepartureBusData(Integer[] imgIds, String[] busNos, String time);
         void setJNUEvent(String today, String event);
+        void setShuttleBusData(String ARoute, String BRoute);
     }
 
     interface Model {

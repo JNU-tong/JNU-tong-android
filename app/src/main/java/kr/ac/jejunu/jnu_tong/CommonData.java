@@ -19,7 +19,7 @@ public class CommonData extends Application {
     public void onCreate() {
         super.onCreate();
 
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        pref = getSharedPreferences("bus", MODE_PRIVATE);
         oftenBusSet = (HashSet<String>) pref.getStringSet("oftenBus", new HashSet<>());
     }
 
@@ -42,21 +42,28 @@ public class CommonData extends Application {
     public void addOftenBus(String busID){
         oftenBusSet.add(busID);
 
-        pref.edit().putStringSet("oftenBus", oftenBusSet).apply();
+        pref.edit().putStringSet("oftenBus", oftenBusSet).commit();
     }
 
     public void deleteOftenBus(String busID){
         oftenBusSet.remove(busID);
 
-        pref.edit().putStringSet("oftenBus", oftenBusSet).apply();
+        pref.edit().putStringSet("oftenBus", oftenBusSet).commit();
     }
 
     public boolean hasOftenBus(String busID){
         return oftenBusSet.contains(busID);
     }
 
-    public void setShuttleBookmark(String stopTitle) {
-        pref.edit().putString("bookmarkShuttle", stopTitle).apply();
+    public void setShuttleBookmark(int shuttleId) {
+        pref.edit().putInt("bookmarkShuttleId", shuttleId).commit();
+    }
+
+    public int getShuttleBookmarkId(){
+        int shuttleBookmarkId = 0;
+        pref.getInt("bookmarkShuttleId", shuttleBookmarkId);
+
+        return shuttleBookmarkId;
     }
 
     public static String getJNUEventURL() {

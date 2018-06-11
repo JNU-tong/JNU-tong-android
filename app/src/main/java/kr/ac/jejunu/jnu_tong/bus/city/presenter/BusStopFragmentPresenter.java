@@ -7,7 +7,7 @@ import java.util.List;
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.bus.city.adapter.AdapterContract;
 import kr.ac.jejunu.jnu_tong.vo.BusStopVO;
-import kr.ac.jejunu.jnu_tong.task.get_data.GetBusStopTask;
+import kr.ac.jejunu.jnu_tong.task.get.GetBusStopTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 
 /**

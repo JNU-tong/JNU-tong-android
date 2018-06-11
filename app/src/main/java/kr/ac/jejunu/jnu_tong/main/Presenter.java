@@ -1,6 +1,5 @@
 package kr.ac.jejunu.jnu_tong.main;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -8,10 +7,10 @@ import junit.framework.Assert;
 
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.task.get_data.GetJNUEventTask;
+import kr.ac.jejunu.jnu_tong.task.get.GetJNUEventTask;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
-import kr.ac.jejunu.jnu_tong.task.get_data.GetDepartureBusTask;
+import kr.ac.jejunu.jnu_tong.task.get.GetDepartureBusTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
 
@@ -63,6 +62,7 @@ public class Presenter implements OnTaskResultListener<List<DepartureBusVO>> {
     public void onTaskResult(List<DepartureBusVO> result) {
         if (result == null || result.size() == 0) {
             Log.e(this.toString(), "결과가 없어.. ");
+            mainView.setDepartureBusData( new Integer[]{null, null} , new String[]{null, null}, null);
         } else {
             adapterView.setItems(adapterModel.taskResultItems(result));
             mainModel.setDepartureVOS(result);

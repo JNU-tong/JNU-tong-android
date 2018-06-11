@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,6 +27,7 @@ import kr.ac.jejunu.jnu_tong.bus.shuttle.ShuttleBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
     private RelativeLayout top;
@@ -179,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             // 끝나고 0.5초후에 다시 VISIBLE했습니다. 클릭했을때 VISIBLE을 실행하면 recyclerView가 만들어지는 부분에서 또
             // 딜레이가 생겨서 미리 VISIBLE했습니다.
             Handler handler = new Handler();
-            handler.postDelayed(() -> recyclerView.setVisibility(android.view.View.VISIBLE), 500);
+            handler.postDelayed(() -> recyclerView.setVisibility(VISIBLE), 500);
         }
     }
 
@@ -187,24 +190,27 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void setDepartureBusData(Integer[] imgIds, String[] busNos, String time) {
         if (imgIds[0] == null) txtFirstNo.setVisibility(GONE);
         else {
+            txtFirstNo.setVisibility(VISIBLE);
             txtFirstNo.setBackground(getResources().getDrawable(imgIds[0]));
             txtFirstNo.setText(busNos[0]);
         }
 
         if (busNos[1] == null) txtSecondNo.setVisibility(GONE);
         else {
+            txtSecondNo.setVisibility(VISIBLE);
             txtSecondNo.setBackground(getResources().getDrawable(imgIds[1]));
             txtSecondNo.setText(busNos[1]);
         }
 
-        if (time == null) txtDepartTime.setVisibility(GONE);
-        else  txtDepartTime.setText(time);
+        if (time == null) txtDepartTime.setText("버스없음");
+        else  {
+            txtDepartTime.setText(time);
+        }
     }
 
     @Override
     public void setJNUEvent(String today, String event) {
         ((TextView)findViewById(R.id.today)).setText(today);
         ((TextView)findViewById(R.id.d_day)).setText(event);
-
     }
 }

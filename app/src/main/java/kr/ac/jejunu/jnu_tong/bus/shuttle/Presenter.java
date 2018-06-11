@@ -7,9 +7,8 @@ import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.ActivityPresenter;
 import kr.ac.jejunu.jnu_tong.CommonData;
-import kr.ac.jejunu.jnu_tong.bus.shuttle.route.Route;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
-import kr.ac.jejunu.jnu_tong.task.get_data.GetShuttleDetailTask;
+import kr.ac.jejunu.jnu_tong.task.get.GetShuttleDetailTask;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 
 /**
@@ -60,6 +59,10 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<List<S
     void pageSelect(int position) {
         String[] busStopNames = adapterModel.getBusStopNames(position);
         shuttleView.routeTextChange(busStopNames[0], busStopNames[1], busStopNames[2]);
+
+        if (adapterModel.getBusStopId(position) == shuttleModel.getBookmarkkedId())
+            shuttleView.setHeartOn(true);
+        else shuttleView.setHeartOn(false);
     }
 
     @Override
@@ -91,7 +94,12 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<List<S
     }
 
     void heartClick(int position) {
-        Route currentStop = adapterModel.getBusStop(position);
-        shuttleModel.setBookmark(currentStop);
+        int stopId = adapterModel.getBusStopId(position);
+        setBookmarkId(stopId);
+    }
+
+    void setBookmarkId(int stopId) {
+        shuttleModel.setBookmarkId(stopId);
+        shuttleView.setBookMarkId(stopId);
     }
 }

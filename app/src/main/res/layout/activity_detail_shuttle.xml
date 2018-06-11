@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_a_route"
+                android:id="@+id/txt_a_route"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="A호선"
@@ -40,7 +40,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_b_route"
+                android:id="@+id/txt_b_route"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="B호선"

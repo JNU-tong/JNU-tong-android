@@ -150,8 +150,8 @@ public class UltraPagerAdapter extends PagerAdapter
     }
 
     @Override
-    public Route getBusStop(int positiond) {
-        return route[positiond];
+    public int getBusStopId(int position) {
+        return route[position].getId();
     }
 
     @Override

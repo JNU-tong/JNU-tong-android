@@ -5,6 +5,7 @@ package kr.ac.jejunu.jnu_tong.bus.shuttle.route;
  */
 
 public interface Route {
+    int getId();
     String getTitle();
     Integer getImgId();
 }

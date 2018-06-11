@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.task.get_data;
+package kr.ac.jejunu.jnu_tong.task.get;
 
 import android.util.Log;
 import org.json.JSONArray;

@@ -17,7 +17,7 @@ public class ChildItem implements Item {
     private int backGroundId;
     private int heartImageId;
 
-    public ChildItem(DepartureBusVO vo) {
+    ChildItem(DepartureBusVO vo) {
         this.vo = vo;
         busNum = vo.getLineNo() + "번";
         busID = vo.getLineID();
@@ -28,7 +28,7 @@ public class ChildItem implements Item {
             remainTime = vo.getFirst() + "분전";
         }
 
-        if (vo.getLineNo().length() == 5) {
+        if (vo.getLineNo().length() == 4) {
             busType = "yellow";
             backGroundId = R.drawable.round_shape_yellow;
         } else if (vo.getLineNo().charAt(0) == '4') {

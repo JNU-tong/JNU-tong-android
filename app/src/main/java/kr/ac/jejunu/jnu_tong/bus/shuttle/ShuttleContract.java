@@ -2,7 +2,6 @@ package kr.ac.jejunu.jnu_tong.bus.shuttle;
 
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.bus.shuttle.route.Route;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 
 /**
@@ -14,6 +13,8 @@ public interface ShuttleContract {
         void routeTextChange(String leftText, String centerText,String rightText);
         void setPagerPosition(int position);
         void setBusPositionList(String... busStops);
+        void setBookMarkId(int shuttleBookmarkPosition);
+        void setHeartOn(boolean b);
     }
 
     interface ShuttleModel {
@@ -21,6 +22,7 @@ public interface ShuttleContract {
         String[] getShuttleBusStops();
         void selectARoute();
         void selectBRoute();
-        void setBookmark(Route currentStop);
+        void setBookmarkId(int stopId);
+        int getBookmarkkedId();
     }
 }

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.task.get_data;
+package kr.ac.jejunu.jnu_tong.task.get;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 

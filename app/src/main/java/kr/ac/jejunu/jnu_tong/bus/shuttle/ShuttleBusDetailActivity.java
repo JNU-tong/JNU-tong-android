@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.tmall.ultraviewpager.UltraViewPager;
 
+import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.R;
 
 /**
@@ -27,13 +28,17 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
     private TextView bRouteSelectText;
     private Presenter presenter;
     private UltraViewPager viewPager;
+    private CommonData commonData;
+    private ImageButton btnHeart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_shuttle);
 
+        commonData = (CommonData) getApplication();
         presenter = new Presenter(this);
+        presenter.setBookmarkId(commonData.getShuttleBookmarkId());
 
         initView();
         initViewPager();
@@ -42,8 +47,8 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
     }
 
     private void initView() {
-        aRouteSelectText = findViewById(R.id.text_a_route);
-        bRouteSelectText = findViewById(R.id.text_b_route);
+        aRouteSelectText = findViewById(R.id.txt_a_route);
+        bRouteSelectText = findViewById(R.id.txt_b_route);
         leftRouteText = findViewById(R.id.left_stop);
         rightRouteText = findViewById(R.id.right_stop);
 
@@ -68,10 +73,8 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         leftRouteText.setOnClickListener(view -> presenter.leftBtnClick(viewPager.getCurrentItem()));
         rightRouteText.setOnClickListener(view -> presenter.rightBtnClick(viewPager.getCurrentItem()));
 
-        ImageButton btnHeart = findViewById(R.id.btn_heart);
-        btnHeart.setOnClickListener(view -> {
-            presenter.heartClick(viewPager.getCurrentItem());
-        });
+        btnHeart = findViewById(R.id.btn_heart);
+        btnHeart.setOnClickListener(view -> presenter.heartClick(viewPager.getCurrentItem()));
     }
 
     private void initViewPager() {
@@ -153,10 +156,24 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
     }
 
     @Override
+    public void setBookMarkId(int shuttleBookmarkPosition) {
+        commonData.setShuttleBookmark(shuttleBookmarkPosition);
+    }
+
+    @Override
+    public void setHeartOn(boolean b) {
+        if (b)
+            btnHeart.setBackground(getResources().getDrawable(R.mipmap.ic_heart_on));
+        else
+            btnHeart.setBackground(getResources().getDrawable(R.mipmap.ic_heart_off));
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
 
         viewPager = null;
+        commonData = null;
         presenter.onDestroy();
     }
 }

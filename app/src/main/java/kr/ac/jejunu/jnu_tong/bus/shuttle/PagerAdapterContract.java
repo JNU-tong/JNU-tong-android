@@ -18,6 +18,6 @@ public interface PagerAdapterContract {
         void selectARoute();
         void selectBRoute();
         void changeProvider(List<ShuttleVO> provider);
-        Route getBusStop(int position);
+        int getBusStopId(int position);
     }
 }

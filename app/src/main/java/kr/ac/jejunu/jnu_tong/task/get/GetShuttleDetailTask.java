@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.task.get_data;
+package kr.ac.jejunu.jnu_tong.task.get;
 
 import android.util.Log;
 
@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import java.util.LinkedList;
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 
