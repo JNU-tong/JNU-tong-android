@@ -41,7 +41,7 @@ public class Presenter implements OnTaskResultListener<List<DepartureBusVO>> {
 
     void setShuttleBookmarkId(int stationId){
         GetShuttleMainTask shuttleMainTask = new GetShuttleMainTask(result -> {
-            mainView.setShuttleBusData(ARoute.values()[stationId].getTitle(),
+            mainView.setShuttleBusData(ARoute.values()[stationId-1].getTitle(),
                     ((ShuttleTimeVO) result).getAFirst(), ((ShuttleTimeVO) result).getBFirst());
         });
         shuttleMainTask.executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR,

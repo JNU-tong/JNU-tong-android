@@ -15,6 +15,7 @@ public interface PagerAdapterContract {
     }
     interface Model{
         String[] getBusStopNames(int position);
+        String getBusStopNameById(int id);
         void selectARoute();
         void selectBRoute();
         void changeProvider(List<ShuttleVO> provider);

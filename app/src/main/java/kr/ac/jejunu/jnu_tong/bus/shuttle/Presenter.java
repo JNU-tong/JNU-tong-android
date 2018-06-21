@@ -24,6 +24,7 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<List<S
     Presenter(ShuttleContract.ShuttleView shuttleView){
         this.shuttleView = shuttleView;
         shuttleModel = new ShuttleModel();
+        shuttleModel.selectARoute();
     }
 
     @Override
@@ -100,6 +101,7 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<List<S
 
     void setBookmarkId(int stopId) {
         shuttleModel.setBookmarkId(stopId);
-        shuttleView.setBookMarkId(stopId);
+        shuttleView.setBookmark(stopId, adapterModel.getBusStopNameById(stopId));
+        shuttleView.setPositionByBookmarkId(shuttleModel.getPositionByBookmarkId());
     }
 }

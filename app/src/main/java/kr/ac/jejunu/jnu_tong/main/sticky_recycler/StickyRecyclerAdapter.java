@@ -151,7 +151,6 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
         setItems(listItems);
     }
 
-    @NonNull
     private ArrayList<Item> sortItems() {
         Collections.sort(oftenBus);
         Collections.sort(normalBus);

@@ -22,7 +22,6 @@ public class MainModel implements MainContract.Model {
     private String departTime;
     private String event;
     private String today;
-    private int bookmarkId;
 
     @Override
     public void setDepartureVOS(List<DepartureBusVO> result) {

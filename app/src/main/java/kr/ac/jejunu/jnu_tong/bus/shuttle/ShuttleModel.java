@@ -15,7 +15,7 @@ import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 public class ShuttleModel implements ShuttleContract.ShuttleModel {
     private List<String> busStops;
     private Route[] route;
-    private int shuttleBookmarkPosition;
+    private int shuttleBookmarkId;
 
     ShuttleModel() {
         busStops = new ArrayList<>();
@@ -62,12 +62,22 @@ public class ShuttleModel implements ShuttleContract.ShuttleModel {
 
     @Override
     public void setBookmarkId(int stopId) {
-        shuttleBookmarkPosition = stopId;
+        shuttleBookmarkId = stopId;
     }
 
     @Override
     public int getBookmarkId() {
-        return shuttleBookmarkPosition;
+        return shuttleBookmarkId;
+    }
+
+    @Override
+    public Integer getPositionByBookmarkId() {
+        for (int i = 0; i < route.length; i++) {
+            if (route[i].getId() == shuttleBookmarkId){
+                return i;
+            }
+        }
+        return null;
     }
 }
 

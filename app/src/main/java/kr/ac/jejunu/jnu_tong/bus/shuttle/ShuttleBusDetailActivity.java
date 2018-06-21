@@ -38,12 +38,12 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
 
         commonData = (CommonData) getApplication();
         presenter = new Presenter(this);
-        presenter.setBookmarkId(commonData.getShuttleBookmarkId());
 
         initView();
         initViewPager();
 
         presenter.onCreate();
+        presenter.setBookmarkId(commonData.getShuttleBookmarkId());
     }
 
     private void initView() {
@@ -97,6 +97,8 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
+
+//        presenter.getPositionOfBookmark( ((CommonData)getApplication()).getShuttleBookmarkId() );
 
         setViewPagerAdapter();
     }
@@ -159,8 +161,9 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
     }
 
     @Override
-    public void setBookMarkId(int shuttleBookmarkPosition) {
-        commonData.setShuttleBookmark(shuttleBookmarkPosition);
+    public void setBookmark(int shuttleBookmarkPosition, String shuttleBookmarkTitle) {
+        commonData.setShuttleBookmarkId(shuttleBookmarkPosition);
+        commonData.setShuttleBookmarkTitle(shuttleBookmarkTitle);
     }
 
     @Override
@@ -169,6 +172,11 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
             btnHeart.setBackground(getResources().getDrawable(R.mipmap.ic_heart_on));
         else
             btnHeart.setBackground(getResources().getDrawable(R.mipmap.ic_heart_off));
+    }
+
+    @Override
+    public void setPositionByBookmarkId(int position) {
+        viewPager.setCurrentItem( position,true);
     }
 
     @Override

@@ -133,6 +133,11 @@ public class UltraPagerAdapter extends PagerAdapter
     }
 
     @Override
+    public String getBusStopNameById(int id) {
+        return ARoute.values()[id-1].getTitle();
+    }
+
+    @Override
     public void selectARoute() {
         route = ARoute.values();
     }

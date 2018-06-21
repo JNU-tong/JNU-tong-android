@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 
 /**
@@ -13,7 +15,7 @@ import java.util.HashSet;
 public class CommonData extends Application {
     private final static String baseURL = "http://218.50.253.120:8080/";
     private SharedPreferences pref;
-    private HashSet<String > oftenBusSet;
+    private HashSet<String> oftenBusSet;
 
     @Override
     public void onCreate() {
@@ -42,28 +44,33 @@ public class CommonData extends Application {
     public void addOftenBus(String busID){
         oftenBusSet.add(busID);
 
-        pref.edit().putStringSet("oftenBus", oftenBusSet).commit();
+        pref.edit().putStringSet("oftenBus", oftenBusSet).apply();
     }
 
     public void deleteOftenBus(String busID){
         oftenBusSet.remove(busID);
 
-        pref.edit().putStringSet("oftenBus", oftenBusSet).commit();
+        pref.edit().putStringSet("oftenBus", oftenBusSet).apply();
     }
 
     public boolean hasOftenBus(String busID){
         return oftenBusSet.contains(busID);
     }
 
-    public void setShuttleBookmark(int shuttleId) {
-        pref.edit().putInt("bookmarkShuttleId", shuttleId).commit();
+    public void setShuttleBookmarkId(int shuttleId) {
+        pref.edit().putInt("bookmarkShuttleId", shuttleId).apply();
     }
 
     public int getShuttleBookmarkId(){
+        return pref.getInt("bookmarkShuttleId", 1);
+    }
 
-        int shuttleBookmarkId = pref.getInt("bookmarkShuttleId", 0);
+    public void setShuttleBookmarkTitle(String shuttleTitle) {
+        pref.edit().putString("bookmarkShuttleTitle", shuttleTitle).apply();
+    }
 
-        return shuttleBookmarkId;
+    public String getShuttleBookmarkTitle(){
+        return pref.getString("bookmarkShuttleTitle", "정문");
     }
 
     public static String getJNUEventURL() {

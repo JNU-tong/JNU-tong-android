@@ -13,8 +13,9 @@ public interface ShuttleContract {
         void routeTextChange(String leftText, String centerText,String rightText);
         void setPagerPosition(int position);
         void setBusPositionList(String... busStops);
-        void setBookMarkId(int shuttleBookmarkPosition);
+        void setBookmark(int shuttleBookmarkPosition, String shuttleBookmarkTitle);
         void setHeartOn(boolean b);
+        void setPositionByBookmarkId(int position);
     }
 
     interface ShuttleModel {
@@ -24,5 +25,6 @@ public interface ShuttleContract {
         void selectBRoute();
         void setBookmarkId(int stopId);
         int getBookmarkId();
+        Integer getPositionByBookmarkId();
     }
 }
