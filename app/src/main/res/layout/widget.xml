@@ -58,34 +58,6 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal" />
-
-            <!--<TextView-->
-            <!--android:id="@+id/txt_normal_bus1"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginEnd="10dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:background="@drawable/round_shape_sky"-->
-            <!--android:paddingEnd="6dp"-->
-            <!--android:paddingStart="6dp"-->
-            <!--android:text="360번"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textSize="14sp"-->
-            <!--android:textStyle="bold" />-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/txt_normal_bus2"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginEnd="10dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:background="@drawable/round_shape_sky"-->
-            <!--android:paddingEnd="6dp"-->
-            <!--android:paddingStart="6dp"-->
-            <!--android:text="360번"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textSize="14sp"-->
-            <!--android:textStyle="bold" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -105,34 +77,39 @@
             <TextView
                 android:layout_width="1dp"
                 android:layout_height="20dp"
-                android:layout_marginEnd="10dp"
                 android:background="@color/black" />
 
-            <TextView
-                android:id="@+id/txt_bookmark_bus1"
+            <LinearLayout
+                android:id="@+id/oftens"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/round_shape_sky"
-                android:paddingEnd="6dp"
-                android:paddingStart="6dp"
-                android:text="360번"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_height="20dp"
+                android:orientation="horizontal" />
 
-            <TextView
-                android:id="@+id/txt_bookmark_bus2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/round_shape_sky"
-                android:paddingEnd="6dp"
-                android:paddingStart="6dp"
-                android:text="360번"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/txt_bookmark_bus1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:background="@drawable/round_shape_sky"-->
+                <!--android:paddingEnd="6dp"-->
+                <!--android:paddingStart="6dp"-->
+                <!--android:text="360번"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="14sp"-->
+                <!--android:textStyle="bold" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/txt_bookmark_bus2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:background="@drawable/round_shape_sky"-->
+                <!--android:paddingEnd="6dp"-->
+                <!--android:paddingStart="6dp"-->
+                <!--android:text="360번"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="14sp"-->
+                <!--android:textStyle="bold" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -213,8 +190,6 @@
                     android:text="10분전"
                     android:textColor="@color/black" />
             </LinearLayout>
-
-
         </LinearLayout>
 
         <LinearLayout

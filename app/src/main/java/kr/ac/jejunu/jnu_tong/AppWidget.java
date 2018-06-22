@@ -8,24 +8,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 import android.widget.RemoteViews;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.task.get.GetDepartureBusTask;
 import kr.ac.jejunu.jnu_tong.task.get.GetShuttleMainTask;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
 
-/**
- * Implementation of App Widget functionality.
- */
 public class AppWidget extends AppWidgetProvider {
     void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                          int appWidgetId) {
@@ -56,8 +52,9 @@ public class AppWidget extends AppWidgetProvider {
             Collections.sort(vos);
 
             views.removeAllViews(R.id.normals);
+            views.removeAllViews(R.id.oftens);
 
-            if (vos.get(0) != null) {
+            if (vos.size() > 0 && vos.get(0) != null) {
                 int itemLayout;
                 if (vos.get(0).getLineNo().length() == 4) {
                     itemLayout = R.layout.view_bus_num_yellow;
@@ -72,7 +69,7 @@ public class AppWidget extends AppWidgetProvider {
                 views.addView(R.id.normals, remoteViews);
             }
 
-            if (vos.get(1) != null) {
+            if (vos.size() > 1 && vos.get(1) != null) {
                 int itemLayout;
                 if (vos.get(1).getLineNo().length() == 4) {
                     itemLayout = R.layout.view_bus_num_yellow;
@@ -86,10 +83,49 @@ public class AppWidget extends AppWidgetProvider {
 
                 views.addView(R.id.normals, remoteViews);
             }
+
+            for (DepartureBusVO vo : vos) {
+                LinkedList<DepartureBusVO> oftenBus = new LinkedList<>();
+                if (vo.getFirst() < 10){
+                    if ( ((CommonData) context.getApplicationContext()).hasOftenBus(vo.getLineID()) ){
+                        oftenBus.add(vo);
+                    }
+                }
+
+                if (oftenBus.size() > 0 && oftenBus.get(0) != null){
+                    int itemLayout;
+                    if (oftenBus.get(0).getLineNo().length() == 4) {
+                        itemLayout = R.layout.view_bus_num_yellow;
+                    } else if (oftenBus.get(0).getLineNo().charAt(0) == '4') {
+                        itemLayout = R.layout.view_bus_num_green;
+                    } else{
+                        itemLayout = R.layout.view_bus_num_blue;
+                    }
+                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(0).getLineNo()+"번");
+
+                    views.addView(R.id.oftens, remoteViews);
+                }
+
+                if (oftenBus.size() > 1 && oftenBus.get(1) != null){
+                    int itemLayout;
+                    if (oftenBus.get(1).getLineNo().length() == 4) {
+                        itemLayout = R.layout.view_bus_num_yellow;
+                    } else if (oftenBus.get(1).getLineNo().charAt(0) == '4') {
+                        itemLayout = R.layout.view_bus_num_green;
+                    } else{
+                        itemLayout = R.layout.view_bus_num_blue;
+                    }
+                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(1).getLineNo()+"번");
+
+                    views.addView(R.id.oftens, remoteViews);
+                }
+            }
+
             appWidgetManager.updateAppWidget(appWidgetId, views);
         });
         getDepartureBusTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
 
         String currentTime = getCurrentTime();
 

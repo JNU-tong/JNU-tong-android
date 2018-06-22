@@ -22,7 +22,7 @@ public class CommonData extends Application {
         super.onCreate();
 
         pref = getSharedPreferences("bus", MODE_PRIVATE);
-        oftenBusSet = (HashSet<String>) pref.getStringSet("oftenBus", new HashSet<>());
+        oftenBusSet = new HashSet<>( pref.getStringSet("oftenBus", new HashSet<>()));
     }
 
     public static String getBusDepartureListURL(){
@@ -41,6 +41,17 @@ public class CommonData extends Application {
         return baseURL + "getJnuBusArrivalInfoListByCourse?course=" + course;
     }
 
+    public static String getShuttlePointUrl(int stationId) {
+        return baseURL + "getJnuBusArrivalInfoByStationId?stationId=" + stationId;
+    }
+
+    public static String getJNUEventURL() {
+        return baseURL + "jnu/eventDay/first";
+    }
+
+
+
+
     public void addOftenBus(String busID){
         oftenBusSet.add(busID);
 
@@ -50,6 +61,7 @@ public class CommonData extends Application {
     public void deleteOftenBus(String busID){
         oftenBusSet.remove(busID);
 
+        pref.edit().remove("oftenBus").apply();
         pref.edit().putStringSet("oftenBus", oftenBusSet).apply();
     }
 
@@ -71,13 +83,5 @@ public class CommonData extends Application {
 
     public String getShuttleBookmarkTitle(){
         return pref.getString("bookmarkShuttleTitle", "정문");
-    }
-
-    public static String getJNUEventURL() {
-        return baseURL + "jnu/eventDay/first";
-    }
-
-    public static String getShuttlePointUrl(int stationId) {
-        return baseURL + "getJnuBusArrivalInfoByStationId?stationId=" + stationId;
     }
 }

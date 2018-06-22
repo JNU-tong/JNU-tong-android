@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 
 buildscript {
     repositories {
@@ -8,13 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.7.0'
     }
-}
-
-// Required because retrolambda is on maven central
-repositories {
-    mavenCentral()
 }
 
 android {
