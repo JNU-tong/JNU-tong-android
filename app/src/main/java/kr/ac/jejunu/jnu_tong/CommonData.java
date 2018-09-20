@@ -13,7 +13,7 @@ import java.util.HashSet;
  */
 
 public class CommonData extends Application {
-    private final static String baseURL = "http://218.50.253.120:8080/";
+    private final static String baseURL = "http://106.10.46.151:8080/";
     private SharedPreferences pref;
     private HashSet<String> oftenBusSet;
 

@@ -12,7 +12,8 @@ public class ChildItem implements Item {
     private String busNum;
     private String busID;
     private String busDescription;
-    private String remainTime;
+    private String firstRemainTime;
+    private String secondRemainTime;
     private String busType;
     private int backGroundId;
     private int heartImageId;
@@ -23,9 +24,15 @@ public class ChildItem implements Item {
         busID = vo.getLineID();
         busDescription = vo.getDescription();
         if (vo.getFirst() < 4){
-            remainTime = "잠시후";
+            firstRemainTime = "잠시후";
         } else {
-            remainTime = vo.getFirst() + "분전";
+            firstRemainTime = vo.getFirst() + "분전";
+        }
+
+        if (vo.getSecond() < 4){
+            secondRemainTime = "잠시후";
+        } else {
+            secondRemainTime = vo.getSecond() + "분전";
         }
 
         if (vo.getLineNo().length() == 4) {
@@ -56,8 +63,11 @@ public class ChildItem implements Item {
         return busDescription;
     }
 
-    public String getRemainTime() {
-        return remainTime;
+    public String getFirstRemainTime() {
+        return firstRemainTime;
+    }
+    public String getSecondRemainTime() {
+        return secondRemainTime;
     }
 
     public String getBusType() {

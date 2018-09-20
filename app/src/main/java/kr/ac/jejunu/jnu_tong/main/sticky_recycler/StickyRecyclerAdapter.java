@@ -2,7 +2,6 @@ package kr.ac.jejunu.jnu_tong.main.sticky_recycler;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -73,7 +72,8 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
             ((MyChildViewHolder) holder).busNumText.setBackground(context.getResources().getDrawable(childItem.getBackGroundId()));
             ((MyChildViewHolder) holder).busNumText.setText(childItem.getBusNum());
             ((MyChildViewHolder) holder).descriptionText.setText(childItem.getBusDescription());
-            ((MyChildViewHolder) holder).remainText.setText(childItem.getRemainTime());
+            ((MyChildViewHolder) holder).remainText1.setText(childItem.getFirstRemainTime());
+            ((MyChildViewHolder) holder).remainText2.setText(childItem.getSecondRemainTime());
             ((MyChildViewHolder) holder).heartImage.setBackground(context.getResources().getDrawable(childItem.getHeartImageId()));
             ((MyChildViewHolder) holder).itemView.setOnClickListener(view -> onDetailClickListener.onDetailClick(position));
             ((MyChildViewHolder) holder).heartImage.setOnClickListener(view -> onHeartClickListener.onHeartClick(position));
@@ -195,7 +195,8 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
         View itemView;
         TextView busNumText;
         TextView descriptionText;
-        TextView remainText;
+        TextView remainText1;
+        TextView remainText2;
         ImageButton heartImage;
 
         MyChildViewHolder(View itemView) {
@@ -204,7 +205,8 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
             this.itemView = itemView;
             busNumText = itemView.findViewById(R.id.text_bus_num);
             descriptionText = itemView.findViewById(R.id.text_description);
-            remainText = itemView.findViewById(R.id.text_remain);
+            remainText1 = itemView.findViewById(R.id.text_remain1);
+            remainText2 = itemView.findViewById(R.id.text_remain2);
             heartImage = itemView.findViewById(R.id.btn_heart);
         }
     }

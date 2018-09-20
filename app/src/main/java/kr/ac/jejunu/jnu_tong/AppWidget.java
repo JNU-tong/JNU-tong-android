@@ -8,13 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.task.get.GetDepartureBusTask;
@@ -25,8 +25,11 @@ import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
 public class AppWidget extends AppWidgetProvider {
     void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                          int appWidgetId) {
-        Log.e("widget", "updateAppWidget: 위젯 업데이트");
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+        Log.e("widget_main", "updateAppWidget: 위젯 업데이트");
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_main);
+
+        RemoteViews refreshVies = new RemoteViews(context.getPackageName(), R.layout.widget_refresh);
+        appWidgetManager.updateAppWidget(appWidgetId, refreshVies);
 
         GetShuttleMainTask getShuttleMainTask = new GetShuttleMainTask(result -> {
             ShuttleTimeVO shuttleTimeVO = (ShuttleTimeVO) result;
@@ -55,69 +58,56 @@ public class AppWidget extends AppWidgetProvider {
             views.removeAllViews(R.id.oftens);
 
             if (vos.size() > 0 && vos.get(0) != null) {
-                int itemLayout;
-                if (vos.get(0).getLineNo().length() == 4) {
-                    itemLayout = R.layout.view_bus_num_yellow;
-                } else if (vos.get(0).getLineNo().charAt(0) == '4') {
-                    itemLayout = R.layout.view_bus_num_green;
-                } else{
-                    itemLayout = R.layout.view_bus_num_blue;
-                }
+                views.setViewVisibility(R.id.txt_no_bus1, View.GONE);
+                int itemLayout = getItemLayout(vos, 0);
                 RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
-                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(0).getLineNo()+"번");
+                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(0).getLineNo() + "번");
+
+                views.addView(R.id.normals, remoteViews);
+            } else {
+                views.setViewVisibility(R.id.txt_no_bus1, View.VISIBLE);
+            }
+
+            if (vos.size() > 1 && vos.get(1) != null) {
+                int itemLayout = getItemLayout(vos, 1);
+                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(1).getLineNo() + "번");
 
                 views.addView(R.id.normals, remoteViews);
             }
 
-            if (vos.size() > 1 && vos.get(1) != null) {
-                int itemLayout;
-                if (vos.get(1).getLineNo().length() == 4) {
-                    itemLayout = R.layout.view_bus_num_yellow;
-                } else if (vos.get(1).getLineNo().charAt(0) == '4') {
-                    itemLayout = R.layout.view_bus_num_green;
-                } else{
-                    itemLayout = R.layout.view_bus_num_blue;
-                }
+            if (vos.size() > 2 && vos.get(2) != null) {
+                int itemLayout = getItemLayout(vos, 2);
                 RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
-                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(1).getLineNo()+"번");
+                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(2).getLineNo() + "번");
 
                 views.addView(R.id.normals, remoteViews);
             }
 
             for (DepartureBusVO vo : vos) {
-                LinkedList<DepartureBusVO> oftenBus = new LinkedList<>();
-                if (vo.getFirst() < 10){
-                    if ( ((CommonData) context.getApplicationContext()).hasOftenBus(vo.getLineID()) ){
+                ArrayList<DepartureBusVO> oftenBus = new ArrayList<>();
+                if (vo.getFirst() < 10) {
+                    if (((CommonData) context.getApplicationContext()).hasOftenBus(vo.getLineID())) {
                         oftenBus.add(vo);
                     }
                 }
 
-                if (oftenBus.size() > 0 && oftenBus.get(0) != null){
-                    int itemLayout;
-                    if (oftenBus.get(0).getLineNo().length() == 4) {
-                        itemLayout = R.layout.view_bus_num_yellow;
-                    } else if (oftenBus.get(0).getLineNo().charAt(0) == '4') {
-                        itemLayout = R.layout.view_bus_num_green;
-                    } else{
-                        itemLayout = R.layout.view_bus_num_blue;
-                    }
+                if (oftenBus.size() > 0 && oftenBus.get(0) != null) {
+                    views.setViewVisibility(R.id.txt_no_bus2, View.GONE);
+
+                    int itemLayout = getItemLayout(oftenBus, 0);
                     RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
-                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(0).getLineNo()+"번");
+                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(0).getLineNo() + "번");
 
                     views.addView(R.id.oftens, remoteViews);
+                } else {
+                    views.setViewVisibility(R.id.txt_no_bus2, View.VISIBLE);
                 }
 
-                if (oftenBus.size() > 1 && oftenBus.get(1) != null){
-                    int itemLayout;
-                    if (oftenBus.get(1).getLineNo().length() == 4) {
-                        itemLayout = R.layout.view_bus_num_yellow;
-                    } else if (oftenBus.get(1).getLineNo().charAt(0) == '4') {
-                        itemLayout = R.layout.view_bus_num_green;
-                    } else{
-                        itemLayout = R.layout.view_bus_num_blue;
-                    }
+                if (oftenBus.size() > 1 && oftenBus.get(1) != null) {
+                    int itemLayout = getItemLayout(oftenBus, 1);
                     RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
-                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(1).getLineNo()+"번");
+                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(1).getLineNo() + "번");
 
                     views.addView(R.id.oftens, remoteViews);
                 }
@@ -137,6 +127,18 @@ public class AppWidget extends AppWidgetProvider {
         PendingIntent pendingSync =
                 PendingIntent.getBroadcast(context, 0, intentSync, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.refresh, pendingSync);
+    }
+
+    private int getItemLayout(ArrayList<DepartureBusVO> vos, int position) {
+        int itemLayout;
+        if (vos.get(position).getLineNo().length() == 4) {
+            itemLayout = R.layout.view_bus_num_yellow;
+        } else if (vos.get(position).getLineNo().charAt(0) == '4') {
+            itemLayout = R.layout.view_bus_num_green;
+        } else {
+            itemLayout = R.layout.view_bus_num_blue;
+        }
+        return itemLayout;
     }
 
     //pendingSync 실행되면 호출되는 메서드
@@ -168,11 +170,11 @@ public class AppWidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
+        // Enter relevant functionality for when the first widget_main is created
     }
 
     @Override
     public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
+        // Enter relevant functionality for when the last widget_main is disabled
     }
 }
