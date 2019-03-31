@@ -27,12 +27,14 @@ public class GetJNUEventTask extends BaseGetTask<JNUEventVO> {
     JNUEventVO parse(String responseString) {
         JNUEventVO eventVO = new JNUEventVO();
         try {
-            JSONObject result = new JSONObject(responseString);
+            if (responseString != null) {
+                JSONObject result = new JSONObject(responseString);
 
-            eventVO.setId(result.has("id") ? result.getInt("id") : null);
-            eventVO.setDate(result.has("date") ? result.getString("date") : null);
-            eventVO.setdDay(result.has("dDay") ? result.getInt("dDay") : null);
-            eventVO.setEvent(result.has("event") ? result.getString("event") : null);
+                eventVO.setId(result.has("id") ? result.getInt("id") : null);
+                eventVO.setDate(result.has("date") ? result.getString("date") : null);
+                eventVO.setdDay(result.has("dDay") ? result.getInt("dDay") : null);
+                eventVO.setEvent(result.has("event") ? result.getString("event") : null);
+            }
         } catch (JSONException e) {
             Log.e(this.toString(), "parse: error " + e.toString() );
         }

@@ -18,7 +18,7 @@ import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 public abstract class BaseGetTask<E> extends AsyncTask<String, Void, E> {
     private OnTaskResultListener<E> onTaskResultListener;
 
-    BaseGetTask(OnTaskResultListener onTaskResultListener){
+    BaseGetTask(OnTaskResultListener<E> onTaskResultListener){
         this.onTaskResultListener = onTaskResultListener;
     }
 
@@ -36,14 +36,14 @@ public abstract class BaseGetTask<E> extends AsyncTask<String, Void, E> {
 
     private String read(String urlStr){
         byte [ ] byteData = null;
-
+        InputStream is = null;
         try {
             URL url = new URL(urlStr);
 
             URLConnection conn = url.openConnection ( );
             conn.setUseCaches ( false );
             conn.connect();
-            InputStream is = conn.getInputStream ( );
+            is = conn.getInputStream ( );
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ( );
             byte [ ] byteBuffer = new byte [ 1024 ];
@@ -54,10 +54,17 @@ public abstract class BaseGetTask<E> extends AsyncTask<String, Void, E> {
             }
 
             byteData = byteArrayOutputStream.toByteArray ( );
-
-
         } catch (IOException e) {
+            e.printStackTrace();
             Log.e(this.toString(), " 아이오익셉션 " + e.getMessage());
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         if ( byteData == null || byteData.length <= 0 ){

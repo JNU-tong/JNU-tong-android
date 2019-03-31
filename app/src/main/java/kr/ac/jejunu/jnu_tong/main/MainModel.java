@@ -2,13 +2,11 @@ package kr.ac.jejunu.jnu_tong.main;
 
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
-import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 6. 10..
@@ -73,10 +71,10 @@ public class MainModel implements MainContract.Model {
 
     @Override
     public void setJNUEvent(JNUEventVO eventVO) {
-        String[] splitToday = eventVO.getDate().split("-");
-        String dayOfWeek;
-
+        String date = eventVO.getDate();
         Calendar cal= Calendar.getInstance ();
+
+        String dayOfWeek;
         switch (cal.get(Calendar.DAY_OF_WEEK)){
             case 1: dayOfWeek ="(일)"; break;
             case 2: dayOfWeek ="(월)"; break;
@@ -87,8 +85,14 @@ public class MainModel implements MainContract.Model {
             default: dayOfWeek ="(토)";
         }
 
-        today = splitToday[1] + "월 " + splitToday[2] + "일" + dayOfWeek;
-        event = eventVO.getEvent() + "까지 D-" + eventVO.getdDay();
+        today = new StringBuilder()
+                .append(cal.get(Calendar.MONTH) + 1).append("월 ")
+                .append(cal.get(Calendar.DAY_OF_MONTH)).append("일")
+                .append(dayOfWeek).toString();
+
+        if (date != null) {
+            event = eventVO.getEvent() + "까지 D-" + eventVO.getdDay();
+        }
     }
 
     @Override
