@@ -11,13 +11,9 @@ import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
 
 public interface MainContract {
     interface Presenter{
-
         void onCreate();
-
         void refreshClick();
-
         void setShuttleBookmarkId(int shuttleBookmarkId);
-
         void clickCityBus();
     }
     interface View {

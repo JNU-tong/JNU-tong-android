@@ -8,16 +8,18 @@ import android.support.v7.widget.RecyclerView;
 
 import com.brandongogetap.stickyheaders.StickyLayoutManager;
 
-import java.util.ArrayList;
+import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.ui.unfolded_main.sticky_recycler.StickyRecyclerAdapter;
 
 public class UnfoldedMainActivity extends DaggerAppCompatActivity {
-    private RecyclerView recyclerView;
-    private StickyRecyclerAdapter adapter;
-    private UnfoldedMainContract.Presenter presenter;
+    @Inject
+    StickyRecyclerAdapter adapter;
+
+    @Inject
+    UnfoldedMainContract.Presenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,10 +36,9 @@ public class UnfoldedMainActivity extends DaggerAppCompatActivity {
     }
 
     private void initCityBusRecycler() {
-        recyclerView = findViewById(R.id.recycler_soon_bus);
+        RecyclerView recyclerView = findViewById(R.id.recycler_soon_bus);
         recyclerView.setItemAnimator(null);
 
-        adapter = new StickyRecyclerAdapter(this, new ArrayList<>());
         adapter.setDetailClickListener((int position) -> presenter.onDetailClick(position));
         adapter.setOnHeartClickListener(position -> presenter.onHeartClick(position));
         StickyLayoutManager manager = new StickyLayoutManager(this, adapter);

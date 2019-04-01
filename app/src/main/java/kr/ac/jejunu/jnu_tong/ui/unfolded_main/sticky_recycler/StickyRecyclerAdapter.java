@@ -1,6 +1,5 @@
 package kr.ac.jejunu.jnu_tong.ui.unfolded_main.sticky_recycler;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
@@ -17,30 +16,33 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.application.CommonApp;
+import javax.inject.Inject;
+
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.CityBusDetailActivity;
-import kr.ac.jejunu.jnu_tong.ui.main.MainAdapterContract;
+import kr.ac.jejunu.jnu_tong.ui.unfolded_main.AdapterContract;
+import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 11..
  */
 
 public class StickyRecyclerAdapter extends RecyclerView.Adapter
-        implements StickyHeaderHandler, MainAdapterContract.View<Item>, MainAdapterContract.Model {
+        implements StickyHeaderHandler, AdapterContract.View<Item>, AdapterContract.Model {
     private List<Item> items;
-    private Context context;
+    private AppCompatActivity activity;
     private CommonApp commonApp;
     private OnDetailClickListener onDetailClickListener;
     private OnHeartClickListener onHeartClickListener;
     private ArrayList<DepartureBusVO> oftenBus;
     private ArrayList<DepartureBusVO> normalBus;
 
-    public StickyRecyclerAdapter(Context context, List<Item> items) {
-        this.context = context;
-        this.commonApp = (CommonApp)((AppCompatActivity)context).getApplication();
-        this.items = new ArrayList<>(items);
+    @Inject
+    public StickyRecyclerAdapter(AppCompatActivity activity) {
+        this.activity = activity;
+        this.commonApp = (CommonApp)activity.getApplication();
+        items = new ArrayList<>();
     }
 
     @Override
@@ -69,12 +71,12 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
         } else {
             ChildItem childItem = ((ChildItem) item);
 
-            ((MyChildViewHolder) holder).busNumText.setBackground(context.getResources().getDrawable(childItem.getBackGroundId()));
+            ((MyChildViewHolder) holder).busNumText.setBackground(activity.getResources().getDrawable(childItem.getBackGroundId()));
             ((MyChildViewHolder) holder).busNumText.setText(childItem.getBusNum());
             ((MyChildViewHolder) holder).descriptionText.setText(childItem.getBusDescription());
             ((MyChildViewHolder) holder).remainText1.setText(childItem.getFirstRemainTime());
             ((MyChildViewHolder) holder).remainText2.setText(childItem.getSecondRemainTime());
-            ((MyChildViewHolder) holder).heartImage.setBackground(context.getResources().getDrawable(childItem.getHeartImageId()));
+            ((MyChildViewHolder) holder).heartImage.setBackground(activity.getResources().getDrawable(childItem.getHeartImageId()));
             ((MyChildViewHolder) holder).itemView.setOnClickListener(view -> onDetailClickListener.onDetailClick(position));
             ((MyChildViewHolder) holder).heartImage.setOnClickListener(view -> onHeartClickListener.onHeartClick(position));
         }
@@ -122,12 +124,12 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
     public void goDetailActivity(int position) {
         ChildItem childItem = (ChildItem) items.get(position);
 
-        Intent intent = new Intent(context, CityBusDetailActivity.class);
+        Intent intent = new Intent(activity, CityBusDetailActivity.class);
         intent.putExtra("busType", childItem.getBusType());
         intent.putExtra("busID", childItem.getBusID());
         intent.putExtra("busNo", childItem.getBusNum());
         intent.putExtra("busDescription", childItem.getBusDescription());
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     @Override
