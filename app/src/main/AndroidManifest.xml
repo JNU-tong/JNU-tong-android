@@ -26,6 +26,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".expended_main.ExpendedMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".bus.city.CityBusDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.white" />

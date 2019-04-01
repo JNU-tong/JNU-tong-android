@@ -1,14 +1,11 @@
 package kr.ac.jejunu.jnu_tong.main;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
-import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -18,14 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.brandongogetap.stickyheaders.StickyLayoutManager;
-
-import java.util.ArrayList;
-
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.bus.shuttle.ShuttleBusDetailActivity;
-import kr.ac.jejunu.jnu_tong.main.sticky_recycler.StickyRecyclerAdapter;
+import kr.ac.jejunu.jnu_tong.expended_main.ExpendedMainActivity;
+import kr.ac.jejunu.jnu_tong.expended_main.sticky_recycler.StickyRecyclerAdapter;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -44,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private StickyRecyclerAdapter adapter;
     private RecyclerView recyclerView;
 
-    private Presenter presenter;
+    private MainPresenter presenter;
     private ImageButton btnRefresh;
     private TextView txtFirstNo;
     private TextView txtSecondNo;
@@ -57,14 +51,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         initTopImage();
         initRefreshBtn();
-        initCityBusRecycler();
         initCityBusLayout();
         initShuttleBusLayout();
 
-        presenter = new Presenter(this);
+        presenter = new MainPresenter(this);
         presenter.setAdapterView(adapter);
         presenter.setAdapterModel(adapter);
-        presenter.setShuttleBookmarkId(((CommonData)getApplication()).getShuttleBookmarkId());
+        presenter.setShuttleBookmarkId(((CommonData) getApplication()).getShuttleBookmarkId());
         presenter.onCreate();
     }
 
@@ -72,16 +65,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onRestart() {
         super.onRestart();
 
-        presenter.setShuttleBookmarkId(((CommonData)getApplication()).getShuttleBookmarkId());
+        presenter.setShuttleBookmarkId(((CommonData) getApplication()).getShuttleBookmarkId());
         presenter.refreshClick();
     }
 
     @Override
     public void onBackPressed() {
-        if (expanded){
+        if (expanded) {
             onClickCityBus();
-        }
-        else super.onBackPressed();
+        } else super.onBackPressed();
     }
 
     private void initTopImage() {
@@ -117,27 +109,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         shuttleBusLayout.setOnClickListener(view -> startActivity(new Intent(this, ShuttleBusDetailActivity.class)));
     }
 
-    private void initCityBusRecycler() {
-        recyclerView = findViewById(R.id.recycler_soon_bus);
-        recyclerView.setItemAnimator(null);
 
-        adapter = new StickyRecyclerAdapter(this, new ArrayList<>());
-        adapter.setDetailClickListener((int position) -> presenter.onDetailClick(position));
-        adapter.setOnHeartClickListener(position -> presenter.onHeartClick(position));
-        StickyLayoutManager manager = new StickyLayoutManager(this, adapter);
 
-        manager.elevateHeaders(false);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
-        
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            recyclerView.setClipToOutline(true);
-        }
-    }
-
-    @Override
+    /*@Override
     public void onClickCityBus() {
         if (!expanded) {
             expanded = true;
@@ -160,7 +134,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             btnRefresh.setBackground(getResources().getDrawable(R.drawable.ic_refresh_navy));
         } else {
-            expanded = false;            recyclerView.setVisibility(GONE);
+            expanded = false;
+//            recyclerView.setVisibility(GONE);
 
             TransitionManager.beginDelayedTransition(top);
             ViewGroup.LayoutParams params = top.getLayoutParams();
@@ -183,9 +158,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             // 야매로 했어요..   recyclerView가 없어지는 모션때문에 cityBusLayout이 늦게 반응해서 클릭할때 애초에 GONE시켰다가
             // 끝나고 0.5초후에 다시 VISIBLE했습니다. 클릭했을때 VISIBLE을 실행하면 recyclerView가 만들어지는 부분에서 또
             // 딜레이가 생겨서 미리 VISIBLE했습니다.
-            Handler handler = new Handler();
-            handler.postDelayed(() -> recyclerView.setVisibility(VISIBLE), 500);
+//            Handler handler = new Handler();
+//            handler.postDelayed(() -> recyclerView.setVisibility(VISIBLE), 500);
         }
+    }*/
+
+    @Override
+    public void onClickCityBus() {
+        Intent intent = new Intent(this, ExpendedMainActivity.class);
+        Pair<View, String> sharedCityLayout = Pair.create(cityBusLayout, "city_bus");
+        Pair<View, String> sharedShuttleLayout = Pair.create(shuttleBusLayout, "shuttle_bus");
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedCityLayout, sharedShuttleLayout);
+        startActivity(intent, optionsCompat.toBundle());
     }
 
     @Override
@@ -205,25 +189,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         }
 
         if (time == null) txtDepartTime.setText("버스없음");
-        else  {
+        else {
             txtDepartTime.setText(time);
         }
     }
 
     @Override
     public void setJNUEvent(String today, String event) {
-        ((TextView)findViewById(R.id.today)).setText(today);
-        ((TextView)findViewById(R.id.d_day)).setText(event);
+        ((TextView) findViewById(R.id.today)).setText(today);
+        ((TextView) findViewById(R.id.d_day)).setText(event);
     }
 
     @Override
     public void setShuttleBusData(String title, Integer aFirst, Integer bFirst) {
-        ((TextView)findViewById(R.id.txt_shuttle_bookmark)).setText(title);
+        ((TextView) findViewById(R.id.txt_shuttle_bookmark)).setText(title);
 
-        if ( aFirst != null) ((TextView)findViewById(R.id.txt_a_route)).setText(aFirst+"분전");
-        else ((TextView)findViewById(R.id.txt_a_route)).setText("없음");
+        if (aFirst != null) ((TextView) findViewById(R.id.txt_a_route)).setText(aFirst + "분전");
+        else ((TextView) findViewById(R.id.txt_a_route)).setText("없음");
 
-        if ( aFirst != null) ((TextView)findViewById(R.id.txt_b_route)).setText(bFirst+"분전");
-        else ((TextView)findViewById(R.id.txt_b_route)).setText("없음");
+        if (aFirst != null) ((TextView) findViewById(R.id.txt_b_route)).setText(bFirst + "분전");
+        else ((TextView) findViewById(R.id.txt_b_route)).setText("없음");
     }
 }

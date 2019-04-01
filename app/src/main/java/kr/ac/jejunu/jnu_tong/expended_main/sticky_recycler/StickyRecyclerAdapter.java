@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.main.sticky_recycler;
+package kr.ac.jejunu.jnu_tong.expended_main.sticky_recycler;
 
 import android.content.Context;
 import android.content.Intent;

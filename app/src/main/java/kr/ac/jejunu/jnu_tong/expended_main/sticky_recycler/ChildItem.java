@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.main.sticky_recycler;
+package kr.ac.jejunu.jnu_tong.expended_main.sticky_recycler;
 
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;

@@ -3,18 +3,16 @@ package kr.ac.jejunu.jnu_tong.main;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import junit.framework.Assert;
-
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.CommonData;
 import kr.ac.jejunu.jnu_tong.bus.shuttle.route.ARoute;
+import kr.ac.jejunu.jnu_tong.expended_main.sticky_recycler.Item;
+import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
+import kr.ac.jejunu.jnu_tong.task.get.GetDepartureBusTask;
 import kr.ac.jejunu.jnu_tong.task.get.GetJNUEventTask;
 import kr.ac.jejunu.jnu_tong.task.get.GetShuttleMainTask;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
-import kr.ac.jejunu.jnu_tong.main.sticky_recycler.Item;
-import kr.ac.jejunu.jnu_tong.task.get.GetDepartureBusTask;
-import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
 
@@ -22,20 +20,19 @@ import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
  * Created by seung-yeol on 2018. 4. 20..
  */
 
-public class Presenter implements OnTaskResultListener<List<DepartureBusVO>> {
+public class MainPresenter implements MainContract.Presenter, OnTaskResultListener<List<DepartureBusVO>> {
     private final MainContract.View mainView;
     private final MainContract.Model mainModel;
 
     private MainAdapterContract.View<Item> adapterView;
     private MainAdapterContract.Model adapterModel;
 
-    Presenter(MainContract.View mainView) {
+    MainPresenter(MainContract.View mainView) {
         this.mainView = mainView;
         mainModel = new MainModel();
     }
 
     void onCreate() {
-        Assert.assertNotNull(adapterView);
         executeTask();
     }
 
@@ -83,14 +80,6 @@ public class Presenter implements OnTaskResultListener<List<DepartureBusVO>> {
 
             mainView.setDepartureBusData(mainModel.getImgIds(), mainModel.getBusNos(), mainModel.getDepartTime());
         }
-    }
-
-    void onDetailClick(int position) {
-        adapterModel.goDetailActivity(position);
-    }
-
-    void onHeartClick(int position) {
-        adapterModel.heartClick(position);
     }
 
     void clickCityBus() {

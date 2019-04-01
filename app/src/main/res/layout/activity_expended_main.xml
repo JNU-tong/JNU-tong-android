@@ -6,8 +6,7 @@
     android:orientation="vertical"
     tools:context="kr.ac.jejunu.jnu_tong.main.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/container"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,7 +14,7 @@
         <RelativeLayout
             android:id="@+id/top"
             android:layout_width="match_parent"
-            android:layout_height="296dp"
+            android:layout_height="1dp"
             android:orientation="vertical">
 
             <View
@@ -58,9 +57,12 @@
             android:layout_marginEnd="12dp"
             android:layout_marginStart="13dp"
             android:layout_marginTop="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/shuttle_bus"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/city_bus_top"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/main_round_box_top"
@@ -144,6 +146,18 @@
 
                     </LinearLayout>
                 </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_soon_bus"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
+
+
             </LinearLayout>
         </LinearLayout>
 
@@ -154,6 +168,8 @@
             android:layout_height="80dp"
             android:layout_marginEnd="12dp"
             android:layout_marginStart="13dp"
+            android:layout_marginBottom="-40dp"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
             <TextView
@@ -235,7 +251,7 @@
             </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
