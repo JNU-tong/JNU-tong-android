@@ -1,0 +1,83 @@
+package kr.ac.jejunu.jnu_tong.ui.bus.shuttle;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.ARoute;
+import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.BRoute;
+import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.Route;
+import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
+
+/**
+ * Created by seung-yeol on 2018. 6. 8..
+ */
+
+public class ShuttleModel implements ShuttleContract.ShuttleModel {
+    private List<String> busStops;
+    private Route[] route;
+    private int shuttleBookmarkId;
+
+    ShuttleModel() {
+        busStops = new ArrayList<>();
+    }
+
+    @Override
+    public void changeProvider(List<ShuttleVO> result) {
+        ArrayList<ShuttleVO> vos = new ArrayList<>(result);
+
+        int temp = 0;
+        for (int i = 1; i < vos.size(); i++) {
+            if (vos.get(i).getFirstTime() != null){
+                if (vos.get(temp).getFirstTime() > vos.get(i).getFirstTime()){
+                    temp = i;
+                }
+            }
+        }
+
+        while (temp < vos.size()) {
+            if (busStops.size() < 5){
+                busStops.add( route[temp].getTitle());
+            }
+            temp++;
+        }
+    }
+
+    @Override
+    public String[] getShuttleBusStops() {
+        String[] stops = new String[busStops.size()];
+        busStops.toArray(stops);
+
+        return stops;
+    }
+
+    @Override
+    public void selectARoute() {
+        route = ARoute.values();
+    }
+
+    @Override
+    public void selectBRoute() {
+        route = BRoute.values();
+    }
+
+    @Override
+    public void setBookmarkId(int stopId) {
+        shuttleBookmarkId = stopId;
+    }
+
+    @Override
+    public int getBookmarkId() {
+        return shuttleBookmarkId;
+    }
+
+    @Override
+    public Integer getPositionByBookmarkId() {
+        for (int i = 0; i < route.length; i++) {
+            if (route[i].getId() == shuttleBookmarkId){
+                return i;
+            }
+        }
+        return null;
+    }
+}
+

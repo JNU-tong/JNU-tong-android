@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.task.get.GetDepartureBusTask;
 import kr.ac.jejunu.jnu_tong.task.get.GetShuttleMainTask;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
@@ -48,7 +49,7 @@ public class AppWidget extends AppWidgetProvider {
         });
 
         getShuttleMainTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                CommonData.getShuttlePointUrl(((CommonData) context.getApplicationContext()).getShuttleBookmarkId()));
+                CommonApp.getShuttlePointUrl(((CommonApp) context.getApplicationContext()).getShuttleBookmarkId()));
 
         GetDepartureBusTask getDepartureBusTask = new GetDepartureBusTask(result -> {
             ArrayList<DepartureBusVO> vos = new ArrayList<>((List<DepartureBusVO>) result);
@@ -87,7 +88,7 @@ public class AppWidget extends AppWidgetProvider {
             for (DepartureBusVO vo : vos) {
                 ArrayList<DepartureBusVO> oftenBus = new ArrayList<>();
                 if (vo.getFirst() < 10) {
-                    if (((CommonData) context.getApplicationContext()).hasOftenBus(vo.getLineID())) {
+                    if (((CommonApp) context.getApplicationContext()).hasOftenBus(vo.getLineID())) {
                         oftenBus.add(vo);
                     }
                 }
@@ -119,7 +120,7 @@ public class AppWidget extends AppWidgetProvider {
 
         String currentTime = getCurrentTime();
 
-        views.setTextViewText(R.id.shuttle_title, ((CommonData) context.getApplicationContext()).getShuttleBookmarkTitle());
+        views.setTextViewText(R.id.shuttle_title, ((CommonApp) context.getApplicationContext()).getShuttleBookmarkTitle());
         views.setTextViewText(R.id.txt_time, "업데이트 " + currentTime);
 
         Intent intentSync = new Intent(context, AppWidget.class);

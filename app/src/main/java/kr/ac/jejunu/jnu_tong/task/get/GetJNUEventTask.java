@@ -5,7 +5,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import kr.ac.jejunu.jnu_tong.CommonData;
+import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
 
@@ -20,7 +20,7 @@ public class GetJNUEventTask extends BaseGetTask<JNUEventVO> {
 
     @Override
     String url(String[] params) {
-        return CommonData.getJNUEventURL();
+        return CommonApp.getJNUEventURL();
     }
 
     @Override

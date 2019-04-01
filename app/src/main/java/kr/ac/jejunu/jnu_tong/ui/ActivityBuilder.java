@@ -1,0 +1,16 @@
+package kr.ac.jejunu.jnu_tong.ui;
+
+import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
+import kr.ac.jejunu.jnu_tong.ui.main.MainActivity;
+import kr.ac.jejunu.jnu_tong.ui.main.MainModule;
+import kr.ac.jejunu.jnu_tong.ui.unfolded_main.UnfoldedMainActivity;
+
+@Module
+public abstract class ActivityBuilder {
+    @ContributesAndroidInjector(modules = MainModule.class)
+    public abstract MainActivity bindMainActivity();
+
+    @ContributesAndroidInjector
+    public abstract UnfoldedMainActivity bindUnfoldedMainActivity();
+}

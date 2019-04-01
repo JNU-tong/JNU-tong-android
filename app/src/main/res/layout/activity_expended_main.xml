@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="kr.ac.jejunu.jnu_tong.main.MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

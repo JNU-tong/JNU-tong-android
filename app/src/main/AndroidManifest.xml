@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".CommonData"
+        android:name=".application.CommonApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_app_icon"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,19 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".expended_main.ExpendedMainActivity"
+            android:name=".ui.unfolded_main.UnfoldedMainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".bus.city.CityBusDetailActivity"
+            android:name=".ui.bus.city.CityBusDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.white" />
         <activity
-            android:name=".bus.shuttle.ShuttleBusDetailActivity"
+            android:name=".ui.bus.shuttle.ShuttleBusDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.white" />
 

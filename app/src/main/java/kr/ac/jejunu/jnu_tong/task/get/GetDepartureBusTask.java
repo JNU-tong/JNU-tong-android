@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.CommonData;
+import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 
@@ -24,7 +24,7 @@ public class GetDepartureBusTask extends BaseGetTask<List<DepartureBusVO>> {
 
     @Override
     String url(String[] params) {
-        return CommonData.getBusDepartureListURL();
+        return CommonApp.getBusDepartureListURL();
     }
 
     @Override
