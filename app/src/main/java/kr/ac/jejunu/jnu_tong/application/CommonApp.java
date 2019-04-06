@@ -4,14 +4,20 @@ import android.content.SharedPreferences;
 
 import java.util.HashSet;
 
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
+import kr.ac.jejunu.jnu_tong.IDataManager;
 
 /**
  * Created by seung-yeol on 2018. 4. 9..
  */
 
 public class CommonApp extends DaggerApplication {
+    @Inject
+    IDataManager dataManager;
+
     private final static String baseURL = "http://106.10.46.151:8080/";
     private SharedPreferences pref;
     private HashSet<String> oftenBusSet;
@@ -52,8 +58,6 @@ public class CommonApp extends DaggerApplication {
     public static String getJNUEventURL() {
         return baseURL + "jnu/eventDay/first";
     }
-
-
 
 
     public void addOftenBus(String busID){

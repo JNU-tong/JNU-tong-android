@@ -13,8 +13,9 @@
 
         <RelativeLayout
             android:id="@+id/top"
+            android:transitionName="top"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:orientation="vertical">
 
             <View
@@ -22,30 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_main" />
-
-            <TextView
-                android:id="@+id/today"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="19dp"
-                android:layout_marginTop="203dp"
-                android:text="10월 17(화)"
-                android:textColor="@color/navy"
-                android:textSize="36sp" />
-
-            <TextView
-                android:id="@+id/d_day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/today"
-                android:layout_marginEnd="26dp"
-                android:layout_marginTop="5dp"
-                android:text="종강까지 D-260"
-                android:textColor="@color/navy"
-                android:textSize="20sp" />
-
         </RelativeLayout>
 
         <LinearLayout
@@ -263,7 +240,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            android:background="@drawable/ic_refresh_white"
+            android:background="@drawable/ic_refresh_navy"
             android:contentDescription="refresh"
             android:gravity="end" />
     </LinearLayout>

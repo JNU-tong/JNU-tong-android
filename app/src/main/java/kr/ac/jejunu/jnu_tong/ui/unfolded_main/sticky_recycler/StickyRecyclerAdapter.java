@@ -1,6 +1,7 @@
 package kr.ac.jejunu.jnu_tong.ui.unfolded_main.sticky_recycler;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -50,8 +51,9 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
         return items;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 1) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_header, parent, false);
             return new MyHeaderHolder(view);
@@ -62,7 +64,7 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Item item = items.get(position);
 
         if (item instanceof HeaderItem) {
@@ -70,15 +72,16 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
             ((MyHeaderHolder) holder).headerText.setText(headerItem.getHeaderTitle());
         } else {
             ChildItem childItem = ((ChildItem) item);
+            MyChildViewHolder childHolder = (MyChildViewHolder) holder;
 
-            ((MyChildViewHolder) holder).busNumText.setBackground(activity.getResources().getDrawable(childItem.getBackGroundId()));
-            ((MyChildViewHolder) holder).busNumText.setText(childItem.getBusNum());
-            ((MyChildViewHolder) holder).descriptionText.setText(childItem.getBusDescription());
-            ((MyChildViewHolder) holder).remainText1.setText(childItem.getFirstRemainTime());
-            ((MyChildViewHolder) holder).remainText2.setText(childItem.getSecondRemainTime());
-            ((MyChildViewHolder) holder).heartImage.setBackground(activity.getResources().getDrawable(childItem.getHeartImageId()));
-            ((MyChildViewHolder) holder).itemView.setOnClickListener(view -> onDetailClickListener.onDetailClick(position));
-            ((MyChildViewHolder) holder).heartImage.setOnClickListener(view -> onHeartClickListener.onHeartClick(position));
+            childHolder.busNumText.setBackground(activity.getResources().getDrawable(childItem.getBackGroundId()));
+            childHolder.busNumText.setText(childItem.getBusNum());
+            childHolder.descriptionText.setText(childItem.getBusDescription());
+            childHolder.remainText1.setText(childItem.getFirstRemainTime());
+            childHolder.remainText2.setText(childItem.getSecondRemainTime());
+            childHolder.heartImage.setBackground(activity.getResources().getDrawable(childItem.getHeartImageId()));
+            childHolder.itemView.setOnClickListener(view -> onDetailClickListener.onDetailClick(position));
+            childHolder.heartImage.setOnClickListener(view -> onHeartClickListener.onHeartClick(position));
         }
     }
 

@@ -12,6 +12,7 @@ import kr.ac.jejunu.jnu_tong.ui.ActivityBuilder;
 
 @Singleton
 @Component(modules = {ActivityBuilder.class,
+        AppModule.class,
         AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<CommonApp> {
     @Component.Builder

@@ -13,6 +13,9 @@ public abstract class UnfoldedMainModule {
     public abstract AppCompatActivity bindContext(UnfoldedMainActivity unfoldedMainActivity);
 
     @Binds
+    abstract UnfoldedMainContract.View vindView(UnfoldedMainActivity unfoldedMainActivity);
+
+    @Binds
     public abstract AdapterContract.View<Item> bindAdapterView(StickyRecyclerAdapter stickyRecyclerAdapter);
 
     @Binds
