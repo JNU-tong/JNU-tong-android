@@ -1,15 +1,15 @@
 package kr.ac.jejunu.jnu_tong.ui.unfolded_main;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.brandongogetap.stickyheaders.StickyLayoutManager;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
 import dagger.android.support.DaggerAppCompatActivity;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.ui.unfolded_main.sticky_recycler.StickyRecyclerAdapter;
@@ -28,7 +28,7 @@ public class UnfoldedMainActivity extends DaggerAppCompatActivity implements Unf
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_expended_main);
+        setContentView(R.layout.activity_unfolded_main);
 
         presenter.setAdapterView(adapter);
         presenter.setAdapterModel(adapter);
@@ -40,8 +40,8 @@ public class UnfoldedMainActivity extends DaggerAppCompatActivity implements Unf
 
     private void initView() {
         findViewById(R.id.city_bus_top).setOnClickListener((v) -> supportFinishAfterTransition());
+        findViewById(R.id.btn_refresh).setOnClickListener((v -> presenter.refreshClick()));
     }
-
     private void initCityBusRecycler() {
         adapter.setDetailClickListener((int position) -> presenter.onDetailClick(position));
         adapter.setOnHeartClickListener(position -> presenter.onHeartClick(position));

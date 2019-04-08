@@ -2,7 +2,7 @@ package kr.ac.jejunu.jnu_tong;
 
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
+import io.reactivex.Observable;
 import kr.ac.jejunu.jnu_tong.ui.main.MainContract;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
@@ -10,7 +10,9 @@ import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
 public interface IDataManager {
     MainContract.Model getMainModel();
 
-    void executeDepartureBusTask(OnTaskResultListener<List<DepartureBusVO>> onTaskResultListener);
+    void executeDepartureBusTask();
+    void executeJNUEventTask();
 
-    void executeJNUEventTask(OnTaskResultListener<JNUEventVO> eventVOOnTaskResultListener);
+    Observable<List<DepartureBusVO>> getDepartureBusObservable();
+    Observable<JNUEventVO> getJnuEventObservable();
 }

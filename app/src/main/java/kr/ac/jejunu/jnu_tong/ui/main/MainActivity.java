@@ -2,8 +2,6 @@ package kr.ac.jejunu.jnu_tong.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -14,6 +12,8 @@ import android.widget.TextView;
 
 import javax.inject.Inject;
 
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import dagger.android.support.DaggerAppCompatActivity;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.application.CommonApp;

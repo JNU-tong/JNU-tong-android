@@ -1,8 +1,6 @@
 package kr.ac.jejunu.jnu_tong.ui.bus.shuttle;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -15,11 +13,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.task.BitmapUtil;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.ARoute;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.BRoute;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.Route;
-import kr.ac.jejunu.jnu_tong.task.BitmapUtil;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
 
 /**

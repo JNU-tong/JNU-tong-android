@@ -1,10 +1,10 @@
 package kr.ac.jejunu.jnu_tong.ui.bus.city.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.RecyclerView;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.adapter.AdapterContract;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.adapter.BusStopRecyclerAdapter;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.presenter.BusStopFragmentPresenter;

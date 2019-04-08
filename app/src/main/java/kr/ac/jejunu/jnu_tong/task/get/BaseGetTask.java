@@ -43,6 +43,7 @@ public abstract class BaseGetTask<E> extends AsyncTask<String, Void, E> {
             URLConnection conn = url.openConnection ( );
             conn.setUseCaches ( false );
             conn.connect();
+            conn.setReadTimeout(5000);
             is = conn.getInputStream ( );
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ( );

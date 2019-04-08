@@ -1,6 +1,7 @@
 package kr.ac.jejunu.jnu_tong.vo;
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..

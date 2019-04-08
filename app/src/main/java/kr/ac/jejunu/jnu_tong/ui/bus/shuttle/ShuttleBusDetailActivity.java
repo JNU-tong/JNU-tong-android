@@ -1,10 +1,6 @@
 package kr.ac.jejunu.jnu_tong.ui.bus.shuttle;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -14,8 +10,12 @@ import android.widget.TextView;
 
 import com.tmall.ultraviewpager.UltraViewPager;
 
-import kr.ac.jejunu.jnu_tong.application.CommonApp;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 import kr.ac.jejunu.jnu_tong.R;
+import kr.ac.jejunu.jnu_tong.application.CommonApp;
 
 /**
  * Created by seung-yeol on 2018. 4. 22..

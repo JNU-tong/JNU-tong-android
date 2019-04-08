@@ -1,10 +1,10 @@
 package kr.ac.jejunu.jnu_tong.ui.bus.shuttle;
 
 import android.os.AsyncTask;
-import android.support.v4.view.PagerAdapter;
 
 import java.util.List;
 
+import androidx.viewpager.widget.PagerAdapter;
 import kr.ac.jejunu.jnu_tong.ActivityPresenter;
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;

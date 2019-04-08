@@ -1,8 +1,8 @@
 package kr.ac.jejunu.jnu_tong.ui.unfolded_main.sticky_recycler;
 
-import android.support.v7.util.DiffUtil;
-
 import java.util.List;
+
+import androidx.recyclerview.widget.DiffUtil;
 
 public class SimpleDiffCallback extends DiffUtil.Callback {
 

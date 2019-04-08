@@ -14,7 +14,7 @@ import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
  */
 
 public class GetJNUEventTask extends BaseGetTask<JNUEventVO> {
-    public GetJNUEventTask(OnTaskResultListener onTaskResultListener) {
+    public GetJNUEventTask(OnTaskResultListener<JNUEventVO> onTaskResultListener) {
         super(onTaskResultListener);
     }
 

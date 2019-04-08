@@ -7,10 +7,9 @@ public interface UnfoldedMainContract {
         void onCreate();
         void onDetailClick(int position);
         void onHeartClick(int position);
+        void refreshClick();
         void setAdapterView(AdapterContract.View<Item> adapterView);
         void setAdapterModel(AdapterContract.Model adapterModel);
-        void refreshClick();
-
     }
 
     interface View{

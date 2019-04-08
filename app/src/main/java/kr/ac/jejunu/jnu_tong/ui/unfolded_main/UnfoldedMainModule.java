@@ -1,7 +1,6 @@
 package kr.ac.jejunu.jnu_tong.ui.unfolded_main;
 
-import android.support.v7.app.AppCompatActivity;
-
+import androidx.appcompat.app.AppCompatActivity;
 import dagger.Binds;
 import dagger.Module;
 import kr.ac.jejunu.jnu_tong.ui.unfolded_main.sticky_recycler.Item;
