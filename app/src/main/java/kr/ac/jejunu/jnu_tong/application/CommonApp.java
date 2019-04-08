@@ -18,7 +18,7 @@ public class CommonApp extends DaggerApplication {
     @Inject
     IDataManager dataManager;
 
-    private final static String baseURL = "http://106.10.46.151:8080/";
+    public final static String baseURL = "http://106.10.46.151:8080/";
     private SharedPreferences pref;
     private HashSet<String> oftenBusSet;
 

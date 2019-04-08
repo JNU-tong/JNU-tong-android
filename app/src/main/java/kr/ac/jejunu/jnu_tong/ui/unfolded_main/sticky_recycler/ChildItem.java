@@ -20,25 +20,27 @@ public class ChildItem implements Item {
 
     ChildItem(DepartureBusVO vo) {
         this.vo = vo;
-        busNum = vo.getLineNo() + "번";
-        busID = vo.getLineID();
-        busDescription = vo.getDescription();
-        if (vo.getFirst() < 4){
+        busNum = vo.getCityBusLineInfo().getLineNo() + "번";
+        busID = vo.getCityBusLineInfo().getLineId();
+        busDescription = vo.getCityBusLineInfo().getDescription();
+        if (vo.getRemainTime().getFirst() < 4){
             firstRemainTime = "잠시후";
         } else {
-            firstRemainTime = vo.getFirst() + "분전";
+            firstRemainTime = vo.getRemainTime().getFirst() + "분전";
         }
 
-        if (vo.getSecond() < 4){
+        if (vo.getRemainTime().getSecond() == null) {
+            secondRemainTime = "";
+        } else if (vo.getRemainTime().getSecond() < 4){
             secondRemainTime = "잠시후";
         } else {
-            secondRemainTime = vo.getSecond() + "분전";
+            secondRemainTime = vo.getRemainTime().getSecond() + "분전";
         }
 
-        if (vo.getLineNo().length() == 4) {
+        if (vo.getCityBusLineInfo().getLineNo().length() == 4) {
             busType = "yellow";
             backGroundId = R.drawable.round_shape_yellow;
-        } else if (vo.getLineNo().charAt(0) == '4') {
+        } else if (vo.getCityBusLineInfo().getLineNo().charAt(0) == '4') {
             busType = "green";
             backGroundId = R.drawable.round_shape_green;
         } else /*if (vo.getLineNo().charAt(0) == '3') */{

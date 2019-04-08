@@ -8,11 +8,14 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
+import kr.ac.jejunu.jnu_tong.BroadcastReceiverBuilder;
 import kr.ac.jejunu.jnu_tong.ui.ActivityBuilder;
 
 @Singleton
-@Component(modules = {ActivityBuilder.class,
+@Component(modules = {
         AppModule.class,
+        ActivityBuilder.class,
+        BroadcastReceiverBuilder.class,
         AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<CommonApp> {
     @Component.Builder

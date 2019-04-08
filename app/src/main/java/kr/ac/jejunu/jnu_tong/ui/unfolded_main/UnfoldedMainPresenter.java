@@ -63,6 +63,6 @@ public class UnfoldedMainPresenter implements UnfoldedMainContract.Presenter {
 
     @Override
     public void refreshClick() {
-        dataManager.executeDepartureBusTask();
+        dataManager.getDepartureBusList();
     }
 }

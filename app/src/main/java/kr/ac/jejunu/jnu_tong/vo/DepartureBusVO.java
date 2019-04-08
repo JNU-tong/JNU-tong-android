@@ -1,79 +1,48 @@
 package kr.ac.jejunu.jnu_tong.vo;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import androidx.annotation.NonNull;
+import lombok.Getter;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..
  */
 
-public class DepartureBusVO implements Comparable<DepartureBusVO>{
-    private String lineID;
-    private String lineNo;
-    private String detailLineNo;
-    private String description;
-
-    private Integer first;
-    private Integer second;
-
-    public DepartureBusVO(){
-
-    }
-
-    public DepartureBusVO(String lineID) {
-        this.lineID = lineID;
-    }
-
-    public String getLineID() {
-        return lineID;
-    }
-
-    public void setLineID(String lineID) {
-        this.lineID = lineID;
-    }
-
-    public String getLineNo() {
-        return lineNo;
-    }
-
-    public void setLineNo(String lineNo) {
-        this.lineNo = lineNo;
-    }
-
-    public String getDetailLineNo() {
-        return detailLineNo;
-    }
-
-    public void setDetailLineNo(String detailLineNo) {
-        this.detailLineNo = detailLineNo;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getFirst() {
-        return first;
-    }
-
-    public void setFirst(int first) {
-        this.first = first;
-    }
-
-    public int getSecond() {
-        return second;
-    }
-
-    public void setSecond(int second) {
-        this.second = second;
-    }
+@Getter
+public class DepartureBusVO implements Comparable<DepartureBusVO> {
+    @SerializedName("cityBusLineInfo")
+    private CityBusLineInfo cityBusLineInfo;
+    @SerializedName("remainTime")
+    private RemainTime remainTime;
 
     @Override
     public int compareTo(@NonNull DepartureBusVO o) {
-        return first.compareTo(o.first);
+        return remainTime.first.compareTo(o.remainTime.first);
+    }
+
+    @Getter
+    public static class CityBusLineInfo {
+        @SerializedName("lineId")
+        private String lineId;
+
+        @SerializedName("lineNo")
+        private String lineNo;
+
+        @SerializedName("detailLineNo")
+        private String detailLineNo;
+
+        @SerializedName("description")
+        private String description;
+    }
+
+    @Getter
+    public static class RemainTime {
+        @SerializedName("first")
+        private Integer first;
+
+        @SerializedName("second")
+        private Integer second;
     }
 }

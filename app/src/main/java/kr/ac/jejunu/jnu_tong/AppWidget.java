@@ -17,13 +17,55 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
-import kr.ac.jejunu.jnu_tong.task.get.GetDepartureBusTask;
 import kr.ac.jejunu.jnu_tong.task.get.GetShuttleMainTask;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
 
-public class AppWidget extends AppWidgetProvider {
+public class AppWidget extends AppWidgetProvider{
+    @Inject
+    IDataManager dataManager;
+
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    //pendingSync 실행되면 호출되는 메서드
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+        AndroidInjection.inject(this, context);
+        dataManager.getDepartureBusList();
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName thisAppWidget = new ComponentName(context.getPackageName(), AppWidget.class.getName());
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
+
+        onUpdate(context, appWidgetManager, appWidgetIds);
+    }
+
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        // There may be multiple widgets active, so update all of them
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
+
+    @Override
+    public void onEnabled(Context context) {
+        // Enter relevant functionality for when the first widget_main is created
+    }
+
+    @Override
+    public void onDisabled(Context context) {
+        // Enter relevant functionality for when the last widget_main is disabled
+        compositeDisposable.dispose();
+    }
+
     void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                          int appWidgetId) {
         Log.e("widget_main", "updateAppWidget: 위젯 업데이트");
@@ -51,72 +93,141 @@ public class AppWidget extends AppWidgetProvider {
         getShuttleMainTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                 CommonApp.getShuttlePointUrl(((CommonApp) context.getApplicationContext()).getShuttleBookmarkId()));
 
-        GetDepartureBusTask getDepartureBusTask = new GetDepartureBusTask(result -> {
-            ArrayList<DepartureBusVO> vos = new ArrayList<>((List<DepartureBusVO>) result);
-            Collections.sort(vos);
+        Observable<List<DepartureBusVO>> observable = dataManager.getDepartureBusObservable();
+        if (observable != null){
+            compositeDisposable.add(observable.subscribe(departureBusVOS -> {
+                ArrayList<DepartureBusVO> vos = new ArrayList<>(departureBusVOS);
+                Collections.sort(vos);
 
-            views.removeAllViews(R.id.normals);
-            views.removeAllViews(R.id.oftens);
+                views.removeAllViews(R.id.normals);
+                views.removeAllViews(R.id.oftens);
 
-            if (vos.size() > 0 && vos.get(0) != null) {
-                views.setViewVisibility(R.id.txt_no_bus1, View.GONE);
-                int itemLayout = getItemLayout(vos, 0);
-                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
-                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(0).getLineNo() + "번");
+                if (vos.size() > 0 && vos.get(0) != null) {
+                    views.setViewVisibility(R.id.txt_no_bus1, View.GONE);
+                    int itemLayout = getItemLayout(vos, 0);
+                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+                    remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(0).getCityBusLineInfo().getLineNo() + "번");
 
-                views.addView(R.id.normals, remoteViews);
-            } else {
-                views.setViewVisibility(R.id.txt_no_bus1, View.VISIBLE);
-            }
+                    views.addView(R.id.normals, remoteViews);
+                } else {
+                    views.setViewVisibility(R.id.txt_no_bus1, View.VISIBLE);
+                }
 
-            if (vos.size() > 1 && vos.get(1) != null) {
-                int itemLayout = getItemLayout(vos, 1);
-                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
-                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(1).getLineNo() + "번");
+                if (vos.size() > 1 && vos.get(1) != null) {
+                    int itemLayout = getItemLayout(vos, 1);
+                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+                    remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(1).getCityBusLineInfo().getLineNo() + "번");
 
-                views.addView(R.id.normals, remoteViews);
-            }
+                    views.addView(R.id.normals, remoteViews);
+                }
 
-            if (vos.size() > 2 && vos.get(2) != null) {
-                int itemLayout = getItemLayout(vos, 2);
-                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
-                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(2).getLineNo() + "번");
+                if (vos.size() > 2 && vos.get(2) != null) {
+                    int itemLayout = getItemLayout(vos, 2);
+                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+                    remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(2).getCityBusLineInfo().getLineNo() + "번");
 
-                views.addView(R.id.normals, remoteViews);
-            }
+                    views.addView(R.id.normals, remoteViews);
+                }
 
-            for (DepartureBusVO vo : vos) {
-                ArrayList<DepartureBusVO> oftenBus = new ArrayList<>();
-                if (vo.getFirst() < 10) {
-                    if (((CommonApp) context.getApplicationContext()).hasOftenBus(vo.getLineID())) {
-                        oftenBus.add(vo);
+                for (DepartureBusVO vo : vos) {
+                    ArrayList<DepartureBusVO> oftenBus = new ArrayList<>();
+                    if (vo.getRemainTime().getFirst() < 10) {
+                        if (((CommonApp) context.getApplicationContext()).hasOftenBus(vo.getCityBusLineInfo().getLineId())) {
+                            oftenBus.add(vo);
+                        }
+                    }
+
+                    if (oftenBus.size() > 0 && oftenBus.get(0) != null) {
+                        views.setViewVisibility(R.id.txt_no_bus2, View.GONE);
+
+                        int itemLayout = getItemLayout(oftenBus, 0);
+                        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+                        remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(0).getCityBusLineInfo().getLineNo() + "번");
+
+                        views.addView(R.id.oftens, remoteViews);
+                    } else {
+                        views.setViewVisibility(R.id.txt_no_bus2, View.VISIBLE);
+                    }
+
+                    if (oftenBus.size() > 1 && oftenBus.get(1) != null) {
+                        int itemLayout = getItemLayout(oftenBus, 1);
+                        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+                        remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(1).getCityBusLineInfo().getLineNo() + "번");
+
+                        views.addView(R.id.oftens, remoteViews);
                     }
                 }
 
-                if (oftenBus.size() > 0 && oftenBus.get(0) != null) {
-                    views.setViewVisibility(R.id.txt_no_bus2, View.GONE);
+                appWidgetManager.updateAppWidget(appWidgetId, views);
+            }));
+        }
 
-                    int itemLayout = getItemLayout(oftenBus, 0);
-                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
-                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(0).getLineNo() + "번");
-
-                    views.addView(R.id.oftens, remoteViews);
-                } else {
-                    views.setViewVisibility(R.id.txt_no_bus2, View.VISIBLE);
-                }
-
-                if (oftenBus.size() > 1 && oftenBus.get(1) != null) {
-                    int itemLayout = getItemLayout(oftenBus, 1);
-                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
-                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(1).getLineNo() + "번");
-
-                    views.addView(R.id.oftens, remoteViews);
-                }
-            }
-
-            appWidgetManager.updateAppWidget(appWidgetId, views);
-        });
-        getDepartureBusTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        GetDepartureBusTask getDepartureBusTask = new GetDepartureBusTask(result -> {
+//            ArrayList<DepartureBusVO> vos = new ArrayList<>((List<DepartureBusVO>) result);
+//            Collections.sort(vos);
+//
+//            views.removeAllViews(R.id.normals);
+//            views.removeAllViews(R.id.oftens);
+//
+//            if (vos.size() > 0 && vos.get(0) != null) {
+//                views.setViewVisibility(R.id.txt_no_bus1, View.GONE);
+//                int itemLayout = getItemLayout(vos, 0);
+//                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+//                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(0).getCityBusLineInfo().getLineNo() + "번");
+//
+//                views.addView(R.id.normals, remoteViews);
+//            } else {
+//                views.setViewVisibility(R.id.txt_no_bus1, View.VISIBLE);
+//            }
+//
+//            if (vos.size() > 1 && vos.get(1) != null) {
+//                int itemLayout = getItemLayout(vos, 1);
+//                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+//                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(1).getCityBusLineInfo().getLineNo() + "번");
+//
+//                views.addView(R.id.normals, remoteViews);
+//            }
+//
+//            if (vos.size() > 2 && vos.get(2) != null) {
+//                int itemLayout = getItemLayout(vos, 2);
+//                RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+//                remoteViews.setTextViewText(R.id.txt_bus_no, vos.get(2).getCityBusLineInfo().getLineNo() + "번");
+//
+//                views.addView(R.id.normals, remoteViews);
+//            }
+//
+//            for (DepartureBusVO vo : vos) {
+//                ArrayList<DepartureBusVO> oftenBus = new ArrayList<>();
+//                if (vo.getRemainTime().getFirst() < 10) {
+//                    if (((CommonApp) context.getApplicationContext()).hasOftenBus(vo.getCityBusLineInfo().getLineId())) {
+//                        oftenBus.add(vo);
+//                    }
+//                }
+//
+//                if (oftenBus.size() > 0 && oftenBus.get(0) != null) {
+//                    views.setViewVisibility(R.id.txt_no_bus2, View.GONE);
+//
+//                    int itemLayout = getItemLayout(oftenBus, 0);
+//                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+//                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(0).getCityBusLineInfo().getLineNo() + "번");
+//
+//                    views.addView(R.id.oftens, remoteViews);
+//                } else {
+//                    views.setViewVisibility(R.id.txt_no_bus2, View.VISIBLE);
+//                }
+//
+//                if (oftenBus.size() > 1 && oftenBus.get(1) != null) {
+//                    int itemLayout = getItemLayout(oftenBus, 1);
+//                    RemoteViews remoteViews = new RemoteViews(context.getPackageName(), itemLayout);
+//                    remoteViews.setTextViewText(R.id.txt_bus_no, oftenBus.get(1).getCityBusLineInfo().getLineNo() + "번");
+//
+//                    views.addView(R.id.oftens, remoteViews);
+//                }
+//            }
+//
+//            appWidgetManager.updateAppWidget(appWidgetId, views);
+//        });
+//        getDepartureBusTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         String currentTime = getCurrentTime();
 
@@ -132,9 +243,9 @@ public class AppWidget extends AppWidgetProvider {
 
     private int getItemLayout(ArrayList<DepartureBusVO> vos, int position) {
         int itemLayout;
-        if (vos.get(position).getLineNo().length() == 4) {
+        if (vos.get(position).getCityBusLineInfo().getLineNo().length() == 4) {
             itemLayout = R.layout.view_bus_num_yellow;
-        } else if (vos.get(position).getLineNo().charAt(0) == '4') {
+        } else if (vos.get(position).getCityBusLineInfo().getLineNo().charAt(0) == '4') {
             itemLayout = R.layout.view_bus_num_green;
         } else {
             itemLayout = R.layout.view_bus_num_blue;
@@ -142,40 +253,10 @@ public class AppWidget extends AppWidgetProvider {
         return itemLayout;
     }
 
-    //pendingSync 실행되면 호출되는 메서드
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        ComponentName thisAppWidget = new ComponentName(context.getPackageName(), AppWidget.class.getName());
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
-
-        onUpdate(context, appWidgetManager, appWidgetIds);
-    }
-
     private String getCurrentTime() {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd  hh:mm");
         return sdf.format(date);
-    }
-
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget_main is created
-    }
-
-    @Override
-    public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget_main is disabled
     }
 }

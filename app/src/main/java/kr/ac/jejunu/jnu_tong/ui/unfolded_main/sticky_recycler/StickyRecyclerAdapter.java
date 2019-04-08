@@ -113,7 +113,7 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
         normalBus = new ArrayList<>();
 
         for (DepartureBusVO vo : arrayList) {
-            if ( commonApp.hasOftenBus(vo.getLineID()) ) {
+            if ( commonApp.hasOftenBus(vo.getCityBusLineInfo().getLineId()) ) {
                 oftenBus.add(vo);
             } else {
                 normalBus.add(vo);

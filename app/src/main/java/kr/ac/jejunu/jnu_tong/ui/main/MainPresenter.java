@@ -40,10 +40,10 @@ public class MainPresenter implements MainContract.Presenter{
                 mainView.setDepartureBusData(mainModel.getImgIds(), mainModel.getBusNos(), mainModel.getDepartTime());
             }
         }));
-        autoClearedDisposable.add(dataManager.getJnuEventObservable().subscribe(jnuEventVO -> {
-            mainModel.setJNUEvent(jnuEventVO);
-            mainView.setJNUEvent(mainModel.getToday(), mainModel.getEvent());
-        }));
+//        autoClearedDisposable.add(dataManager.getJnuEventObservable().subscribe(jnuEventVO -> {
+//            mainModel.setJNUEvent(jnuEventVO);
+//            mainView.setJNUEvent(mainModel.getToday(), mainModel.getEvent());
+//        }));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MainPresenter implements MainContract.Presenter{
 
     @Override
     public void refreshClick() {
-        dataManager.executeDepartureBusTask();
+        dataManager.getDepartureBusList();
         dataManager.executeJNUEventTask();
     }
 

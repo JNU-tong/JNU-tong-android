@@ -33,21 +33,21 @@ public class MainModel implements MainContract.Model {
         else if (result.size() > 1){
             Collections.sort(result);
 
-            firstNo = result.get(0).getLineNo() + "번";
-            firstImgId = getImgId(result.get(0).getLineNo());
+            firstNo = result.get(0).getCityBusLineInfo().getLineNo() + "번";
+            firstImgId = getImgId(result.get(0).getCityBusLineInfo().getLineNo());
 
-            secondNo = result.get(1).getLineNo() + "번";
-            secondImgId = getImgId(result.get(1).getLineNo());
+            secondNo = result.get(1).getCityBusLineInfo().getLineNo() + "번";
+            secondImgId = getImgId(result.get(1).getCityBusLineInfo().getLineNo());
 
-            if(result.get(0).getFirst() < 4) departTime = "잠시후도착";
-            else departTime = result.get(0).getFirst() + "분전";
+            if(result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후도착";
+            else departTime = result.get(0).getRemainTime().getFirst() + "분전";
         }
         else{
-            firstNo = result.get(0).getLineNo() + "번";
-            firstImgId = getImgId(result.get(0).getLineNo());
+            firstNo = result.get(0).getCityBusLineInfo().getLineNo() + "번";
+            firstImgId = getImgId(result.get(0).getCityBusLineInfo().getLineNo());
 
-            if(result.get(0).getFirst() < 4) departTime = "잠시후도착";
-            else departTime = result.get(0).getFirst()+"분전";
+            if(result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후도착";
+            else departTime = result.get(0).getRemainTime().getFirst()+"분전";
 
             secondImgId = null;
             secondNo = null;
