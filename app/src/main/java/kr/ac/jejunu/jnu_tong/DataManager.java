@@ -1,6 +1,5 @@
 package kr.ac.jejunu.jnu_tong;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -10,9 +9,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import kr.ac.jejunu.jnu_tong.retrofit.APIClient;
-import kr.ac.jejunu.jnu_tong.retrofit.APIInterface;
-import kr.ac.jejunu.jnu_tong.task.get.GetJNUEventTask;
+import io.reactivex.subjects.BehaviorSubject;
+import kr.ac.jejunu.jnu_tong.retrofit.JNUService;
 import kr.ac.jejunu.jnu_tong.ui.main.MainContract;
 import kr.ac.jejunu.jnu_tong.ui.main.MainModel;
 import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
@@ -22,12 +20,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DataManager implements IDataManager {
-    private Observable<JNUEventVO> jnuEventObservable;
-    private Observable<List<DepartureBusVO>> departureBusObservable;
+    private BehaviorSubject<JNUEventVO> jnuEventObservable;
+    private BehaviorSubject<List<DepartureBusVO>> departureBusObservable;
+    private JNUService JNUService;
     private MainContract.Model mainModel = new MainModel();
 
     @Inject
-    DataManager() {
+    DataManager(JNUService JNUService) {
+        this.JNUService = JNUService;
+        departureBusObservable = BehaviorSubject.createDefault(new ArrayList<>());
+        jnuEventObservable = BehaviorSubject.createDefault(new JNUEventVO());
         getDepartureBusList();
         executeJNUEventTask();
     }
@@ -37,30 +39,21 @@ public class DataManager implements IDataManager {
         return mainModel;
     }
 
-//    @Override
-//    public void getDepartureBusList() {
-//        GetDepartureBusTask getDepartureBusTask = new GetDepartureBusTask((OnTaskResultListener<List<DepartureBusVO>>)
-//                result -> departureBusObservable = Observable.just(result));
-//
-//        getDepartureBusTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//    }
-
     @Override
     public void getDepartureBusList() {
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
-        Call<Map<String, DepartureBusVO>> request = apiInterface.doGetDepartureBusList();
+        Call<Map<String, DepartureBusVO>> request = JNUService.doGetDepartureBusList();
         request.enqueue(new Callback<Map<String, DepartureBusVO>>() {
             @Override
             public void onResponse(Call<Map<String, DepartureBusVO>> call, Response<Map<String, DepartureBusVO>> response) {
                 Log.e("retrofit", "url: " + call.request().url().toString() );
-                if (response.body() != null){
-                    departureBusObservable = Observable.just(new ArrayList<>(response.body().values()));
+                if (response.isSuccessful() && response.body() != null){
+                    departureBusObservable.onNext(new ArrayList<>(response.body().values()));
                 }
             }
 
             @Override
             public void onFailure(Call<Map<String, DepartureBusVO>> call, Throwable t) {
-                Log.e("실패", "onFailure: " );
+                Log.e("실패", "onFailure: " + t.getMessage() );
                 t.printStackTrace();
             }
         });
@@ -68,20 +61,26 @@ public class DataManager implements IDataManager {
 
     @Override
     public void executeJNUEventTask() {
-        GetJNUEventTask eventTask = new GetJNUEventTask(result -> {
-            if (result != null) {
-                jnuEventObservable = Observable.just(result);
+        JNUService.doGetJNUEvent().enqueue(new Callback<JNUEventVO>() {
+            @Override
+            public void onResponse(Call<JNUEventVO> call, Response<JNUEventVO> response) {
+                Log.e("retrofit", "url: " + call.request().url().toString() );
+                if (response.isSuccessful() && response.body() != null){
+                    jnuEventObservable.onNext(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JNUEventVO> call, Throwable t) {
+                Log.e("실패", "onFailure: " + t.getMessage() );
+                t.printStackTrace();
             }
         });
-
-        eventTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public Observable<List<DepartureBusVO>> getDepartureBusObservable() {
-        if (departureBusObservable == null){
-            return null;
-        }
+        Log.e(this.toString(), "getDepartureBusObservable.size = "+ departureBusObservable.getValue().size() );
         return departureBusObservable;
     }
 

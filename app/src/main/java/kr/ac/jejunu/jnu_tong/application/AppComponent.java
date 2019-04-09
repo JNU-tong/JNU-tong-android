@@ -9,6 +9,7 @@ import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 import kr.ac.jejunu.jnu_tong.BroadcastReceiverBuilder;
+import kr.ac.jejunu.jnu_tong.DataManagerModule;
 import kr.ac.jejunu.jnu_tong.ui.ActivityBuilder;
 
 @Singleton
@@ -16,6 +17,7 @@ import kr.ac.jejunu.jnu_tong.ui.ActivityBuilder;
         AppModule.class,
         ActivityBuilder.class,
         BroadcastReceiverBuilder.class,
+        DataManagerModule.class,
         AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<CommonApp> {
     @Component.Builder

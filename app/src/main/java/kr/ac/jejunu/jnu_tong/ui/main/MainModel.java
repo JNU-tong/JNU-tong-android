@@ -91,7 +91,7 @@ public class MainModel implements MainContract.Model {
                 .append(dayOfWeek).toString();
 
         if (date != null) {
-            event = eventVO.getEvent() + "까지 D-" + eventVO.getdDay();
+            event = eventVO.getEvent() + "까지 D-" + eventVO.getDDay();
         }
     }
 

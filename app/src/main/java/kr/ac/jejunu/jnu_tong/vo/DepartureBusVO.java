@@ -23,7 +23,7 @@ public class DepartureBusVO implements Comparable<DepartureBusVO> {
     }
 
     @Getter
-    public static class CityBusLineInfo {
+    public class CityBusLineInfo {
         @SerializedName("lineId")
         private String lineId;
 
@@ -38,7 +38,7 @@ public class DepartureBusVO implements Comparable<DepartureBusVO> {
     }
 
     @Getter
-    public static class RemainTime {
+    public class RemainTime {
         @SerializedName("first")
         private Integer first;
 

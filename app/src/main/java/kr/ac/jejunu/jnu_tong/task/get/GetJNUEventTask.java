@@ -1,3 +1,4 @@
+/*
 package kr.ac.jejunu.jnu_tong.task.get;
 
 import android.util.Log;
@@ -9,9 +10,11 @@ import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
 
+*/
 /**
  * Created by seung-yeol on 2018. 6. 10..
- */
+ *//*
+
 
 public class GetJNUEventTask extends BaseGetTask<JNUEventVO> {
     public GetJNUEventTask(OnTaskResultListener<JNUEventVO> onTaskResultListener) {
@@ -42,3 +45,4 @@ public class GetJNUEventTask extends BaseGetTask<JNUEventVO> {
         return eventVO;
     }
 }
+*/
