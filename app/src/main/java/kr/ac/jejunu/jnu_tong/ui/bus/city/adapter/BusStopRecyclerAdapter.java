@@ -10,7 +10,7 @@ import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.vo.BusStopVO;
+import kr.ac.jejunu.jnu_tong.data.vo.BusStopVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..

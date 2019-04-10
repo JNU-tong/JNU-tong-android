@@ -4,8 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Binds;
 import dagger.Module;
-import kr.ac.jejunu.jnu_tong.DataManager;
-import kr.ac.jejunu.jnu_tong.IDataManager;
+import kr.ac.jejunu.jnu_tong.data.DataManager;
+import kr.ac.jejunu.jnu_tong.data.IDataManager;
 
 @Module
 public abstract class AppModule {

@@ -1,7 +1,7 @@
 package kr.ac.jejunu.jnu_tong.ui.unfolded_main.sticky_recycler;
 
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 11..

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong;
+package kr.ac.jejunu.jnu_tong.widget;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

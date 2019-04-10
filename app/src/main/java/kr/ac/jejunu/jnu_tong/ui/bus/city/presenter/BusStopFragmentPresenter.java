@@ -6,7 +6,7 @@ import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.adapter.AdapterContract;
-import kr.ac.jejunu.jnu_tong.vo.BusStopVO;
+import kr.ac.jejunu.jnu_tong.data.vo.BusStopVO;
 import kr.ac.jejunu.jnu_tong.task.get.GetBusStopTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 

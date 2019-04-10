@@ -7,7 +7,7 @@ import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.adapter.AdapterContract;
-import kr.ac.jejunu.jnu_tong.vo.BusTimeVO;
+import kr.ac.jejunu.jnu_tong.data.vo.BusTimeVO;
 import kr.ac.jejunu.jnu_tong.task.get.GetBusTimeTask;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 

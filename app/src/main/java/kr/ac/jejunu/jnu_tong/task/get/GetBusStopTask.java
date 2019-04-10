@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
-import kr.ac.jejunu.jnu_tong.vo.BusStopVO;
+import kr.ac.jejunu.jnu_tong.data.vo.BusStopVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 9..

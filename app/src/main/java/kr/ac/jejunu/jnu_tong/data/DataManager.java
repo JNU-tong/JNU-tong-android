@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong;
+package kr.ac.jejunu.jnu_tong.data;
 
 import android.util.Log;
 
@@ -10,11 +10,11 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
-import kr.ac.jejunu.jnu_tong.retrofit.JNUService;
+import kr.ac.jejunu.jnu_tong.data.api.JNUService;
 import kr.ac.jejunu.jnu_tong.ui.main.MainContract;
 import kr.ac.jejunu.jnu_tong.ui.main.MainModel;
-import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
-import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
+import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

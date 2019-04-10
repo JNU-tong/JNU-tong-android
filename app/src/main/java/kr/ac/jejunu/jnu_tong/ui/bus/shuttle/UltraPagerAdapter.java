@@ -16,11 +16,11 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.task.BitmapUtil;
+import kr.ac.jejunu.jnu_tong.util.BitmapUtil;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.ARoute;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.BRoute;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.Route;
-import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 22..

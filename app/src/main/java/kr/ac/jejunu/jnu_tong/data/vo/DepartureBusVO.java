@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.vo;
+package kr.ac.jejunu.jnu_tong.data.vo;
 
 
 import com.google.gson.annotations.SerializedName;

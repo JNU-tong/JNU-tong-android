@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
-import kr.ac.jejunu.jnu_tong.vo.BusTimeVO;
+import kr.ac.jejunu.jnu_tong.data.vo.BusTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 10..

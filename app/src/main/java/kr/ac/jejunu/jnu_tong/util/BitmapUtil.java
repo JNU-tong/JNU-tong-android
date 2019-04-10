@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.task;
+package kr.ac.jejunu.jnu_tong.util;
 
 import android.content.Context;
 import android.content.res.Resources;

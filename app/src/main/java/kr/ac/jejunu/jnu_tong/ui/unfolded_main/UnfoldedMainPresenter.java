@@ -4,8 +4,8 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-import kr.ac.jejunu.jnu_tong.AutoClearedDisposable;
-import kr.ac.jejunu.jnu_tong.IDataManager;
+import kr.ac.jejunu.jnu_tong.data.AutoClearedDisposable;
+import kr.ac.jejunu.jnu_tong.data.IDataManager;
 import kr.ac.jejunu.jnu_tong.ui.main.MainContract;
 import kr.ac.jejunu.jnu_tong.ui.unfolded_main.sticky_recycler.Item;
 

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong;
+package kr.ac.jejunu.jnu_tong.data;
 
 import javax.inject.Inject;
 

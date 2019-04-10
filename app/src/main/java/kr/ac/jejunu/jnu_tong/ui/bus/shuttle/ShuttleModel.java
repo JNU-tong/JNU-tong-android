@@ -6,7 +6,7 @@ import java.util.List;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.ARoute;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.BRoute;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.Route;
-import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
 
 /**
  * Created by seung-yeol on 2018. 6. 8..

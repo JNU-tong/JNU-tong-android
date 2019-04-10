@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
-import kr.ac.jejunu.jnu_tong.IDataManager;
+import kr.ac.jejunu.jnu_tong.data.IDataManager;
 
 /**
  * Created by seung-yeol on 2018. 4. 9..
@@ -35,10 +35,6 @@ public class CommonApp extends DaggerApplication {
         oftenBusSet = new HashSet<>( pref.getStringSet("oftenBus", new HashSet<>()));
     }
 
-    public static String getBusDepartureListURL(){
-        return baseURL + "getDepartureSoonBusList";
-    }
-
     public static String getBusTimeListURL(String busID){
         return baseURL + "getBusScheduleListByLineId/" + busID;
     }
@@ -54,11 +50,6 @@ public class CommonApp extends DaggerApplication {
     public static String getShuttlePointUrl(int stationId) {
         return baseURL + "getJnuBusArrivalInfoByStationId?stationId=" + stationId;
     }
-
-    public static String getJNUEventURL() {
-        return baseURL + "jnu/eventDay/first";
-    }
-
 
     public void addOftenBus(String busID){
         oftenBusSet.add(busID);

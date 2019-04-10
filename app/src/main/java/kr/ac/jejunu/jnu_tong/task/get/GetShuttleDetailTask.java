@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
-import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
 
 /**
  * Created by seung-yeol on 2018. 5. 19..

@@ -23,7 +23,7 @@ import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.CityBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.ui.unfolded_main.AdapterContract;
-import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 11..

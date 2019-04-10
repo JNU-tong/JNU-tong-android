@@ -2,8 +2,8 @@ package kr.ac.jejunu.jnu_tong.ui.main;
 
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
-import kr.ac.jejunu.jnu_tong.vo.JNUEventVO;
+import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
 
 /**
  * Created by seung-yeol on 2018. 6. 10..

@@ -8,8 +8,8 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
-import kr.ac.jejunu.jnu_tong.BroadcastReceiverBuilder;
-import kr.ac.jejunu.jnu_tong.DataManagerModule;
+import kr.ac.jejunu.jnu_tong.widget.BroadcastReceiverBuilder;
+import kr.ac.jejunu.jnu_tong.data.DataManagerModule;
 import kr.ac.jejunu.jnu_tong.ui.ActivityBuilder;
 
 @Singleton

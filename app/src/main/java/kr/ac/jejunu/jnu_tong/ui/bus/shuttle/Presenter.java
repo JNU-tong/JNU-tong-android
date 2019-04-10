@@ -5,17 +5,16 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import androidx.viewpager.widget.PagerAdapter;
-import kr.ac.jejunu.jnu_tong.ActivityPresenter;
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.task.get.GetShuttleDetailTask;
-import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 24..
  */
 
-public class Presenter implements ActivityPresenter, OnTaskResultListener<List<ShuttleVO>>{
+public class Presenter implements OnTaskResultListener<List<ShuttleVO>>{
     private ShuttleContract.ShuttleView shuttleView;
     private ShuttleContract.ShuttleModel shuttleModel;
     private PagerAdapterContract.View adapterView;
@@ -27,7 +26,6 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<List<S
         shuttleModel.selectARoute();
     }
 
-    @Override
     public void onCreate() {
         selectARoute();
     }
@@ -66,7 +64,6 @@ public class Presenter implements ActivityPresenter, OnTaskResultListener<List<S
         else shuttleView.setHeartOn(false);
     }
 
-    @Override
     public void onDestroy() {
         adapterView = null;
         adapterModel = null;

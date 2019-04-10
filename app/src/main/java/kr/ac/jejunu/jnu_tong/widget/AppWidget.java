@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong;
+package kr.ac.jejunu.jnu_tong.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -22,10 +22,12 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
+import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
+import kr.ac.jejunu.jnu_tong.data.IDataManager;
 import kr.ac.jejunu.jnu_tong.task.get.GetShuttleMainTask;
-import kr.ac.jejunu.jnu_tong.vo.DepartureBusVO;
-import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
+import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
 
 public class AppWidget extends AppWidgetProvider{
     @Inject

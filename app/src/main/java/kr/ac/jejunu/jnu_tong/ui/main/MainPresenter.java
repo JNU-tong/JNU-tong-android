@@ -5,12 +5,12 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-import kr.ac.jejunu.jnu_tong.AutoClearedDisposable;
-import kr.ac.jejunu.jnu_tong.IDataManager;
+import kr.ac.jejunu.jnu_tong.data.AutoClearedDisposable;
+import kr.ac.jejunu.jnu_tong.data.IDataManager;
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.task.get.GetShuttleMainTask;
 import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.ARoute;
-import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 20..
@@ -40,10 +40,6 @@ public class MainPresenter implements MainContract.Presenter{
                 mainView.setDepartureBusData(mainModel.getImgIds(), mainModel.getBusNos(), mainModel.getDepartTime());
             }
         }));
-//        autoClearedDisposable.add(dataManager.getJnuEventObservable().subscribe(jnuEventVO -> {
-//            mainModel.setJNUEvent(jnuEventVO);
-//            mainView.setJNUEvent(mainModel.getToday(), mainModel.getEvent());
-//        }));
     }
 
     @Override

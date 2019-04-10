@@ -6,8 +6,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
-import kr.ac.jejunu.jnu_tong.vo.ShuttleTimeVO;
-import kr.ac.jejunu.jnu_tong.vo.ShuttleVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
 
 /**
  * Created by seung-yeol on 2018. 6. 11..
