@@ -170,7 +170,6 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingStart="13dp"
-                    android:text="도착지"
                     android:textColor="@color/navy" />
 
                 <View
@@ -191,7 +190,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="A노선"
                         android:textColor="@color/navy"
                         android:textStyle="bold" />
 
@@ -201,7 +199,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="5분전"
                         android:textColor="@color/red"
                         android:textStyle="bold" />
 
@@ -210,7 +207,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="B노선"
                         android:textColor="@color/navy"
                         android:textStyle="bold" />
 
@@ -220,7 +216,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="10분전"
                         android:textColor="@color/red"
                         android:textStyle="bold" />
 

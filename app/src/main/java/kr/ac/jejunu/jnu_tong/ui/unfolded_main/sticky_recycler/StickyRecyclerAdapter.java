@@ -20,10 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.application.CommonApp;
+import kr.ac.jejunu.jnu_tong.data.IDataManager;
+import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.CityBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.ui.unfolded_main.AdapterContract;
-import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 11..
@@ -31,18 +31,18 @@ import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 
 public class StickyRecyclerAdapter extends RecyclerView.Adapter
         implements StickyHeaderHandler, AdapterContract.View<Item>, AdapterContract.Model {
+    private final IDataManager dataManager;
     private List<Item> items;
     private AppCompatActivity activity;
-    private CommonApp commonApp;
     private OnDetailClickListener onDetailClickListener;
     private OnHeartClickListener onHeartClickListener;
     private ArrayList<DepartureBusVO> oftenBus;
     private ArrayList<DepartureBusVO> normalBus;
 
     @Inject
-    public StickyRecyclerAdapter(AppCompatActivity activity) {
+    public StickyRecyclerAdapter(AppCompatActivity activity, IDataManager dataManager) {
         this.activity = activity;
-        this.commonApp = (CommonApp)activity.getApplication();
+        this.dataManager = dataManager;
         items = new ArrayList<>();
     }
 
@@ -113,7 +113,7 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
         normalBus = new ArrayList<>();
 
         for (DepartureBusVO vo : arrayList) {
-            if ( commonApp.hasOftenBus(vo.getCityBusLineInfo().getLineId()) ) {
+            if ( dataManager.hasOftenBus(vo.getCityBusLineInfo().getLineId()) ) {
                 oftenBus.add(vo);
             } else {
                 normalBus.add(vo);
@@ -139,14 +139,14 @@ public class StickyRecyclerAdapter extends RecyclerView.Adapter
     public void heartClick(int position) {
         ChildItem childItem = (ChildItem) items.get(position);
 
-        if (commonApp.hasOftenBus(childItem.getBusID())){
-            commonApp.deleteOftenBus(childItem.getBusID());
+        if (dataManager.hasOftenBus(childItem.getBusID())){
+            dataManager.deleteOftenBus(childItem.getBusID());
 
             DepartureBusVO vo = oftenBus.remove(position-1);
             normalBus.add(vo);
         }
         else {
-            commonApp.addOftenBus(childItem.getBusID());
+            dataManager.addOftenBus(childItem.getBusID());
 
             DepartureBusVO vo = normalBus.remove(position - oftenBus.size() - 2);
             oftenBus.add(vo);

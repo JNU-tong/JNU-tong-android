@@ -1,16 +1,11 @@
 package kr.ac.jejunu.jnu_tong.ui.main;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import javax.inject.Inject;
 
 import kr.ac.jejunu.jnu_tong.data.AutoClearedDisposable;
 import kr.ac.jejunu.jnu_tong.data.IDataManager;
-import kr.ac.jejunu.jnu_tong.application.CommonApp;
-import kr.ac.jejunu.jnu_tong.task.get.GetShuttleMainTask;
-import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.ARoute;
-import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 4. 20..
@@ -30,7 +25,11 @@ public class MainPresenter implements MainContract.Presenter{
         mainModel = dataManager.getMainModel();
     }
 
+    @Override
     public void onCreate() {
+        mainModel.setBookmarkedShuttleStationId(dataManager.getShuttleBookmarkId());
+        dataManager.doGetShuttleTime(mainModel.getBookmarkedShuttleStationId());
+
         autoClearedDisposable.add(dataManager.getDepartureBusObservable().subscribe(departureBusVOS -> {
             if (departureBusVOS == null || departureBusVOS.size() == 0) {
                 Log.e(this.toString(), "결과가 없어.. ");
@@ -40,23 +39,24 @@ public class MainPresenter implements MainContract.Presenter{
                 mainView.setDepartureBusData(mainModel.getImgIds(), mainModel.getBusNos(), mainModel.getDepartTime());
             }
         }));
-    }
 
-    @Override
-    public void setShuttleBookmarkId(int stationId) {
-        GetShuttleMainTask shuttleMainTask = new GetShuttleMainTask(result -> mainView.setShuttleBusData(ARoute.values()[stationId - 1].getTitle(),
-                ((ShuttleTimeVO) result).getAFirst(), ((ShuttleTimeVO) result).getBFirst())
-        );
+        autoClearedDisposable.add(dataManager.getJnuEventObservable().subscribe(jnuEventVO -> {
+            mainModel.setJNUEvent(jnuEventVO);
+            mainView.setJNUEvent(mainModel.getToday(), mainModel.getEvent());
+        }));
 
-        shuttleMainTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                CommonApp.getShuttlePointUrl(stationId)
-        );
+        autoClearedDisposable.add(dataManager.getShuttleTimeObservable().subscribe(shuttleTimeVO -> {
+            mainModel.setBookmarkedShuttleTimeVO(shuttleTimeVO);
+            mainView.setShuttleBusData(
+                    mainModel.getBookmarkedShuttleTitle(), mainModel.getBookmarkedShuttleATime(), mainModel.getBookmarkedShuttleBTime()
+            );
+        }));
     }
 
     @Override
     public void refreshClick() {
-        dataManager.getDepartureBusList();
-        dataManager.executeJNUEventTask();
+        dataManager.doGetDepartureBusList();
+        dataManager.doGetJNUEvent();
     }
 
     @Override

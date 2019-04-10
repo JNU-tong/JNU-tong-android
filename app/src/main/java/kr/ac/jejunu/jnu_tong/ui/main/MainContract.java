@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
 
 /**
  * Created by seung-yeol on 2018. 6. 10..
@@ -13,7 +14,6 @@ public interface MainContract {
     interface Presenter{
         void onCreate();
         void refreshClick();
-        void setShuttleBookmarkId(int shuttleBookmarkId);
         void clickCityBus();
     }
     interface View {
@@ -28,8 +28,16 @@ public interface MainContract {
         Integer[] getImgIds();
         String[] getBusNos();
         String getDepartTime();
+
         void setJNUEvent(JNUEventVO eventVO);
         String getEvent();
         String getToday();
+
+        void setBookmarkedShuttleStationId(int stationId);
+        void setBookmarkedShuttleTimeVO(ShuttleTimeVO shuttleTimeVO);
+        String getBookmarkedShuttleTitle();
+        Integer getBookmarkedShuttleATime();
+        Integer getBookmarkedShuttleBTime();
+        int getBookmarkedShuttleStationId();
     }
 }

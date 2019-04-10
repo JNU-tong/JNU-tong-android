@@ -1,91 +1,101 @@
 package kr.ac.jejunu.jnu_tong.data;
 
-import android.util.Log;
+import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.subjects.BehaviorSubject;
 import kr.ac.jejunu.jnu_tong.data.api.JNUService;
-import kr.ac.jejunu.jnu_tong.ui.main.MainContract;
-import kr.ac.jejunu.jnu_tong.ui.main.MainModel;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
+import kr.ac.jejunu.jnu_tong.ui.main.MainContract;
 
-public class DataManager implements IDataManager {
-    private BehaviorSubject<JNUEventVO> jnuEventObservable;
-    private BehaviorSubject<List<DepartureBusVO>> departureBusObservable;
-    private JNUService JNUService;
-    private MainContract.Model mainModel = new MainModel();
+public class DataManager implements IDataManager, IPreferencesHelper {
+    private IPreferencesHelper preferencesHelper;
+    private IDataBus dataBus;
 
     @Inject
-    DataManager(JNUService JNUService) {
-        this.JNUService = JNUService;
-        departureBusObservable = BehaviorSubject.createDefault(new ArrayList<>());
-        jnuEventObservable = BehaviorSubject.createDefault(new JNUEventVO());
-        getDepartureBusList();
-        executeJNUEventTask();
+    DataManager(Context context, JNUService mJNUService) {
+        this.preferencesHelper = new PreferenceHelper(context);
+        this.dataBus = new DataBus(mJNUService);
     }
 
+    /*
+    * IDataBus
+    * */
     @Override
     public MainContract.Model getMainModel() {
-        return mainModel;
+        return dataBus.getMainModel();
     }
 
     @Override
-    public void getDepartureBusList() {
-        Call<Map<String, DepartureBusVO>> request = JNUService.doGetDepartureBusList();
-        request.enqueue(new Callback<Map<String, DepartureBusVO>>() {
-            @Override
-            public void onResponse(Call<Map<String, DepartureBusVO>> call, Response<Map<String, DepartureBusVO>> response) {
-                Log.e("retrofit", "url: " + call.request().url().toString() );
-                if (response.isSuccessful() && response.body() != null){
-                    departureBusObservable.onNext(new ArrayList<>(response.body().values()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Map<String, DepartureBusVO>> call, Throwable t) {
-                Log.e("실패", "onFailure: " + t.getMessage() );
-                t.printStackTrace();
-            }
-        });
+    public void doGetDepartureBusList() {
+        dataBus.doGetDepartureBusList();
     }
 
     @Override
-    public void executeJNUEventTask() {
-        JNUService.doGetJNUEvent().enqueue(new Callback<JNUEventVO>() {
-            @Override
-            public void onResponse(Call<JNUEventVO> call, Response<JNUEventVO> response) {
-                Log.e("retrofit", "url: " + call.request().url().toString() );
-                if (response.isSuccessful() && response.body() != null){
-                    jnuEventObservable.onNext(response.body());
-                }
-            }
+    public void doGetJNUEvent() {
+        dataBus.doGetJNUEvent();
+    }
 
-            @Override
-            public void onFailure(Call<JNUEventVO> call, Throwable t) {
-                Log.e("실패", "onFailure: " + t.getMessage() );
-                t.printStackTrace();
-            }
-        });
+    @Override
+    public void doGetShuttleTime(int stationId) {
+        dataBus.doGetShuttleTime(stationId);
     }
 
     @Override
     public Observable<List<DepartureBusVO>> getDepartureBusObservable() {
-        Log.e(this.toString(), "getDepartureBusObservable.size = "+ departureBusObservable.getValue().size() );
-        return departureBusObservable;
+        return dataBus.getDepartureBusObservable();
     }
 
     @Override
     public Observable<JNUEventVO> getJnuEventObservable() {
-        return jnuEventObservable;
+        return dataBus.getJnuEventObservable();
+    }
+
+    @Override
+    public Observable<ShuttleTimeVO> getShuttleTimeObservable() {
+        return dataBus.getShuttleTimeObservable();
+    }
+
+    /*
+     * PreferenceHelper
+     * */
+    @Override
+    public void addOftenBus(String busID) {
+        preferencesHelper.addOftenBus(busID);
+    }
+
+    @Override
+    public void deleteOftenBus(String busID) {
+        preferencesHelper.deleteOftenBus(busID);
+    }
+
+    @Override
+    public boolean hasOftenBus(String busID) {
+        return preferencesHelper.hasOftenBus(busID);
+    }
+
+    @Override
+    public int getShuttleBookmarkId() {
+        return preferencesHelper.getShuttleBookmarkId();
+    }
+
+    @Override
+    public void setShuttleBookmarkId(int shuttleId) {
+        preferencesHelper.setShuttleBookmarkId(shuttleId);
+    }
+
+    @Override
+    public String getShuttleBookmarkTitle() {
+        return preferencesHelper.getShuttleBookmarkTitle();
+    }
+
+    @Override
+    public void setShuttleBookmarkTitle(String shuttleTitle) {
+        preferencesHelper.setShuttleBookmarkTitle(shuttleTitle);
     }
 }

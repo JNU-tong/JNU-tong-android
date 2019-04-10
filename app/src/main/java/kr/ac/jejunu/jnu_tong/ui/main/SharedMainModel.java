@@ -7,12 +7,14 @@ import java.util.List;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
+import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.ARoute;
 
 /**
  * Created by seung-yeol on 2018. 6. 10..
  */
 
-public class MainModel implements MainContract.Model {
+public class SharedMainModel implements MainContract.Model {
     private Integer firstImgId;
     private Integer secondImgId;
     private String firstNo;
@@ -20,6 +22,9 @@ public class MainModel implements MainContract.Model {
     private String departTime;
     private String event;
     private String today;
+    private String bookmarkedShuttleTitle;
+    private ShuttleTimeVO shuttleTimeVO;
+    private int bookmarkedShuttledStatinId;
 
     @Override
     public void setDepartureVOS(List<DepartureBusVO> result) {
@@ -39,14 +44,14 @@ public class MainModel implements MainContract.Model {
             secondNo = result.get(1).getCityBusLineInfo().getLineNo() + "번";
             secondImgId = getImgId(result.get(1).getCityBusLineInfo().getLineNo());
 
-            if(result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후도착";
+            if(result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후출발";
             else departTime = result.get(0).getRemainTime().getFirst() + "분전";
         }
         else{
             firstNo = result.get(0).getCityBusLineInfo().getLineNo() + "번";
             firstImgId = getImgId(result.get(0).getCityBusLineInfo().getLineNo());
 
-            if(result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후도착";
+            if(result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후출발";
             else departTime = result.get(0).getRemainTime().getFirst()+"분전";
 
             secondImgId = null;
@@ -103,6 +108,37 @@ public class MainModel implements MainContract.Model {
     @Override
     public String getToday() {
         return today;
+    }
+
+    @Override
+    public void setBookmarkedShuttleStationId(int stationId) {
+        this.bookmarkedShuttledStatinId = stationId;
+        this.bookmarkedShuttleTitle = ARoute.values()[stationId - 1].getTitle();
+    }
+
+    @Override
+    public void setBookmarkedShuttleTimeVO(ShuttleTimeVO shuttleTimeVO) {
+        this.shuttleTimeVO = shuttleTimeVO;
+    }
+
+    @Override
+    public String getBookmarkedShuttleTitle() {
+        return bookmarkedShuttleTitle;
+    }
+
+    @Override
+    public Integer getBookmarkedShuttleATime() {
+        return shuttleTimeVO.getA().getFirst();
+    }
+
+    @Override
+    public Integer getBookmarkedShuttleBTime() {
+        return shuttleTimeVO.getB().getFirst();
+    }
+
+    @Override
+    public int getBookmarkedShuttleStationId() {
+        return bookmarkedShuttledStatinId;
     }
 
     private Integer getImgId(String lineNo) {

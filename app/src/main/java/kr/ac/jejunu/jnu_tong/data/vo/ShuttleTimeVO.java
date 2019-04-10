@@ -1,44 +1,29 @@
 package kr.ac.jejunu.jnu_tong.data.vo;
 
+import com.google.gson.annotations.SerializedName;
+
+import lombok.Getter;
+
 /**
  * Created by seung-yeol on 2018. 6. 11..
  */
-
+@Getter
 public class ShuttleTimeVO {
-    private Integer AFirst;
-    private Integer ASecond;
-    private Integer BFirst;
-    private Integer BSecond;
+    @SerializedName("A")
+    private A a;
 
-    public Integer getAFirst() {
-        return AFirst;
+    @SerializedName("B")
+    private B b;
+
+    @Getter
+    public static class A{
+        private Integer first;
+        private Integer second;
     }
 
-    public void setAFirst(Integer AFirst) {
-        this.AFirst = AFirst;
-    }
-
-    public Integer getASecond() {
-        return ASecond;
-    }
-
-    public void setASecond(Integer ASecond) {
-        this.ASecond = ASecond;
-    }
-
-    public Integer getBFirst() {
-        return BFirst;
-    }
-
-    public void setBFirst(Integer BFirst) {
-        this.BFirst = BFirst;
-    }
-
-    public Integer getBSecond() {
-        return BSecond;
-    }
-
-    public void setBSecond(Integer BSecond) {
-        this.BSecond = BSecond;
+    @Getter
+    public static class B{
+        private Integer first;
+        private Integer second;
     }
 }

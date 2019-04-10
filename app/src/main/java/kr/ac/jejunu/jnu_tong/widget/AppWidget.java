@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -23,13 +22,11 @@ import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.data.IDataManager;
-import kr.ac.jejunu.jnu_tong.task.get.GetShuttleMainTask;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
 
-public class AppWidget extends AppWidgetProvider{
+public class AppWidget extends AppWidgetProvider {
     @Inject
     IDataManager dataManager;
 
@@ -40,7 +37,7 @@ public class AppWidget extends AppWidgetProvider{
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         AndroidInjection.inject(this, context);
-        dataManager.getDepartureBusList();
+        dataManager.doGetDepartureBusList();
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         ComponentName thisAppWidget = new ComponentName(context.getPackageName(), AppWidget.class.getName());
@@ -73,32 +70,31 @@ public class AppWidget extends AppWidgetProvider{
         Log.e("widget_main", "updateAppWidget: 위젯 업데이트");
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_main);
 
-        RemoteViews refreshVies = new RemoteViews(context.getPackageName(), R.layout.widget_refresh);
-        appWidgetManager.updateAppWidget(appWidgetId, refreshVies);
+        RemoteViews refreshViews = new RemoteViews(context.getPackageName(), R.layout.widget_refresh);
+        appWidgetManager.updateAppWidget(appWidgetId, refreshViews);
 
-        GetShuttleMainTask getShuttleMainTask = new GetShuttleMainTask(result -> {
-            ShuttleTimeVO shuttleTimeVO = (ShuttleTimeVO) result;
+        if (dataManager != null) {
+            Observable<List<DepartureBusVO>> departureBusObservable = dataManager.getDepartureBusObservable();
+            Observable<ShuttleTimeVO> shuttleTimeObservable = dataManager.getShuttleTimeObservable();
 
-            if (shuttleTimeVO.getAFirst() != null) {
-                views.setTextViewText(R.id.shuttle_bus1, shuttleTimeVO.getAFirst() + "분전");
-            } else
-                views.setTextViewText(R.id.shuttle_bus1, "운행X");
+            if (shuttleTimeObservable != null){
+                compositeDisposable.add(shuttleTimeObservable.subscribe(shuttleTimeVO -> {
+                    if (shuttleTimeVO.getA() != null) {
+                        views.setTextViewText(R.id.shuttle_bus1, shuttleTimeVO.getA().getFirst() + "분전");
+                    } else
+                        views.setTextViewText(R.id.shuttle_bus1, "운행X");
 
-            if (shuttleTimeVO.getBFirst() != null) {
-                views.setTextViewText(R.id.shuttle_bus2, shuttleTimeVO.getBFirst() + "분전");
-            } else
-                views.setTextViewText(R.id.shuttle_bus2, "운행X");
+                    if (shuttleTimeVO.getB() != null) {
+                        views.setTextViewText(R.id.shuttle_bus2, shuttleTimeVO.getB().getFirst() + "분전");
+                    } else
+                        views.setTextViewText(R.id.shuttle_bus2, "운행X");
 
-            appWidgetManager.updateAppWidget(appWidgetId, views);
-        });
+                    appWidgetManager.updateAppWidget(appWidgetId, views);
+                }));
+            }
 
-        getShuttleMainTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                CommonApp.getShuttlePointUrl(((CommonApp) context.getApplicationContext()).getShuttleBookmarkId()));
-
-        if (dataManager != null){
-            Observable<List<DepartureBusVO>> observable = dataManager.getDepartureBusObservable();
-            if (observable != null){
-                compositeDisposable.add(observable.subscribe(departureBusVOS -> {
+            if (departureBusObservable != null) {
+                compositeDisposable.add(departureBusObservable.subscribe(departureBusVOS -> {
                     ArrayList<DepartureBusVO> vos = new ArrayList<>(departureBusVOS);
                     Collections.sort(vos);
 
@@ -135,7 +131,7 @@ public class AppWidget extends AppWidgetProvider{
                     for (DepartureBusVO vo : vos) {
                         ArrayList<DepartureBusVO> oftenBus = new ArrayList<>();
                         if (vo.getRemainTime().getFirst() < 10) {
-                            if (((CommonApp) context.getApplicationContext()).hasOftenBus(vo.getCityBusLineInfo().getLineId())) {
+                            if (dataManager.hasOftenBus(vo.getCityBusLineInfo().getLineId())) {
                                 oftenBus.add(vo);
                             }
                         }
@@ -168,7 +164,7 @@ public class AppWidget extends AppWidgetProvider{
 
         String currentTime = getCurrentTime();
 
-        views.setTextViewText(R.id.shuttle_title, ((CommonApp) context.getApplicationContext()).getShuttleBookmarkTitle());
+        views.setTextViewText(R.id.shuttle_title, (dataManager.getShuttleBookmarkTitle()));
         views.setTextViewText(R.id.txt_time, "업데이트 " + currentTime);
 
         Intent intentSync = new Intent(context, AppWidget.class);

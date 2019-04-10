@@ -10,18 +10,21 @@ import android.widget.TextView;
 
 import com.tmall.ultraviewpager.UltraViewPager;
 
+import javax.inject.Inject;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+import dagger.android.support.DaggerAppCompatActivity;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
+import kr.ac.jejunu.jnu_tong.data.IDataManager;
 
 /**
  * Created by seung-yeol on 2018. 4. 22..
  */
 
-public class ShuttleBusDetailActivity extends AppCompatActivity implements ShuttleContract.ShuttleView {
+public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements ShuttleContract.ShuttleView {
     private TextView leftRouteText;
     private TextView rightRouteText;
     private TextView aRouteSelectText;
@@ -30,6 +33,9 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
     private UltraViewPager viewPager;
     private CommonApp commonApp;
     private ImageButton btnHeart;
+
+    @Inject
+    IDataManager dataManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +49,7 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
         initViewPager();
 
         presenter.onCreate();
-        presenter.setBookmarkId(commonApp.getShuttleBookmarkId());
+        presenter.setBookmarkId(dataManager.getShuttleBookmarkId());
     }
 
     private void initView() {
@@ -162,8 +168,8 @@ public class ShuttleBusDetailActivity extends AppCompatActivity implements Shutt
 
     @Override
     public void setBookmark(int shuttleBookmarkPosition, String shuttleBookmarkTitle) {
-        commonApp.setShuttleBookmarkId(shuttleBookmarkPosition);
-        commonApp.setShuttleBookmarkTitle(shuttleBookmarkTitle);
+        dataManager.setShuttleBookmarkId(shuttleBookmarkPosition);
+        dataManager.setShuttleBookmarkTitle(shuttleBookmarkTitle);
     }
 
     @Override
