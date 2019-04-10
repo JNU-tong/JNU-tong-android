@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.ui.bus.shuttle;
+package kr.ac.jejunu.jnu_tong.ui.shuttle_bus;
 
 import android.os.AsyncTask;
 

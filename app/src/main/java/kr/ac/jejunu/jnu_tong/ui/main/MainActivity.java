@@ -16,7 +16,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import dagger.android.support.DaggerAppCompatActivity;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.ShuttleBusDetailActivity;
+import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.ShuttleBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.ui.unfolded_main.UnfoldedMainActivity;
 
 import static android.view.View.GONE;

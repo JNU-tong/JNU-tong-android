@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.ui.bus.shuttle;
+package kr.ac.jejunu.jnu_tong.ui.shuttle_bus;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +17,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.viewpager.widget.ViewPager;
 import dagger.android.support.DaggerAppCompatActivity;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.data.IDataManager;
 
 /**
@@ -31,7 +30,6 @@ public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements
     private TextView bRouteSelectText;
     private Presenter presenter;
     private UltraViewPager viewPager;
-    private CommonApp commonApp;
     private ImageButton btnHeart;
 
     @Inject
@@ -42,7 +40,6 @@ public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_shuttle);
 
-        commonApp = (CommonApp) getApplication();
         presenter = new Presenter(this);
 
         initView();
@@ -190,7 +187,6 @@ public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements
         super.onDestroy();
 
         viewPager = null;
-        commonApp = null;
         presenter.onDestroy();
     }
 }

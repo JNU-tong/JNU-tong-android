@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route;
+package kr.ac.jejunu.jnu_tong.ui.shuttle_bus.route;
 
 /**
  * Created by seung-yeol on 2018. 6. 8..

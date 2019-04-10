@@ -1,11 +1,11 @@
-package kr.ac.jejunu.jnu_tong.ui.bus.shuttle;
+package kr.ac.jejunu.jnu_tong.ui.shuttle_bus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.ARoute;
-import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.BRoute;
-import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.Route;
+import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.route.ARoute;
+import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.route.BRoute;
+import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.route.Route;
 import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
 
 /**

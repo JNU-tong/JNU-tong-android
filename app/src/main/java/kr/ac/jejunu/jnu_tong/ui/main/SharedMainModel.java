@@ -8,7 +8,7 @@ import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
 import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
-import kr.ac.jejunu.jnu_tong.ui.bus.shuttle.route.ARoute;
+import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.route.ARoute;
 
 /**
  * Created by seung-yeol on 2018. 6. 10..
