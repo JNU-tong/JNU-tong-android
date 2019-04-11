@@ -23,30 +23,27 @@ import kr.ac.jejunu.jnu_tong.data.IDataManager;
  * Created by seung-yeol on 2018. 4. 22..
  */
 
-public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements ShuttleContract.ShuttleView {
+public class ShuttleDetailActivity extends DaggerAppCompatActivity implements ShuttleContract.View {
+    @Inject
+    IDataManager dataManager;
+    @Inject
+    ShuttleContract.Presenter shuttlePresenter;
     private TextView leftRouteText;
     private TextView rightRouteText;
     private TextView aRouteSelectText;
     private TextView bRouteSelectText;
-    private Presenter presenter;
-    private UltraViewPager viewPager;
     private ImageButton btnHeart;
-
-    @Inject
-    IDataManager dataManager;
+    private UltraViewPager viewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_shuttle);
 
-        presenter = new Presenter(this);
-
         initView();
         initViewPager();
 
-        presenter.onCreate();
-        presenter.setBookmarkId(dataManager.getShuttleBookmarkId());
+        shuttlePresenter.onCreate();
     }
 
     private void initView() {
@@ -58,28 +55,28 @@ public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements
         aRouteSelectText.setOnClickListener(view -> {
             aRouteSelectText.setTextColor(getResources().getColor(R.color.navy));
             bRouteSelectText.setTextColor(getResources().getColor(R.color.very_light_gray));
-            findViewById(R.id.a_bar).setVisibility(View.VISIBLE);
-            findViewById(R.id.b_bar).setVisibility(View.GONE);
+            findViewById(R.id.a_bar).setVisibility(android.view.View.VISIBLE);
+            findViewById(R.id.b_bar).setVisibility(android.view.View.GONE);
 
             viewPager.setCurrentItem(0, false);
-            presenter.selectARoute();
+            shuttlePresenter.selectARoute();
         });
         bRouteSelectText.setOnClickListener(view -> {
             aRouteSelectText.setTextColor(getResources().getColor(R.color.very_light_gray));
             bRouteSelectText.setTextColor(getResources().getColor(R.color.navy));
-            findViewById(R.id.a_bar).setVisibility(View.GONE);
-            findViewById(R.id.b_bar).setVisibility(View.VISIBLE);
+            findViewById(R.id.a_bar).setVisibility(android.view.View.GONE);
+            findViewById(R.id.b_bar).setVisibility(android.view.View.VISIBLE);
 
             viewPager.setCurrentItem(0, false);
-            presenter.selectBRoute();
+            shuttlePresenter.selectBRoute();
         });
-        leftRouteText.setOnClickListener(view -> presenter.leftBtnClick(viewPager.getCurrentItem()));
-        rightRouteText.setOnClickListener(view -> presenter.rightBtnClick(viewPager.getCurrentItem()));
+        leftRouteText.setOnClickListener(view -> shuttlePresenter.leftBtnClick(viewPager.getCurrentItem()));
+        rightRouteText.setOnClickListener(view -> shuttlePresenter.rightBtnClick(viewPager.getCurrentItem()));
 
         btnHeart = findViewById(R.id.btn_heart);
         btnHeart.setOnClickListener(view -> {
             view.setBackground(getResources().getDrawable(R.mipmap.ic_heart_on));
-            presenter.heartClick(viewPager.getCurrentItem());
+            shuttlePresenter.heartClick(viewPager.getCurrentItem());
         });
     }
 
@@ -88,36 +85,19 @@ public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements
         viewPager.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
         viewPager.setMultiScreen(0.85f);
         viewPager.setInfiniteLoop(false);
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                presenter.pageSelect(position);
+                shuttlePresenter.pageSelect(position);
             }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {}
         });
-
-//        presenter.getPositionOfBookmark( ((CommonApp)getApplication()).getShuttleBookmarkId() );
-
-        setViewPagerAdapter();
-    }
-
-    private void setViewPagerAdapter() {
-        UltraPagerAdapter ultraPagerAdapter = new UltraPagerAdapter(this);
-        presenter.setAdapterView(ultraPagerAdapter);
-        presenter.setAdapterModel(ultraPagerAdapter);
-        viewPager.setAdapter(ultraPagerAdapter);
+        viewPager.setAdapter(shuttlePresenter.getPagerAdapter());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
@@ -157,16 +137,10 @@ public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements
             Log.e("ccc", "처음: " + busStops[i]);
         }
 
-        for (int i = busStops.length - 1; i < 4; i++) {
+        for (int i = busStops.length - 1; i < 4 && i > 0; i++) {
             ((TextView) busStopLayout.findViewWithTag("stop_" + i)).setText("");
             Log.e("ccc", "나머지: " + busStops[i]);
         }
-    }
-
-    @Override
-    public void setBookmark(int shuttleBookmarkPosition, String shuttleBookmarkTitle) {
-        dataManager.setShuttleBookmarkId(shuttleBookmarkPosition);
-        dataManager.setShuttleBookmarkTitle(shuttleBookmarkTitle);
     }
 
     @Override
@@ -178,8 +152,9 @@ public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements
     }
 
     @Override
-    public void setPositionByBookmarkId(int position) {
-        viewPager.setCurrentItem( position,true);
+    public void setPositionByBookmarkId(int position)
+    {
+        viewPager.setCurrentItem(position, true);
     }
 
     @Override
@@ -187,6 +162,6 @@ public class ShuttleBusDetailActivity extends DaggerAppCompatActivity implements
         super.onDestroy();
 
         viewPager = null;
-        presenter.onDestroy();
+        shuttlePresenter.onDestroy();
     }
 }

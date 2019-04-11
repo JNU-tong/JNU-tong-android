@@ -11,6 +11,7 @@ import kr.ac.jejunu.jnu_tong.data.api.JNUService;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
 import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
 import kr.ac.jejunu.jnu_tong.ui.main.MainContract;
 
 public class DataManager implements IDataManager, IPreferencesHelper {
@@ -47,6 +48,11 @@ public class DataManager implements IDataManager, IPreferencesHelper {
     }
 
     @Override
+    public void doGetShuttleList(String course) {
+        dataBus.doGetShuttleList(course);
+    }
+
+    @Override
     public Observable<List<DepartureBusVO>> getDepartureBusObservable() {
         return dataBus.getDepartureBusObservable();
     }
@@ -59,6 +65,11 @@ public class DataManager implements IDataManager, IPreferencesHelper {
     @Override
     public Observable<ShuttleTimeVO> getShuttleTimeObservable() {
         return dataBus.getShuttleTimeObservable();
+    }
+
+    @Override
+    public Observable<List<ShuttleVO>> getShuttleListObservable() {
+        return dataBus.getShuttleListObservable();
     }
 
     /*

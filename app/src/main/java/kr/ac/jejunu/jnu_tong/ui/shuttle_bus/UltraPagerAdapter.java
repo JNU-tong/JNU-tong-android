@@ -1,6 +1,5 @@
 package kr.ac.jejunu.jnu_tong.ui.shuttle_bus;
 
-import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -13,30 +12,34 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.util.BitmapUtil;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
 import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.route.ARoute;
 import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.route.BRoute;
 import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.route.Route;
-import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
+import kr.ac.jejunu.jnu_tong.util.BitmapUtil;
 
 /**
  * Created by seung-yeol on 2018. 4. 22..
  */
 
 public class UltraPagerAdapter extends PagerAdapter
-        implements PagerAdapterContract.View, PagerAdapterContract.Model{
+        implements PagerAdapterContract.View, PagerAdapterContract.Model {
     private List<ShuttleVO> pagerProvider;
     private Route[] route;
-    private Context context;
-    private SparseArray< View > views = new SparseArray<>();
+    private SparseArray<View> views;
+    private BitmapUtil bitmapUtil;
 
-    UltraPagerAdapter(Context context) {
-        this.context = context;
+    @Inject
+    UltraPagerAdapter(BitmapUtil bitmapUtil) {
         this.route = ARoute.values();
+        this.bitmapUtil = bitmapUtil;
         pagerProvider = new ArrayList<>();
+        views = new SparseArray<>();
     }
 
     @Override
@@ -58,9 +61,8 @@ public class UltraPagerAdapter extends PagerAdapter
         TextView txtFirstTime = frameLayout.findViewById(R.id.txt_first_time);
         TextView txtSecondTime = frameLayout.findViewById(R.id.txt_second_time);
 
-        BitmapUtil bitmapUtil = new BitmapUtil(context);
         bitmapUtil.loadBitmap(route[position].getImgId(), busStopImg);
-        if (pagerProvider.size() != 0){
+        if (pagerProvider.size() != 0) {
             setShuttleStopTime(position, txtFirstTime, txtSecondTime);
         }
 
@@ -70,18 +72,19 @@ public class UltraPagerAdapter extends PagerAdapter
     }
 
     private void setShuttleStopTime(int position, TextView txtFirstTime, TextView txtSecondTime) {
-        if ( pagerProvider.get(position).getFirstTime() == null){
+        Integer firstTime = pagerProvider.get(position).getRemainTime().getFirstTime();
+        Integer secondTime = pagerProvider.get(position).getRemainTime().getSecondTime();
+
+        if (firstTime == null) {
             txtFirstTime.setText("운행X");
-        }
-        else {
-            txtFirstTime.setText(pagerProvider.get(position).getFirstTime() + "분전");
+        } else {
+            txtFirstTime.setText(firstTime + "분전");
         }
 
-        if (pagerProvider.get(position).getSecondTime() == null){
+        if (secondTime == null) {
             txtSecondTime.setText("운행X");
-        }
-        else {
-            txtSecondTime.setText(pagerProvider.get(position).getSecondTime() + "분전");
+        } else {
+            txtSecondTime.setText(secondTime + "분전");
         }
     }
 
@@ -91,13 +94,12 @@ public class UltraPagerAdapter extends PagerAdapter
         container.removeView(layout);
         views.remove(position);
         layout = null;
-        System.gc();
     }
 
     @Override
     public void notifyDataSetChanged() {
         int key = 0;
-        for(int i = 0; i < views.size(); i++) {
+        for (int i = 0; i < views.size(); i++) {
             key = views.keyAt(i);
             View view = views.get(key);
 
@@ -114,7 +116,7 @@ public class UltraPagerAdapter extends PagerAdapter
         String[] busStopNames = new String[3];
 
         if (position > 0) {
-            busStopNames[0] = route[position-1].getTitle();
+            busStopNames[0] = route[position - 1].getTitle();
         } else {
             busStopNames[0] = "";
         }
@@ -122,7 +124,7 @@ public class UltraPagerAdapter extends PagerAdapter
         busStopNames[1] = route[position].getTitle();
 
         if (position < route.length - 1) {
-            busStopNames[2] = route[position+1].getTitle();
+            busStopNames[2] = route[position + 1].getTitle();
         } else {
             busStopNames[2] = "";
         }
@@ -132,7 +134,7 @@ public class UltraPagerAdapter extends PagerAdapter
 
     @Override
     public String getBusStopNameById(int id) {
-        return ARoute.values()[id-1].getTitle();
+        return ARoute.values()[id - 1].getTitle();
     }
 
     @Override
@@ -147,7 +149,7 @@ public class UltraPagerAdapter extends PagerAdapter
 
     @Override
     public void changeProvider(List<ShuttleVO> provider) {
-        Log.e("ss", "changeProvider: " + provider.size() );
+        Log.e("ss", "changeProvider: " + provider.size());
         pagerProvider = new ArrayList<>(provider);
         notifyDataSetChanged();
     }

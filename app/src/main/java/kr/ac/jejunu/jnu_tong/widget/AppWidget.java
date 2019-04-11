@@ -160,11 +160,11 @@ public class AppWidget extends AppWidgetProvider {
                     appWidgetManager.updateAppWidget(appWidgetId, views);
                 }));
             }
+            views.setTextViewText(R.id.shuttle_title, (dataManager.getShuttleBookmarkTitle()));
         }
 
         String currentTime = getCurrentTime();
 
-        views.setTextViewText(R.id.shuttle_title, (dataManager.getShuttleBookmarkTitle()));
         views.setTextViewText(R.id.txt_time, "업데이트 " + currentTime);
 
         Intent intentSync = new Intent(context, AppWidget.class);

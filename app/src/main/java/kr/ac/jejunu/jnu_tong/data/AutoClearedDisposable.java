@@ -1,5 +1,7 @@
 package kr.ac.jejunu.jnu_tong.data;
 
+import android.util.Log;
+
 import javax.inject.Inject;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +18,10 @@ public class AutoClearedDisposable implements LifecycleObserver {
     @Inject
     public AutoClearedDisposable(AppCompatActivity lifeCycleOwner) {
         this.lifeCycleOwner = lifeCycleOwner;
+        Log.e("생성", "AutoClearedDisposable: Activity : " + lifeCycleOwner.toString());
         compositeDisposable = new CompositeDisposable();
+
+        lifeCycleOwner.getLifecycle().addObserver(this);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -28,6 +33,7 @@ public class AutoClearedDisposable implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
+        Log.e("액티비티 종료!", "onDestroy: Activity : " + lifeCycleOwner.toString() );
         compositeDisposable.clear();
         lifeCycleOwner.getLifecycle().removeObserver(this);
     }

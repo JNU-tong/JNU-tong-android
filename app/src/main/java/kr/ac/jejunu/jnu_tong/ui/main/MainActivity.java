@@ -16,7 +16,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import dagger.android.support.DaggerAppCompatActivity;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.ShuttleBusDetailActivity;
+import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.ShuttleDetailActivity;
 import kr.ac.jejunu.jnu_tong.ui.unfolded_main.UnfoldedMainActivity;
 
 import static android.view.View.GONE;
@@ -70,7 +70,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
         cityBusLayout.setOnClickListener(v -> presenter.clickCityBus());
 
         shuttleBusLayout = findViewById(R.id.shuttle_bus);
-        shuttleBusLayout.setOnClickListener(view -> startActivity(new Intent(this, ShuttleBusDetailActivity.class)));
+        shuttleBusLayout.setOnClickListener(view -> startActivity(new Intent(this, ShuttleDetailActivity.class)));
     }
 
     @Override

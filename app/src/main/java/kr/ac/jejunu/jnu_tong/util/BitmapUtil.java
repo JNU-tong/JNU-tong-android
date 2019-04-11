@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
 
+import javax.inject.Inject;
+
 /**
  * Created by seung-yeol on 2018. 5. 10..
  */
@@ -18,6 +20,7 @@ import java.lang.ref.WeakReference;
 public class BitmapUtil {
     private Context context;
 
+    @Inject
     public BitmapUtil(Context context){
         this.context = context;
     }

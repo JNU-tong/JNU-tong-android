@@ -12,7 +12,7 @@ import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
  * Created by seung-yeol on 2018. 6. 8..
  */
 
-public class ShuttleModel implements ShuttleContract.ShuttleModel {
+public class ShuttleModel implements ShuttleContract.Model {
     private List<String> busStops;
     private Route[] route;
     private int shuttleBookmarkId;
@@ -27,8 +27,9 @@ public class ShuttleModel implements ShuttleContract.ShuttleModel {
 
         int temp = 0;
         for (int i = 1; i < vos.size(); i++) {
-            if (vos.get(i).getFirstTime() != null){
-                if (vos.get(temp).getFirstTime() > vos.get(i).getFirstTime()){
+            Integer firstTime = vos.get(i).getRemainTime().getFirstTime();
+            if (firstTime != null){
+                if (vos.get(temp).getRemainTime().getFirstTime() > firstTime){
                     temp = i;
                 }
             }

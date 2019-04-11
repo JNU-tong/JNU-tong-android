@@ -34,7 +34,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.white" />
         <activity
-            android:name=".ui.shuttle_bus.ShuttleBusDetailActivity"
+            android:name=".ui.shuttle_bus.ShuttleDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.white" />
 

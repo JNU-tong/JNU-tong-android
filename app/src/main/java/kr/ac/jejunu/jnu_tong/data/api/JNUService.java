@@ -1,11 +1,13 @@
 package kr.ac.jejunu.jnu_tong.data.api;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
 import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
+import kr.ac.jejunu.jnu_tong.data.vo.ShuttleVO;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -24,6 +26,9 @@ public interface JNUService {
 
     @GET("getJnuBusArrivalInfoByStationId")
     Call<ShuttleTimeVO> doGetShuttleTime(@Query("stationId") int stationId);
+
+    @GET("getJnuBusArrivalInfoListByCourse")
+    Call<List<ShuttleVO>> doGetShuttleList(@Query("course") String course);
 
     class Factory{
         public static JNUService create(){
