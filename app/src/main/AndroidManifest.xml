@@ -30,7 +30,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.bus.city.CityBusDetailActivity"
+            android:name=".ui.city_bus.CityBusDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.white" />
         <activity

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.ui.bus.city;
+package kr.ac.jejunu.jnu_tong.ui.city_bus;
 
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -19,8 +19,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.ui.bus.city.fragment.BusStopRecyclerFragment;
-import kr.ac.jejunu.jnu_tong.ui.bus.city.fragment.BusTimeRecyclerFragment;
+import kr.ac.jejunu.jnu_tong.ui.city_bus.fragment.BusStopRecyclerFragment;
+import kr.ac.jejunu.jnu_tong.ui.city_bus.fragment.BusTimeRecyclerFragment;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..
@@ -183,6 +183,4 @@ public class CityBusDetailActivity extends AppCompatActivity {
             return 2;
         }
     }
-
-
 }

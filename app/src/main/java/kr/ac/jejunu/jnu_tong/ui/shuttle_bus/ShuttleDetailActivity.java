@@ -152,16 +152,7 @@ public class ShuttleDetailActivity extends DaggerAppCompatActivity implements Sh
     }
 
     @Override
-    public void setPositionByBookmarkId(int position)
-    {
+    public void setPositionByBookmarkId(int position) {
         viewPager.setCurrentItem(position, true);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        viewPager = null;
-        shuttlePresenter.onDestroy();
     }
 }

@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.ui.bus.city.presenter;
+package kr.ac.jejunu.jnu_tong.ui.city_bus.presenter;
 
 import android.os.AsyncTask;
 

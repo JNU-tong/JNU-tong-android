@@ -1,7 +1,5 @@
 package kr.ac.jejunu.jnu_tong.ui.shuttle_bus;
 
-import android.util.Log;
-
 import javax.inject.Inject;
 
 import androidx.viewpager.widget.PagerAdapter;
@@ -35,15 +33,10 @@ public class ShuttlePresenter implements ShuttleContract.Presenter {
 
     @Override
     public void onCreate() {
-        selectARoute();
-
         model.setBookmarkId(dataManager.getShuttleBookmarkId());
         view.setPositionByBookmarkId(model.getPositionByBookmarkId());
 
         autoClearedDisposable.add(dataManager.getShuttleListObservable().subscribe(shuttleVOS -> {
-            if (adapterModel == null){
-                Log.e("왜없다고 ㅈㅣ 롤...", "autoClearedDisposable: ");
-            }
             adapterModel.changeProvider(shuttleVOS);
             adapterView.notifyDataChange();
 
@@ -51,11 +44,8 @@ public class ShuttlePresenter implements ShuttleContract.Presenter {
             String[] shuttleBusStops = model.getShuttleBusStops();
             view.setBusPositionList(shuttleBusStops);
         }));
-    }
 
-    @Override
-    public void taskStart(String course) {
-        dataManager.doGetShuttleList(course);
+        dataManager.doGetShuttleList("A");
     }
 
     @Override
@@ -88,23 +78,19 @@ public class ShuttlePresenter implements ShuttleContract.Presenter {
     }
 
     @Override
-    public void onDestroy() {
-        adapterView = null;
-        adapterModel = null;
-    }
-
-    @Override
     public void selectARoute() {
-        taskStart("A");
+        dataManager.doGetShuttleList("A");
         adapterModel.selectARoute();
         model.selectARoute();
+        view.setPositionByBookmarkId(model.getPositionByBookmarkId());
     }
 
     @Override
     public void selectBRoute() {
-        taskStart("B");
+        dataManager.doGetShuttleList("B");
         adapterModel.selectBRoute();
         model.selectBRoute();
+        view.setPositionByBookmarkId(model.getPositionByBookmarkId());
     }
 
     @Override

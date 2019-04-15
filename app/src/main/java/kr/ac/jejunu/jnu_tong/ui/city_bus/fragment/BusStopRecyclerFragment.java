@@ -1,4 +1,4 @@
-package kr.ac.jejunu.jnu_tong.ui.bus.city.fragment;
+package kr.ac.jejunu.jnu_tong.ui.city_bus.fragment;
 
 import android.os.Bundle;
 
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import androidx.recyclerview.widget.RecyclerView;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.adapter.AdapterContract;
 import kr.ac.jejunu.jnu_tong.ui.bus.city.adapter.BusStopRecyclerAdapter;
-import kr.ac.jejunu.jnu_tong.ui.bus.city.presenter.BusStopFragmentPresenter;
-import kr.ac.jejunu.jnu_tong.ui.bus.city.presenter.FragmentPresenter;
+import kr.ac.jejunu.jnu_tong.ui.city_bus.presenter.BusStopFragmentPresenter;
+import kr.ac.jejunu.jnu_tong.ui.city_bus.presenter.FragmentPresenter;
 
 /**
  * Created by seung-yeol on 2018. 4. 18..

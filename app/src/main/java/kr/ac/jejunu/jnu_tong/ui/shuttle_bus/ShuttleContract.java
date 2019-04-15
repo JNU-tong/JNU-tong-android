@@ -14,7 +14,6 @@ public interface ShuttleContract {
         void routeTextChange(String leftText, String centerText,String rightText);
         void setPagerPosition(int position);
         void setBusPositionList(String... busStops);
-//        void setBookmark(int shuttleBookmarkPosition, String shuttleBookmarkTitle);
         void setHeartOn(boolean b);
         void setPositionByBookmarkId(int position);
     }
@@ -31,11 +30,7 @@ public interface ShuttleContract {
 
     interface Presenter{
         void onCreate();
-        void onDestroy();
-        void taskStart(String course);
-
         PagerAdapter getPagerAdapter();
-
         void leftBtnClick(int position);
         void rightBtnClick(int position);
         void pageSelect(int position);

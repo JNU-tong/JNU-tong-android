@@ -34,7 +34,7 @@ public class AutoClearedDisposable implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
         Log.e("액티비티 종료!", "onDestroy: Activity : " + lifeCycleOwner.toString() );
-        compositeDisposable.clear();
+        compositeDisposable.dispose();
         lifeCycleOwner.getLifecycle().removeObserver(this);
     }
 
