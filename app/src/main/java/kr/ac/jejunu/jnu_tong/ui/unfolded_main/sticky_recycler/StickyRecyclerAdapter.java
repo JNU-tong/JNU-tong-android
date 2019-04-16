@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.data.IDataManager;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
-import kr.ac.jejunu.jnu_tong.ui.bus.city.CityBusDetailActivity;
+import kr.ac.jejunu.jnu_tong.ui.city_bus.CityBusDetailActivity;
 import kr.ac.jejunu.jnu_tong.ui.unfolded_main.AdapterContract;
 
 /**

@@ -13,20 +13,20 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import dagger.android.support.DaggerAppCompatActivity;
 import kr.ac.jejunu.jnu_tong.R;
-import kr.ac.jejunu.jnu_tong.ui.city_bus.fragment.BusStopRecyclerFragment;
-import kr.ac.jejunu.jnu_tong.ui.city_bus.fragment.BusTimeRecyclerFragment;
+import kr.ac.jejunu.jnu_tong.ui.city_bus.stop.BusStopRecyclerFragment;
+import kr.ac.jejunu.jnu_tong.ui.city_bus.time.BusTimeRecyclerFragment;
 
 /**
  * Created by seung-yeol on 2018. 4. 6..
  */
 
-public class CityBusDetailActivity extends AppCompatActivity {
+public class CityBusDetailActivity extends DaggerAppCompatActivity {
     private BusStopRecyclerFragment busStopListFragment;
     private BusTimeRecyclerFragment busTimeListFragment;
     private ViewPager viewPager;
@@ -126,7 +126,6 @@ public class CityBusDetailActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.time_line_pager);
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -151,13 +150,6 @@ public class CityBusDetailActivity extends AppCompatActivity {
         rightTab.setOnClickListener(view -> viewPager.setCurrentItem(1));
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        viewPager = null;
-    }
-
     class MyViewPagerAdapter extends FragmentPagerAdapter {
         Fragment curFragment = busTimeListFragment;
 
@@ -173,7 +165,6 @@ public class CityBusDetailActivity extends AppCompatActivity {
                     break;
                 case 1:
                     curFragment = busStopListFragment;
-
             }
             return curFragment;
         }

@@ -40,7 +40,6 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
         initView();
         initBusLayout();
 
-//        presenter.setShuttleBookmarkId(((CommonApp) getApplication()).getShuttleBookmarkId());
         presenter.onCreate();
     }
 
@@ -48,7 +47,6 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
     protected void onRestart() {
         super.onRestart();
 
-//        presenter.setShuttleBookmarkId(((CommonApp) getApplication()).getShuttleBookmarkId());
         presenter.refreshClick();
     }
 
