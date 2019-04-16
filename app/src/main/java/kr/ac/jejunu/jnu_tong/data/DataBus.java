@@ -7,8 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import kr.ac.jejunu.jnu_tong.data.api.JNUService;
+import kr.ac.jejunu.jnu_tong.data.vo.BusStopVO;
+import kr.ac.jejunu.jnu_tong.data.vo.BusTimeVO;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
 import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
@@ -117,6 +122,21 @@ public class DataBus implements IDataBus {
             }
         });
     }
+
+    @Override
+    public Disposable getCityBusTimeListObservable(String busId, Consumer<List<BusTimeVO>> onNext, Consumer<Throwable> onError) {
+        return mJNUService.getCityTimeList(busId)
+                .subscribeOn(Schedulers.io())
+                .subscribe(onNext,onError);
+    }
+
+    @Override
+    public Disposable getCityBusStopListObservable(String busId, Consumer<List<BusStopVO>> onNext, Consumer<Throwable> onError) {
+        return mJNUService.getCityStopList(busId)
+                .subscribeOn(Schedulers.io())
+                .subscribe(onNext,onError);
+    }
+
 
     @Override
     public Observable<List<DepartureBusVO>> getDepartureBusObservable() {
