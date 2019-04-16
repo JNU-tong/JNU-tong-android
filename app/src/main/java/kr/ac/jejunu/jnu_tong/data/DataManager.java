@@ -10,7 +10,6 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import kr.ac.jejunu.jnu_tong.data.api.JNUService;
-import kr.ac.jejunu.jnu_tong.data.vo.BusStopVO;
 import kr.ac.jejunu.jnu_tong.data.vo.BusTimeVO;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
@@ -59,11 +58,6 @@ public class DataManager implements IDataManager, IPreferencesHelper {
     @Override
     public Disposable getCityBusTimeListObservable(String busId, Consumer<List<BusTimeVO>> onNext, Consumer<Throwable> onError) {
         return dataBus.getCityBusTimeListObservable(busId, onNext, onError);
-    }
-
-    @Override
-    public Disposable getCityBusStopListObservable(String busId, Consumer<List<BusStopVO>> onNext, Consumer<Throwable> onError) {
-        return dataBus.getCityBusStopListObservable(busId, onNext, onError);
     }
 
     @Override

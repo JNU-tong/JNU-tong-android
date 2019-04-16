@@ -3,14 +3,11 @@ package kr.ac.jejunu.jnu_tong.data.vo;
 /**
  * Created by seung-yeol on 2018. 4. 10..
  */
-
 public class BusTimeVO {
-
     private String scheduleNo;
     private String departureTime;
     private String weekdayHoliday;
     private int remainTime;
-
 
     public String getScheduleNo() {
         return scheduleNo;

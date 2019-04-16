@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.recyclerview.widget.RecyclerView;
 import kr.ac.jejunu.jnu_tong.application.CommonApp;
 import kr.ac.jejunu.jnu_tong.data.vo.BusTimeVO;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
@@ -67,5 +68,10 @@ public class BusTimeFragmentPresenter implements FragmentPresenter, OnTaskResult
         }
 
         return busTimeVOArrayList;
+    }
+
+    @Override
+    public RecyclerView.Adapter getAdapter() {
+        return ((RecyclerView.Adapter) view);
     }
 }

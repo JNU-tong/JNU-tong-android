@@ -15,13 +15,11 @@ import kr.ac.jejunu.jnu_tong.R;
 /**
  * Created by seung-yeol on 2018. 4. 17..
  */
-
 public abstract class RecyclerFragment extends DaggerFragment {
     private RecyclerView.Adapter adapter;
+    private FragmentPresenter presenter;
     private String busId;
     private String busType;
-
-    private FragmentPresenter presenter;
 
     @Nullable
     @Override
@@ -38,12 +36,12 @@ public abstract class RecyclerFragment extends DaggerFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = setAdapter();
         presenter = setPresenter();
         presenter.setBusId(busId);
+        presenter.onViewCreated();
+        adapter = presenter.getAdapter();
 
         initRecyclerView(view);
-        presenter.onViewCreated();
     }
 
     private void initRecyclerView(View view){
@@ -65,7 +63,6 @@ public abstract class RecyclerFragment extends DaggerFragment {
         busRecyclerView.setAdapter(adapter);
     }
 
-    protected abstract RecyclerView.Adapter setAdapter();
     protected abstract FragmentPresenter setPresenter();
 
     public void refresh(){

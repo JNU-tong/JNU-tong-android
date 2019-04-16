@@ -5,7 +5,6 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import kr.ac.jejunu.jnu_tong.data.vo.BusStopVO;
 import kr.ac.jejunu.jnu_tong.data.vo.BusTimeVO;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.JNUEventVO;
@@ -21,7 +20,6 @@ public interface IDataBus {
     void doGetShuttleList(String course);
 
     Disposable getCityBusTimeListObservable(String busId, Consumer<List<BusTimeVO>> onNext, Consumer<Throwable> onError);
-    Disposable getCityBusStopListObservable(String busId, Consumer<List<BusStopVO>> onNext, Consumer<Throwable> onError);
 
     Observable<List<DepartureBusVO>> getDepartureBusObservable();
     Observable<JNUEventVO> getJnuEventObservable();

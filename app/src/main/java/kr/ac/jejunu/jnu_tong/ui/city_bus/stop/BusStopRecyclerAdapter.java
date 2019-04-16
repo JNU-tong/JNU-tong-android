@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,11 +21,11 @@ import kr.ac.jejunu.jnu_tong.ui.city_bus.base.BusAdapterContract;
 
 public class BusStopRecyclerAdapter extends RecyclerView.Adapter<BusStopRecyclerAdapter.BusViewHolder>
         implements BusAdapterContract.View<BusStopVO> {
-    private LinkedList<BusStopVO> busStopVOS;
+    private List<BusStopVO> busStopVOS;
 
     @Inject
     public BusStopRecyclerAdapter() {
-        this.busStopVOS = new LinkedList<>();
+        this.busStopVOS = new ArrayList<>();
     }
 
     @Override
