@@ -1,6 +1,6 @@
 package kr.ac.jejunu.jnu_tong.ui.city_bus.time;
 
-import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.recyclerview.widget.RecyclerView;
-import kr.ac.jejunu.jnu_tong.application.CommonApp;
+import kr.ac.jejunu.jnu_tong.data.AutoClearedDisposable;
+import kr.ac.jejunu.jnu_tong.data.IDataManager;
 import kr.ac.jejunu.jnu_tong.data.vo.BusTimeVO;
-import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
-import kr.ac.jejunu.jnu_tong.task.get.GetBusTimeTask;
 import kr.ac.jejunu.jnu_tong.ui.city_bus.base.BusAdapterContract;
 import kr.ac.jejunu.jnu_tong.ui.city_bus.base.FragmentPresenter;
 
@@ -19,18 +18,26 @@ import kr.ac.jejunu.jnu_tong.ui.city_bus.base.FragmentPresenter;
  * Created by seung-yeol on 2018. 4. 18..
  */
 
-public class BusTimeFragmentPresenter implements FragmentPresenter, OnTaskResultListener<List<BusTimeVO>> {
+public class BusTimeFragmentPresenter implements FragmentPresenter{
+    private final IDataManager dataManager;
+    private final AutoClearedDisposable autoClearedDisposable;
     private BusAdapterContract.View<BusTimeVO> view;
     private String busId;
 
     @Inject
-    BusTimeFragmentPresenter(BusAdapterContract.View<BusTimeVO> view) {
+    BusTimeFragmentPresenter(AutoClearedDisposable autoClearedDisposable, BusAdapterContract.View<BusTimeVO> view, IDataManager dataManager) {
+        this.autoClearedDisposable = autoClearedDisposable;
         this.view = view;
+        this.dataManager = dataManager;
     }
 
-    private void executeTask(){
-        GetBusTimeTask getBusStopTask = new GetBusTimeTask(this);
-        getBusStopTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, CommonApp.getBusTimeListURL(busId));
+    private void executeTask() {
+        Log.e("retrofit", "URL : http://106.10.46.151:8080/getBusScheduleListByLineId/" + busId);
+        autoClearedDisposable.add(dataManager.getCityBusTimeListObservable(busId,
+                busTimeVOS -> {
+                    ArrayList<BusTimeVO> remainBusTime = getValidValue(busTimeVOS);
+                    view.addItems(remainBusTime);
+                }, Throwable::printStackTrace));
     }
 
     @Override
@@ -48,17 +55,11 @@ public class BusTimeFragmentPresenter implements FragmentPresenter, OnTaskResult
         executeTask();
     }
 
-    @Override
-    public void onTaskResult(List<BusTimeVO> result) {
-        ArrayList<BusTimeVO> remainBusTime = getValidValue(result);
-        view.addItems(remainBusTime);
-    }
-
     // 남은시간 양수인것만 가져옴
-    private ArrayList<BusTimeVO> getValidValue(List<BusTimeVO> vos){
+    private ArrayList<BusTimeVO> getValidValue(List<BusTimeVO> vos) {
         ArrayList<BusTimeVO> busTimeVOArrayList = new ArrayList<>();
 
-        if (vos != null){
+        if (vos != null) {
             for (BusTimeVO vo :
                     vos) {
                 if (vo.getRemainTime() >= 0) {

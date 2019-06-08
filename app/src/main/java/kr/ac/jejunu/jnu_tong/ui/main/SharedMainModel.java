@@ -24,18 +24,17 @@ public class SharedMainModel implements MainContract.Model {
     private String today;
     private String bookmarkedShuttleTitle;
     private ShuttleTimeVO shuttleTimeVO;
-    private int bookmarkedShuttledStatinId;
+    private int bookmarkedShuttledStationId;
 
     @Override
     public void setDepartureVOS(List<DepartureBusVO> result) {
-        if (result == null || result.size() == 0){
+        if (result == null || result.size() == 0) {
             firstImgId = null;
             secondImgId = null;
 
             firstNo = null;
             secondNo = null;
-        }
-        else if (result.size() > 1){
+        } else if (result.size() > 1) {
             Collections.sort(result);
 
             firstNo = result.get(0).getCityBusLineInfo().getLineNo() + "번";
@@ -44,15 +43,14 @@ public class SharedMainModel implements MainContract.Model {
             secondNo = result.get(1).getCityBusLineInfo().getLineNo() + "번";
             secondImgId = getImgId(result.get(1).getCityBusLineInfo().getLineNo());
 
-            if(result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후출발";
+            if (result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후출발";
             else departTime = result.get(0).getRemainTime().getFirst() + "분전";
-        }
-        else{
+        } else {
             firstNo = result.get(0).getCityBusLineInfo().getLineNo() + "번";
             firstImgId = getImgId(result.get(0).getCityBusLineInfo().getLineNo());
 
-            if(result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후출발";
-            else departTime = result.get(0).getRemainTime().getFirst()+"분전";
+            if (result.get(0).getRemainTime().getFirst() < 4) departTime = "잠시후출발";
+            else departTime = result.get(0).getRemainTime().getFirst() + "분전";
 
             secondImgId = null;
             secondNo = null;
@@ -77,17 +75,30 @@ public class SharedMainModel implements MainContract.Model {
     @Override
     public void setJNUEvent(JNUEventVO eventVO) {
         String date = eventVO.getDate();
-        Calendar cal= Calendar.getInstance ();
+        Calendar cal = Calendar.getInstance();
 
         String dayOfWeek;
-        switch (cal.get(Calendar.DAY_OF_WEEK)){
-            case 1: dayOfWeek ="(일)"; break;
-            case 2: dayOfWeek ="(월)"; break;
-            case 3: dayOfWeek ="(화)"; break;
-            case 4: dayOfWeek ="(수)"; break;
-            case 5: dayOfWeek ="(목)"; break;
-            case 6: dayOfWeek ="(금)"; break;
-            default: dayOfWeek ="(토)";
+        switch (cal.get(Calendar.DAY_OF_WEEK)) {
+            case 1:
+                dayOfWeek = "(일)";
+                break;
+            case 2:
+                dayOfWeek = "(월)";
+                break;
+            case 3:
+                dayOfWeek = "(화)";
+                break;
+            case 4:
+                dayOfWeek = "(수)";
+                break;
+            case 5:
+                dayOfWeek = "(목)";
+                break;
+            case 6:
+                dayOfWeek = "(금)";
+                break;
+            default:
+                dayOfWeek = "(토)";
         }
 
         today = new StringBuilder()
@@ -111,12 +122,6 @@ public class SharedMainModel implements MainContract.Model {
     }
 
     @Override
-    public void setBookmarkedShuttleStationId(int stationId) {
-        this.bookmarkedShuttledStatinId = stationId;
-        this.bookmarkedShuttleTitle = ARoute.values()[stationId - 1].getTitle();
-    }
-
-    @Override
     public void setBookmarkedShuttleTimeVO(ShuttleTimeVO shuttleTimeVO) {
         this.shuttleTimeVO = shuttleTimeVO;
     }
@@ -128,17 +133,31 @@ public class SharedMainModel implements MainContract.Model {
 
     @Override
     public Integer getBookmarkedShuttleATime() {
-        return shuttleTimeVO.getA().getFirst();
+        if (shuttleTimeVO != null && shuttleTimeVO.getA() != null) {
+            return shuttleTimeVO.getA().getFirst();
+        } else {
+            return 9999;
+        }
     }
 
     @Override
     public Integer getBookmarkedShuttleBTime() {
-        return shuttleTimeVO.getB().getFirst();
+        if (shuttleTimeVO != null && shuttleTimeVO.getB() != null) {
+            return shuttleTimeVO.getB().getFirst();
+        } else {
+            return 9999;
+        }
     }
 
     @Override
     public int getBookmarkedShuttleStationId() {
-        return bookmarkedShuttledStatinId;
+        return bookmarkedShuttledStationId;
+    }
+
+    @Override
+    public void setBookmarkedShuttleStationId(int stationId) {
+        this.bookmarkedShuttledStationId = stationId;
+        this.bookmarkedShuttleTitle = ARoute.values()[stationId - 1].getTitle();
     }
 
     private Integer getImgId(String lineNo) {
@@ -146,7 +165,7 @@ public class SharedMainModel implements MainContract.Model {
             return R.drawable.round_shape_yellow;
         } else if (lineNo.charAt(0) == '4') {
             return R.drawable.round_shape_green;
-        } else /*if (vo.getLineNo().charAt(0) == '3') */{
+        } else /*if (vo.getLineNo().charAt(0) == '3') */ {
             return R.drawable.round_shape_sky;
         }
     }

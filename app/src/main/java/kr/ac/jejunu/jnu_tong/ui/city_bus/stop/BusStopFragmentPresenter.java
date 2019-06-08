@@ -34,7 +34,7 @@ public class BusStopFragmentPresenter implements FragmentPresenter, OnTaskResult
     }
 
     private void executeTask(){
-        Log.e("retrofit", "URL : http://106.10.46.151:8080/getBusScheduleListByLineId/" + busId );
+        Log.e("retrofit", "URL : http://106.10.46.151:8080/getBusStationListByLineId/" + busId );
         autoClearedDisposable.add(mJNUService.getCityStopList(busId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

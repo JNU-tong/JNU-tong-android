@@ -1,3 +1,4 @@
+/*
 package kr.ac.jejunu.jnu_tong.task.get;
 
 import android.util.Log;
@@ -10,9 +11,11 @@ import java.util.List;
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.data.vo.BusTimeVO;
 
+*/
 /**
  * Created by seung-yeol on 2018. 4. 10..
- */
+ *//*
+
 
 public class GetBusTimeTask extends BaseGetTask<List<BusTimeVO>> {
     public GetBusTimeTask(OnTaskResultListener onTaskResultListener) {
@@ -61,3 +64,4 @@ public class GetBusTimeTask extends BaseGetTask<List<BusTimeVO>> {
         return busTimeVOArrayList;
     }
 }
+*/

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -126,6 +127,7 @@ public class DataBus implements IDataBus {
     public Disposable getCityBusTimeListObservable(String busId, Consumer<List<BusTimeVO>> onNext, Consumer<Throwable> onError) {
         return mJNUService.getCityTimeList(busId)
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onNext,onError);
     }
 

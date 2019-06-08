@@ -1,43 +1,23 @@
 package kr.ac.jejunu.jnu_tong.data.vo;
 
+import com.google.gson.annotations.SerializedName;
+
+import lombok.Getter;
+
 /**
  * Created by seung-yeol on 2018. 4. 10..
  */
+@Getter
 public class BusTimeVO {
+    @SerializedName("scheduleNo")
     private String scheduleNo;
+
+    @SerializedName("departureTime")
     private String departureTime;
+
+    @SerializedName("weekdayHoliday")
     private String weekdayHoliday;
+
+    @SerializedName("remainTime")
     private int remainTime;
-
-    public String getScheduleNo() {
-        return scheduleNo;
-    }
-
-    public void setScheduleNo(String scheduleNo) {
-        this.scheduleNo = scheduleNo;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public String getWeekdayHoliday() {
-        return weekdayHoliday;
-    }
-
-    public void setWeekdayHoliday(String weekdayHoliday) {
-        this.weekdayHoliday = weekdayHoliday;
-    }
-
-    public int getRemainTime() {
-        return remainTime;
-    }
-
-    public void setRemainTime(int remainTime) {
-        this.remainTime = remainTime;
-    }
 }
