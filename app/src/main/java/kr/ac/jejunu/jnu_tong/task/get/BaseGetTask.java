@@ -1,3 +1,4 @@
+/*
 package kr.ac.jejunu.jnu_tong.task.get;
 
 import android.os.AsyncTask;
@@ -11,9 +12,11 @@ import java.net.URLConnection;
 
 import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 
+*/
 /**
  * Created by seung-yeol on 2018. 4. 9..
- */
+ *//*
+
 
 public abstract class BaseGetTask<E> extends AsyncTask<String, Void, E> {
     private OnTaskResultListener<E> onTaskResultListener;
@@ -82,3 +85,4 @@ public abstract class BaseGetTask<E> extends AsyncTask<String, Void, E> {
         onTaskResultListener.onTaskResult(resultList);
     }
 }
+*/

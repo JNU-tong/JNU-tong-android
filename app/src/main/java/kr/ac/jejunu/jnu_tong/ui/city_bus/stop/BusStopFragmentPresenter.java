@@ -2,8 +2,6 @@ package kr.ac.jejunu.jnu_tong.ui.city_bus.stop;
 
 import android.util.Log;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +10,6 @@ import io.reactivex.schedulers.Schedulers;
 import kr.ac.jejunu.jnu_tong.data.AutoClearedDisposable;
 import kr.ac.jejunu.jnu_tong.data.api.JNUService;
 import kr.ac.jejunu.jnu_tong.data.vo.BusStopVO;
-import kr.ac.jejunu.jnu_tong.task.OnTaskResultListener;
 import kr.ac.jejunu.jnu_tong.ui.city_bus.base.BusAdapterContract;
 import kr.ac.jejunu.jnu_tong.ui.city_bus.base.FragmentPresenter;
 
@@ -20,7 +17,7 @@ import kr.ac.jejunu.jnu_tong.ui.city_bus.base.FragmentPresenter;
  * Created by seung-yeol on 2018. 4. 18..
  */
 
-public class BusStopFragmentPresenter implements FragmentPresenter, OnTaskResultListener<List<BusStopVO>> {
+public class BusStopFragmentPresenter implements FragmentPresenter{
     private final JNUService mJNUService;
     private final BusAdapterContract.View<BusStopVO> view;
     private final AutoClearedDisposable autoClearedDisposable;
@@ -39,13 +36,6 @@ public class BusStopFragmentPresenter implements FragmentPresenter, OnTaskResult
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(view::addItems, Throwable::printStackTrace));
-    }
-
-    @Override
-    public void onTaskResult(List<BusStopVO> result) {
-        if (result != null){
-            view.addItems(result);
-        }
     }
 
     @Override
