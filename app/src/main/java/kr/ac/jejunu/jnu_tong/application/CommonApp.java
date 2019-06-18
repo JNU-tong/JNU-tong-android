@@ -15,18 +15,6 @@ public class CommonApp extends DaggerApplication {
     @Inject
     IDataManager dataManager;
 
-    public static String getBusTimeListURL(String busID) {
-        return baseURL + "getBusScheduleListByLineId/" + busID;
-    }
-
-    public static String getBusStopListURL(String busID) {
-        return baseURL + "getBusStationListByLineId/" + busID;
-    }
-
-    public static String getShuttleListURL(String course) {
-        return baseURL + "getJnuBusArrivalInfoListByCourse?course=" + course;
-    }
-
     @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
         return DaggerAppComponent.builder().context(this).build();
