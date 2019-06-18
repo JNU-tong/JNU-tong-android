@@ -101,10 +101,9 @@ public class SharedMainModel implements MainContract.Model {
                 dayOfWeek = "(토)";
         }
 
-        today = new StringBuilder()
-                .append(cal.get(Calendar.MONTH) + 1).append("월 ")
-                .append(cal.get(Calendar.DAY_OF_MONTH)).append("일")
-                .append(dayOfWeek).toString();
+        today = (cal.get(Calendar.MONTH) + 1) + "월 " +
+                cal.get(Calendar.DAY_OF_MONTH) + "일" +
+                dayOfWeek;
 
         if (date != null) {
             event = eventVO.getEvent() + "까지 D-" + eventVO.getDDay();

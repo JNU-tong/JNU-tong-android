@@ -26,7 +26,7 @@ import kr.ac.jejunu.jnu_tong.data.IDataManager;
 import kr.ac.jejunu.jnu_tong.data.vo.DepartureBusVO;
 import kr.ac.jejunu.jnu_tong.data.vo.ShuttleTimeVO;
 
-public class AppWidget extends AppWidgetProvider {
+public class AppWidget extends AppWidgetProvider{
     @Inject
     IDataManager dataManager;
 
@@ -72,6 +72,9 @@ public class AppWidget extends AppWidgetProvider {
 
         RemoteViews refreshViews = new RemoteViews(context.getPackageName(), R.layout.widget_refresh);
         appWidgetManager.updateAppWidget(appWidgetId, refreshViews);
+
+        String currentTime = getCurrentTime();
+        views.setTextViewText(R.id.txt_time, "업데이트 " + currentTime);
 
         if (dataManager != null) {
             Observable<List<DepartureBusVO>> departureBusObservable = dataManager.getDepartureBusObservable();
@@ -162,10 +165,6 @@ public class AppWidget extends AppWidgetProvider {
             }
             views.setTextViewText(R.id.shuttle_title, (dataManager.getShuttleBookmarkTitle()));
         }
-
-        String currentTime = getCurrentTime();
-
-        views.setTextViewText(R.id.txt_time, "업데이트 " + currentTime);
 
         Intent intentSync = new Intent(context, AppWidget.class);
         intentSync.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);

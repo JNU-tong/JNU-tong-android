@@ -3,17 +3,17 @@ package kr.ac.jejunu.jnu_tong.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import javax.inject.Inject;
-
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
+
+import javax.inject.Inject;
+
 import dagger.android.support.DaggerAppCompatActivity;
 import kr.ac.jejunu.jnu_tong.R;
 import kr.ac.jejunu.jnu_tong.ui.shuttle_bus.ShuttleDetailActivity;
@@ -76,7 +76,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
         Intent intent = new Intent(this, UnfoldedMainActivity.class);
         Pair<View, String> sharedCityLayout = Pair.create(cityBusLayout, "city_bus");
         Pair<View, String> sharedShuttleLayout = Pair.create(shuttleBusLayout, "shuttle_bus");
-        Pair<View, String> sharedTop = Pair.create((ViewGroup) findViewById(R.id.top), "top");
+        Pair<View, String> sharedTop = Pair.create(findViewById(R.id.top), "top");
 
         @SuppressWarnings("unchecked")
         ActivityOptionsCompat optionsCompat =
@@ -102,9 +102,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainContrac
         }
 
         if (time == null) txtDepartTime.setText("버스없음");
-        else {
-            txtDepartTime.setText(time);
-        }
+        else txtDepartTime.setText(time);
     }
 
     @Override
